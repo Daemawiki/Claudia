@@ -15,6 +15,7 @@ const config: Config = {
       },
       colors: {
         myHeaderColor: "#9CB770",
+        myDocumentNameColor: "#6CCE00",
       },
     },
   },
