@@ -1,11 +1,19 @@
+import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import SideBar from "@/components/sideBar/sideBar";
+import Title from "@/components/title/title";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start">
+    <>
       <Header />
-      <SideBar />
-    </main>
+      <main className="flex min-h-screen justify-center flex-wrap gap-5">
+        <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[60px] px-[100px] py-[60px]">
+          <Title title="대마위키" lastModifiedTime={20240217} />
+          <Footer />
+        </div>
+        <SideBar />
+      </main>
+    </>
   );
 }
