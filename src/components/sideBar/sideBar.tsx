@@ -2,7 +2,7 @@ import DocumentPreview from "./documentPreview";
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col gap-10  w-[300px] mt-5">
+    <div className="flex flex-col gap-10  w-[300px] my-5">
       <div className="bg-white rounded-2xl">
         <div className="px-5 py-[10px] border-b">
           <span className="font-bold text-base">최근 변경된 문서</span>
