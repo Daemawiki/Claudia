@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./reducer/rootReducer";
 
 export const store = configureStore({
-  reducer: {
-    // 리듀서 추가
-  },
+  reducer: rootReducer,
 });
