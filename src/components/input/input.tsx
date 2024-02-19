@@ -2,15 +2,22 @@
 import { useInput } from "@/hooks/useInput";
 import Image from "next/image";
 import { useState } from "react";
+import Button from "../button";
 
 interface InputProps {
   title: string;
   width: number | "full";
   height?: number | "full";
   buttonText?: string;
-  isPassword?: true;
+  isPassword?: boolean;
   isEmail?: true;
   placeholder?: string;
+  buttonFontSize?: number;
+  buttonWidth?: number;
+  buttonHeight?: number;
+  buttonRounded?: number;
+  buttonStyle?: React.CSSProperties;
+  onButtonClick?: () => void;
 }
 
 const Input = ({
@@ -20,6 +27,12 @@ const Input = ({
   buttonText,
   isPassword,
   placeholder,
+  buttonFontSize = 16,
+  buttonWidth = 91,
+  buttonHeight = 32,
+  buttonRounded = 16,
+  buttonStyle = {},
+  onButtonClick,
 }: InputProps) => {
   const [visible, setVisible] = useState<boolean>(
     isPassword ? !isPassword : true,
@@ -64,9 +77,18 @@ const Input = ({
             />
           </button>
         )}
+        {buttonText && (
+          <Button
+            text={buttonText}
+            fontSize={buttonFontSize}
+            width={buttonWidth}
+            height={buttonHeight}
+            rounded={buttonRounded}
+            style={buttonStyle}
+            onClick={onButtonClick}
+          />
+        )}
       </div>
-
-      {buttonText && <button>{buttonText}</button>}
     </div>
   );
 };
