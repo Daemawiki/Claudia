@@ -48,7 +48,11 @@ const Input = ({
           value={form}
           onChange={handleChange}
           placeholder={placeholder}
-          className={`border-black border-[1px] outline-none w-${width} h-${height} rounded-2xl p-[10px]`}
+          style={{
+            width: width === "full" ? "100%" : `${width}px`,
+            height: height === "full" ? "100%" : `${height}px`,
+          }}
+          className={`border-black border-[1px] outline-none rounded-2xl p-[10px]`}
         />
         {isPassword && (
           <button className="absolute right-[10px]" onClick={toggleVisibility}>
