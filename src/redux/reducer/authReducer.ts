@@ -1,14 +1,18 @@
 import { LOGIN, LOGOUT } from "../action/actionTypes";
 
-const initalState = {
+interface AuthState {
+  isLogin: boolean;
+}
+
+interface AuthAction {
+  type: typeof LOGIN | typeof LOGOUT;
+}
+
+const initialState: AuthState = {
   isLogin: false,
 };
 
-interface authActionType {
-  type: "LOGIN" | "LOGOUT";
-}
-
-const authReducer = (state = initalState, action: authActionType) => {
+const authReducer = (state = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
     case LOGIN:
       return {
