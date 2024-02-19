@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
+import StoreProvider from "./StoreProvider";
 
 const sans = Noto_Sans({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sans.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <StoreProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </StoreProvider>
       </body>
     </html>
   );
