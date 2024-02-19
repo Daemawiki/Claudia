@@ -6,6 +6,7 @@ interface ButtonProps<T extends (...args: any[]) => void> {
   width: number;
   height: number;
   rounded: number;
+  style?: React.CSSProperties;
 }
 
 const Button = <T extends (...args: any[]) => void>({
@@ -16,6 +17,7 @@ const Button = <T extends (...args: any[]) => void>({
   width,
   height,
   rounded,
+  style = {},
 }: ButtonProps<T>) => {
   const widthStyle = { width: `${width}px` };
   const heightStyle = { height: `${height}px` };
@@ -34,6 +36,7 @@ const Button = <T extends (...args: any[]) => void>({
         ...widthStyle,
         ...heightStyle,
         ...roundedStyle,
+        ...style,
       }}
     >
       {text}
