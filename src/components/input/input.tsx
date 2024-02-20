@@ -10,6 +10,7 @@ interface InputProps {
   height?: number | "full";
   buttonText?: string;
   isPassword?: boolean;
+  isNumber?: boolean;
   isEmail?: true;
   placeholder?: string;
   buttonFontSize?: number;
@@ -17,6 +18,7 @@ interface InputProps {
   buttonHeight?: number;
   buttonRounded?: number;
   buttonStyle?: React.CSSProperties;
+  onInputChange?: (value: string) => void;
   onButtonClick?: () => void;
 }
 
@@ -26,19 +28,21 @@ const Input = ({
   height,
   buttonText,
   isPassword,
+  isNumber,
   placeholder,
   buttonFontSize = 16,
   buttonWidth = 91,
   buttonHeight = 32,
   buttonRounded = 16,
   buttonStyle = {},
+  onInputChange,
   onButtonClick,
 }: InputProps) => {
   const [visible, setVisible] = useState<boolean>(
     isPassword ? !isPassword : true,
   );
 
-  const { form, setForm, onChange } = useInput("");
+  const { form, setForm } = useInput("");
 
   const toggleVisibility = () => {
     setVisible(prevVisible => !prevVisible);
@@ -46,10 +50,15 @@ const Input = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    let newValue = value;
     if (isPassword) {
-      setForm(value.replace(/[^a-zA-Z0-9!@#$%]/g, ""));
+      newValue = value.replace(/[^a-zA-Z0-9!@#$%/]/g, "");
     }
-    onChange(e);
+    setForm(newValue);
+    if (onInputChange) {
+      console.log(newValue);
+      onInputChange(newValue);
+    }
   };
 
   return (
@@ -57,7 +66,7 @@ const Input = ({
       <span className="font-bold">{title}</span>
       <div className="relative flex items-center">
         <input
-          type={visible ? "text" : "password"}
+          type={visible ? (isNumber ? "number" : "text") : "password"}
           value={form}
           onChange={handleChange}
           placeholder={placeholder}
