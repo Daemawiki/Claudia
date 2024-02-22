@@ -6,6 +6,7 @@ import SideBar from "@/components/sideBar/sideBar";
 import Dropdown from "@/components/input/dropdown";
 import { majorMenu, periodMenu } from "@/constant/dropdownItem";
 import PasswordForm from "@/components/input/passwordForm";
+import Link from "next/link";
 
 export default function SignUp() {
   return (
@@ -38,14 +39,16 @@ export default function SignUp() {
               <span className="font-bold text-[#727272] underline">
                 비밀번호를 잊으셨나요?
               </span>
-              <Button
-                text="로그인"
-                color="black"
-                width={139}
-                height={48}
-                fontSize={20}
-                rounded={16}
-              />
+              <Link href={"/login"}>
+                <Button
+                  text="로그인"
+                  color="black"
+                  width={139}
+                  height={48}
+                  fontSize={20}
+                  rounded={16}
+                />
+              </Link>
               <Button text="회원가입" width={139} height={48} rounded={16} />
             </div>
           </div>
