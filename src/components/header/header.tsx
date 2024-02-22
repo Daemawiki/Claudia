@@ -1,11 +1,14 @@
 import Image from "next/image";
 import NavContainer from "./nav";
 import Account from "./account";
+import Link from "next/link";
 
 const Header = () => {
   return (
     <div className="bg-myHeaderColor w-full flex justify-center gap-10 items-center text-white">
-      <h1 className="text-4xl font-extrabold text-[#EC7E4F]">대마위키</h1>
+      <Link href={"/"}>
+        <h1 className="text-4xl font-extrabold text-[#EC7E4F]">대마위키</h1>
+      </Link>
       <div className="flex justify-start gap-[10px]">
         <NavContainer text="최근 변경" src="/images/recently.svg" />
         <NavContainer text="분류" src="/images/category.svg" />
