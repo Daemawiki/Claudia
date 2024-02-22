@@ -3,6 +3,7 @@ import Title from "@/components/title/title";
 import SideBar from "@/components/sideBar/sideBar";
 import Input from "@/components/input/input";
 import Button from "@/components/button";
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -15,17 +16,16 @@ export default function Login() {
             <Input title="DSM 이메일" width={"full"} />
             <Input title="비밀번호" width={"full"} isPassword={true} />
             <div className="flex justify-end items-end gap-[10px] pt-5">
-              <span className="font-bold text-[#727272] underline">
-                비밀번호를 잊으셨나요?
-              </span>
-              <Button
-                text="회원가입"
-                color="black"
-                width={139}
-                height={48}
-                fontSize={20}
-                rounded={16}
-              />
+              <Link href={"/signup"}>
+                <Button
+                  text="회원가입"
+                  color="black"
+                  width={139}
+                  height={48}
+                  fontSize={20}
+                  rounded={16}
+                />
+              </Link>
               <Button text="로그인" width={139} height={48} rounded={16} />
             </div>
           </div>
