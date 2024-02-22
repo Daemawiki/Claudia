@@ -16,9 +16,6 @@ export default function Login() {
             <Input title="DSM 이메일" width={"full"} />
             <Input title="비밀번호" width={"full"} isPassword={true} />
             <div className="flex justify-end items-end gap-[10px] pt-5">
-              <span className="font-bold text-[#727272] underline">
-                비밀번호를 잊으셨나요?
-              </span>
               <Link href={"/signup"}>
                 <Button
                   text="회원가입"
