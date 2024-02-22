@@ -36,9 +36,6 @@ export default function SignUp() {
             <Dropdown title="전공" content={majorMenu} width={180} />
             <PasswordForm />
             <div className="flex justify-end items-end gap-[10px] pt-5">
-              <span className="font-bold text-[#727272] underline">
-                비밀번호를 잊으셨나요?
-              </span>
               <Link href={"/login"}>
                 <Button
                   text="로그인"
