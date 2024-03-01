@@ -5,7 +5,6 @@ import Link from "next/link";
 
 const Account = () => {
   const isLogin = useAppSelector(state => state.auth.isLogin);
-  console.log(isLogin);
   if (isLogin) {
     return (
       <button>
