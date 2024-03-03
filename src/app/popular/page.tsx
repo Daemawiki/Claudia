@@ -4,18 +4,20 @@ import Footer from "@/components/footer/footer";
 import SideBar from "@/components/sideBar/sideBar";
 import Standard from "@/components/reserch/standard";
 import Preview from "@/components/reserch/preview";
-import { recentlyItem } from "@/constant/recently";
+import popularItem from "@/constant/popular";
+import findById from "@/utils/function/documentById";
 
 export default function Popular() {
   const renderPreview = () => {
-    const items = recentlyItem;
+    const items = popularItem;
     return items.map(item => {
+      const { editor } = findById(item.id);
       return (
         <Preview
           title={item.title}
-          editor={item.editor.user}
-          editTime={item.createdDateTime}
-          review={200}
+          editor={editor.updatedUser.name}
+          editTime={item.updatedDate}
+          review={item.view}
         />
       );
     });
