@@ -27,8 +27,6 @@ const linkChecker = (content: string) => {
   let githubMatch;
   if ((githubMatch = githubRegex.exec(content)) !== null) {
     const [, href, text] = githubMatch;
-    console.log(href);
-    console.log(text);
     githubMatches.href = href;
     githubMatches.text = text;
   }
