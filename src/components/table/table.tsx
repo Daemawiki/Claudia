@@ -1,9 +1,53 @@
+"use client";
 import Image from "next/image";
 import TableItem from "./item";
+import { useModal } from "@/hooks/useModal";
+import { useEffect, useState } from "react";
+import TableModal from "./modal";
+import EditItem from "./editItem";
+import Buttons from "./Buttons";
 
-const Table = () => {
+interface TableProps {
+  info?: {
+    title: string;
+    content: string;
+  }[];
+  isEdit?: boolean;
+}
+
+const Table = ({ info, isEdit }: TableProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { state, close, setState } = useModal<string>();
+
+  const renderContent = () => {
+    const renderItem = info?.map((item, index) => {
+      if (state === "edit")
+        return (
+          <EditItem
+            title={item.title}
+            defaultValue={item.content}
+            key={index}
+          />
+        );
+      return <TableItem name={item.title} value={item.content} key={index} />;
+    });
+    if (state === "add") {
+      if (renderItem)
+        renderItem.push(
+          <EditItem title="" defaultValue="" key={renderItem.length} />,
+        );
+      else {
+        return <EditItem title="" defaultValue="" key={0} />;
+      }
+    }
+    return renderItem;
+  };
+  const HandleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="h-[600px] flex px-[50px] py-[70px] gap-[50px] border border-[#CECECE] rounded-[32px] items-center">
+    <div className="h-[600px] flex px-[50px] py-[70px] gap-[50px] border border-[#CECECE] rounded-[32px] items-center relative">
       <div className="flex flex-col py-[24px] justify-between items-center h-full">
         <Image
           src={"/images/logo.svg"}
@@ -19,16 +63,24 @@ const Table = () => {
           <span className="font-bold text-4xl">대마위키</span>
         </div>
       </div>
-      <div className="flex flex-wrap justify-between items-center">
-        <TableItem name="이름" value="대마위키" />
-        <TableItem name="개발도구" value={"Next.js\nSpring Boot\nMongo DB"} />
-        <TableItem name="서비스 개시일" value={"???"} />
-        <TableItem name="개발 시작일" value={"2월 17일"} />
-        <TableItem
-          name="개발 레포지토리"
-          value={`<a href="https://github.com/daemawiki/daemawiki_front">front</a>\n<a href="https://github.com/daemawiki/daemawiki_back">backend</a>`}
-        />
+      <div className="flex flex-wrap justify-between items-center relative">
+        {renderContent()}
       </div>
+      {isEdit && (
+        <div className="flex flex-col absolute top-9 right-10 items-end gap-1">
+          <Image
+            src={"/images/more.svg"}
+            alt=""
+            width={24}
+            height={24}
+            onClick={HandleClick}
+          />
+          {isOpen && (
+            <TableModal state={state} setState={setState} close={HandleClick} />
+          )}
+        </div>
+      )}
+      {state !== "" && <Buttons info={info} setState={setState} />}
     </div>
   );
 };
