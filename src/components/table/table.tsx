@@ -6,38 +6,59 @@ import { useEffect, useState } from "react";
 import TableModal from "./modal";
 import EditItem from "./editItem";
 import Buttons from "./Buttons";
+import { Info } from "@/constant/documentType";
 
 interface TableProps {
-  info?: {
-    title: string;
-    content: string;
-  }[];
+  info: Array<Info>;
   isEdit?: boolean;
 }
 
 const Table = ({ info, isEdit }: TableProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { state, close, setState } = useModal<string>();
+  const [infoData, setInfoData] = useState(info);
+  const [newInfo, setNewInfo] = useState<Array<Info>>();
+
+  useEffect(() => {
+    switch (state) {
+      case "add":
+        setNewInfo([]);
+        break;
+      case "edit":
+        setNewInfo(infoData);
+        break;
+    }
+  }, [state]);
 
   const renderContent = () => {
-    const renderItem = info?.map((item, index) => {
-      if (state === "edit")
+    const renderItem = infoData.map((item, index) => {
+      if (state === "edit") {
         return (
           <EditItem
             title={item.title}
             defaultValue={item.content}
+            setValue={setNewInfo}
+            index={index}
             key={index}
           />
         );
+      }
       return <TableItem name={item.title} value={item.content} key={index} />;
     });
     if (state === "add") {
       if (renderItem)
         renderItem.push(
-          <EditItem title="" defaultValue="" key={renderItem.length} />,
+          <EditItem
+            title=""
+            defaultValue=""
+            key={renderItem.length}
+            setValue={setNewInfo}
+          />,
         );
       else {
-        return <EditItem title="" defaultValue="" key={0} />;
+        return (
+          <EditItem title="" defaultValue="" key={0} setValue={setNewInfo} />
+        );
       }
     }
     return renderItem;
@@ -80,7 +101,14 @@ const Table = ({ info, isEdit }: TableProps) => {
           )}
         </div>
       )}
-      {state !== "" && <Buttons info={info} setState={setState} />}
+      {state !== "" && (
+        <Buttons
+          state={state}
+          setState={setState}
+          setInfo={setInfoData}
+          newInfo={newInfo}
+        />
+      )}
     </div>
   );
 };
