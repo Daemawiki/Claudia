@@ -91,3 +91,8 @@ export interface Document {
   ];
   version: number;
 }
+
+export interface Info {
+  title: string;
+  content: string;
+}
