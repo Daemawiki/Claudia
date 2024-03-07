@@ -1,14 +1,35 @@
+import { Info } from "@/constant/documentType";
 import Button from "../button";
 
 interface ButtonsProps {
-  info: {
-    title: string;
-    content: string;
-  }[];
+  state: string;
   setState: React.Dispatch<React.SetStateAction<string>>;
+  setInfo: React.Dispatch<React.SetStateAction<Info[]>>;
+  newInfo?: Info[];
 }
 
-const Buttons = ({ info, setState }: ButtonsProps) => {
+const Buttons = ({ state, setState, setInfo, newInfo }: ButtonsProps) => {
+  const onClickHandler = () => {
+    switch (state) {
+      case "add":
+        newInfo &&
+          setInfo(prev => {
+            return [...prev, ...newInfo];
+          });
+        setState("");
+        break;
+      case "edit":
+        newInfo &&
+          setInfo(prev => {
+            console.log(prev);
+            console.log(newInfo);
+            return newInfo;
+          });
+        setState("");
+        break;
+      case "del":
+    }
+  };
   return (
     <div className="flex absolute right-[50px] bottom-[20px] gap-5">
       <Button
@@ -23,7 +44,7 @@ const Buttons = ({ info, setState }: ButtonsProps) => {
       <Button
         text="저장"
         fontSize={20}
-        onClick={() => undefined}
+        onClick={onClickHandler}
         width={80}
         height={40}
         rounded={16}
