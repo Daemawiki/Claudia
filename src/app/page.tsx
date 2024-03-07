@@ -14,7 +14,12 @@ export default function Main() {
   const renderContent = () => {
     return index.map(item => {
       return (
-        <Lesson title={item.title} index={item.index} content={item.content} />
+        <Lesson
+          title={item.title}
+          index={item.index}
+          content={item.content}
+          key={item.index}
+        />
       );
     });
   };
