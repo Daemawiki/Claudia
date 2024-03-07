@@ -1,6 +1,7 @@
 import linkChecker from "@/utils/function/linkCheck";
 import React from "react";
 import LinkBlock from "./linkBlock";
+import formatText from "@/utils/function/formatText";
 
 interface TableItemProps {
   name: string;
@@ -8,9 +9,10 @@ interface TableItemProps {
 }
 
 const TableItem = ({ name, value }: TableItemProps) => {
-  const lines = value.split("\n");
+  const lines = value.split("</p><p>");
   const formattedValue = lines.map((line, index) => {
-    const linkContent = linkChecker(line);
+    const delpTag = line.replace("<p>", "").replace("</p>", "");
+    const linkContent = linkChecker(delpTag);
     if (linkContent.githubMatches.href)
       return (
         <LinkBlock
@@ -29,7 +31,12 @@ const TableItem = ({ name, value }: TableItemProps) => {
           href={linkContent.instagramMatches.href}
         />
       );
-    return <div key={index}>{line}</div>;
+    return (
+      <div
+        key={index}
+        dangerouslySetInnerHTML={{ __html: formatText(delpTag) }}
+      ></div>
+    );
   });
 
   return (
