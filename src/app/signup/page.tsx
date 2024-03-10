@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/button";
 import Header from "@/components/header/header";
 import Title from "@/components/title/title";
@@ -7,8 +8,11 @@ import Dropdown from "@/components/input/dropdown";
 import { majorMenu, periodMenu } from "@/constant/dropdownItem";
 import PasswordForm from "@/components/input/passwordForm";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [gen, setGen] = useState<string>("");
+  const [major, setMajor] = useState<string>("");
   return (
     <>
       <Header />
@@ -32,8 +36,20 @@ export default function SignUp() {
               buttonFontSize={14}
               buttonStyle={{ position: "absolute", right: "10px" }}
             />
-            <Dropdown title="기수" content={periodMenu} width={110} />
-            <Dropdown title="전공" content={majorMenu} width={180} />
+            <Dropdown
+              title="기수"
+              content={periodMenu}
+              width={110}
+              setForm={setGen}
+              zIndex={2}
+            />
+            <Dropdown
+              title="전공"
+              content={majorMenu}
+              width={180}
+              setForm={setMajor}
+              zIndex={1}
+            />
             <PasswordForm />
             <div className="flex justify-end items-end gap-[10px] pt-5">
               <Link href={"/login"}>
