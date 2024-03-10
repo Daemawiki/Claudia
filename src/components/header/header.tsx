@@ -10,9 +10,17 @@ const Header = () => {
         <h1 className="text-4xl font-extrabold text-[#EC7E4F]">대마위키</h1>
       </Link>
       <div className="flex justify-start gap-[10px]">
-        <NavContainer text="최근 변경" src="/images/recently.svg" />
-        <NavContainer text="분류" src="/images/category.svg" />
-        <NavContainer text="인기" src="/images/popular.svg" />
+        <NavContainer
+          text="최근 변경"
+          imgSrc="/images/recently.svg"
+          src="/recent"
+        />
+        <NavContainer
+          text="분류"
+          imgSrc="/images/category.svg"
+          src="division"
+        />
+        <NavContainer text="인기" imgSrc="/images/popular.svg" src="popular" />
       </div>
       <div className="w-[700px] rounded-[30px] flex bg-[#C7E1BA] items-center px-4 gap-[10px]">
         <div>
