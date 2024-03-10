@@ -1,17 +1,23 @@
 import { Info } from "@/constant/documentType";
 import Button from "../button";
+import duplicationCheck from "@/utils/function/duplicationCheck";
 
 interface ButtonsProps {
   state: string;
   setState: React.Dispatch<React.SetStateAction<string>>;
   setInfo: React.Dispatch<React.SetStateAction<Info[]>>;
   newInfo?: Info[];
+  info: Info[];
 }
 
-const Buttons = ({ state, setState, setInfo, newInfo }: ButtonsProps) => {
+const Buttons = ({ state, setState, setInfo, newInfo, info }: ButtonsProps) => {
   const onClickHandler = () => {
     switch (state) {
       case "add":
+        if (newInfo && duplicationCheck([...info, ...newInfo])) {
+          alert("중복되거나 빈 제목은 사용할 수 없어요!");
+          break;
+        }
         newInfo &&
           setInfo(prev => {
             return [...prev, ...newInfo];
@@ -19,15 +25,18 @@ const Buttons = ({ state, setState, setInfo, newInfo }: ButtonsProps) => {
         setState("");
         break;
       case "edit":
-        newInfo &&
-          setInfo(prev => {
-            console.log(prev);
-            console.log(newInfo);
-            return newInfo;
-          });
+        if (newInfo && duplicationCheck(newInfo)) {
+          alert("중복되거나 빈 제목은 사용할 수 없어요!");
+          break;
+        } else {
+          newInfo && setInfo(newInfo);
+          setState("");
+          break;
+        }
+      case "del":
+        newInfo && setInfo(newInfo);
         setState("");
         break;
-      case "del":
     }
   };
   return (
@@ -36,7 +45,9 @@ const Buttons = ({ state, setState, setInfo, newInfo }: ButtonsProps) => {
         text="취소"
         color="black"
         fontSize={20}
-        onClick={() => setState("")}
+        onClick={() => {
+          setState("");
+        }}
         width={80}
         height={40}
         rounded={16}
