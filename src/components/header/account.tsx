@@ -15,7 +15,7 @@ const Account = () => {
             width={36}
             height={36}
           />
-          <span className="text-xl font-bold text-[#EC7E4F]">마이페이지</span>
+          <span className="text-xl font-bold text-[#fff]">마이페이지</span>
         </div>
       </button>
     );
