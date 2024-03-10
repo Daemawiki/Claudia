@@ -7,9 +7,9 @@ const Header = () => {
   return (
     <div className="bg-myHeaderColor w-full flex justify-center gap-10 items-center text-white">
       <Link href={"/"}>
-        <h1 className="text-4xl font-extrabold text-[#EC7E4F]">대마위키</h1>
+        <Image src={"/images/logo.svg"} alt="대마위키" width={64} height={64} />
       </Link>
-      <div className="flex justify-start gap-[10px]">
+      <div className="flex justify-start gap-[10px] h-16">
         <NavContainer
           text="최근 변경"
           imgSrc="/images/recently.svg"
@@ -22,7 +22,7 @@ const Header = () => {
         />
         <NavContainer text="인기" imgSrc="/images/popular.svg" src="popular" />
       </div>
-      <div className="w-[700px] rounded-[30px] flex bg-[#C7E1BA] items-center px-4 gap-[10px]">
+      <div className="w-[700px] rounded-[30px] flex bg-[#C7E1BA] items-center px-4 gap-[10px] h-[52px] ">
         <div>
           <Image
             src="/images/random.svg"
@@ -33,7 +33,7 @@ const Header = () => {
         </div>
         <input
           placeholder="검색어를 입력하세요"
-          className="h-16 focus:outline-none grow bg-transparent text-xl placeholder-white placeholder:text-base"
+          className="focus:outline-none grow bg-transparent text-xl placeholder-white placeholder:text-base"
         />
         <div>
           <Image
