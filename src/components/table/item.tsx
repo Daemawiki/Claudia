@@ -33,9 +33,9 @@ const TableItem = ({ name, value }: TableItemProps) => {
   });
 
   return (
-    <div className="flex flex-col min-w-[150px] min-h-[100px] gap-[9px]">
+    <div className="flex flex-col min-w-[150px] min-h-[100px] gap-[8px]">
       <span className="font-medium text-2xl text-[#93DF3F]">{name}</span>
-      <span className="font-medium text-base flex gap-[9px] flex-col">
+      <span className="font-medium text-base flex gap-[8px] flex-col">
         {formattedValue}
       </span>
     </div>
