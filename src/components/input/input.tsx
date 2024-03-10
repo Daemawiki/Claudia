@@ -56,7 +56,6 @@ const Input = ({
     }
     setForm(newValue);
     if (onInputChange) {
-      console.log(newValue);
       onInputChange(newValue);
     }
   };
