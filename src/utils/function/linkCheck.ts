@@ -5,9 +5,9 @@ interface Matches {
 
 const linkChecker = (content: string) => {
   const instagramRegex =
-    /<a href="(https?:\/\/(?:www\.)?instagram\.com\/\S+)">([^<]+)<\/a>/g;
+    /<a\s+(?:[^>]*?\s+)?href="(https?:\/\/(?:www\.)?instagram\.com\/\S+)"(?:[^>]*?)>(.*?)<\/a>/g;
   const githubRegex =
-    /<a href="(https?:\/\/(?:www\.)?github\.com\/\S+)">([^<]+)<\/a>/g;
+    /<a\s+(?:[^>]*?\s+)?href="(https?:\/\/(?:www\.)?github\.com\/\S+)"(?:[^>]*?)>(.*?)<\/a>/g;
 
   const instagramMatches: Matches = {
     href: null,
