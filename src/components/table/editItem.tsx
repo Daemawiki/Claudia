@@ -50,7 +50,6 @@ export default function EditItem({
   const setValue2 = () => {
     if (index !== undefined && index !== null) {
       setValue(prev => {
-        console.log(`수정전 : ${prev}`);
         if (prev) {
           prev[index] = {
             title: newTitle,
