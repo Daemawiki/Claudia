@@ -1,4 +1,5 @@
 import DocumentPreview from "./documentPreview";
+import Link from "next/link";
 
 const SideBar = () => {
   return (
@@ -18,7 +19,9 @@ const SideBar = () => {
         <DocumentPreview documentName="보지민" time={6155} views={6974} />
         <DocumentPreview documentName="박주민" time={6155} views={32} />
         <div className="px-5 py-[10px] flex justify-end">
-          <span>더보기</span>
+          <Link href={"/recent"}>
+            <span>더보기</span>
+          </Link>
         </div>
       </div>
 
@@ -37,7 +40,9 @@ const SideBar = () => {
         <DocumentPreview documentName="박주민" time={6155} views={32} />
         <DocumentPreview documentName="박지미" time={789} views={3} />
         <div className="px-5 py-[10px] flex justify-end">
-          <span>더보기</span>
+          <Link href={"/popular"}>
+            <span>더보기</span>
+          </Link>
         </div>
       </div>
     </div>

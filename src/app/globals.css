@@ -31,3 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+
+.ql-editor {
+  overflow-y: visible !important;
+}
+
+.ql-formats {
+  display: flex !important;
+}
+
+.ql-toolbar {
+  display: flex !important;
+}

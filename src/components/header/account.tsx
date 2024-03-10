@@ -1,12 +1,10 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { login } from "@/redux/action/isLoginAction";
+import { useAppSelector } from "@/hooks/reduxHooks";
 import Image from "next/image";
+import Link from "next/link";
 
 const Account = () => {
   const isLogin = useAppSelector(state => state.auth.isLogin);
-  const dispatch = useAppDispatch();
-  console.log(isLogin);
   if (isLogin) {
     return (
       <button>
@@ -24,9 +22,11 @@ const Account = () => {
   } else {
     return (
       <div className="flex items-center gap-[10px]">
-        <button className="text-xl font-bold px-[10px] py-[8px]">로그인</button>
+        <button className="text-xl font-bold px-[10px] py-[8px]">
+          <Link href={"/login"}>로그인</Link>
+        </button>
         <button className="text-xl font-bold bg-white bg-opacity-20 rounded-2xl px-[10px] py-[8px]">
-          회원가입
+          <Link href={"/signup"}>회원가입</Link>
         </button>
       </div>
     );
