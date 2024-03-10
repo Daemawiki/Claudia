@@ -12,8 +12,9 @@ import findById from "@/utils/function/documentById";
 import { clubDivision, genDivision, majorDivision } from "@/constant/division";
 
 interface SearchType {
-  type?: "gen" | "major" | "club";
-  search?: string;
+  gen?: string;
+  major?: string;
+  club?: string;
 }
 
 const Form = () => {
@@ -25,17 +26,26 @@ const Form = () => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    setSearch({ type: "gen", search: gen });
+    setSearch(prev => {
+      prev.gen = gen;
+      return prev;
+    });
     setIsUpdate(true);
   }, [gen]);
 
   useEffect(() => {
-    setSearch({ type: "major", search: major });
+    setSearch(prev => {
+      prev.major = major;
+      return prev;
+    });
     setIsUpdate(true);
   }, [major]);
 
   useEffect(() => {
-    setSearch({ type: "club", search: club });
+    setSearch(prev => {
+      prev.club = club;
+      return prev;
+    });
     setIsUpdate(true);
   }, [club]);
 
@@ -47,36 +57,23 @@ const Form = () => {
 
   const renderPreview = () => {
     setIsUpdate(false);
-    if (search.search) {
-      switch (search.type) {
-        case "club":
-          setItems(clubDivision);
-          break;
-        case "gen":
-          setItems(genDivision);
-          break;
-        case "major":
-          setItems(majorDivision);
-          break;
-      }
-    }
+    if (search.club)
+      setItems(items ? [...items, ...clubDivision] : [...clubDivision]);
+    if (search.gen)
+      setItems(items ? [...items, ...genDivision] : [...genDivision]);
+    if (search.major)
+      setItems(items ? [...items, ...majorDivision] : [...majorDivision]);
   };
 
   return (
     <>
       <div className="flex flex-col">
         <Category
-          groups={
-            search.search !== ""
-              ? search.type === "club"
-                ? [["동아리", club]]
-                : search.type === "gen"
-                  ? [["기수", gen]]
-                  : search.type === "major"
-                    ? [["전공", major]]
-                    : [[]]
-              : [[]]
-          }
+          groups={[
+            ["동아리", club],
+            ["전공", major],
+            ["기수", gen],
+          ]}
         />
         <div className="flex w-full justify-center gap-[10px] items-start p-[10px]">
           <Dropdown
@@ -85,6 +82,7 @@ const Form = () => {
             width={180}
             titlePosition="row"
             setForm={setGen}
+            zIndex={3}
           />
           <Dropdown
             title="전공"
@@ -92,6 +90,7 @@ const Form = () => {
             width={180}
             titlePosition="row"
             setForm={setMajor}
+            zIndex={2}
           />
           <Dropdown
             title="동아리"
@@ -99,6 +98,7 @@ const Form = () => {
             width={180}
             titlePosition="row"
             setForm={setClub}
+            zIndex={1}
           />
         </div>
       </div>
