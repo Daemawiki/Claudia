@@ -24,7 +24,7 @@ const Lesson = ({ title, index, content }: LessonProps) => {
     <details className="flex px-[10px] pt-[5px] py-[10px]">
       <summary className="list-none flex gap-[5px] flex-col font-medium hover:cursor-pointer">
         <div className="flex gap-[11px]">
-          <Image src={"images/arrowUp.svg"} alt="" width={30} height={30} />
+          <Image src={"/images/arrowUp.svg"} alt="" width={30} height={30} />
           <a id={title} className="text-2xl">
             <span className="text-[#93DF3F]">{index}. </span>
             <span>{title}</span>
