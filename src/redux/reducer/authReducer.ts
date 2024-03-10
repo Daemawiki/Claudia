@@ -9,7 +9,7 @@ interface AuthAction {
 }
 
 const initialState: AuthState = {
-  isLogin: false,
+  isLogin: true,
 };
 
 const authReducer = (state = initialState, action: AuthAction): AuthState => {
