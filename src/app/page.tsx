@@ -1,4 +1,4 @@
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/footer";
 import Header from "@/components/header/header";
 import Index from "@/components/index";
 import SideBar from "@/components/sideBar/sideBar";
@@ -21,7 +21,7 @@ export default function Main() {
   };
   return (
     <>
-    <Header2 />
+      <Header2 />
       {/* <Header />
       <main className="flex min-h-screen justify-center flex-wrap gap-5">
         <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[60px] px-[100px] py-[60px]">

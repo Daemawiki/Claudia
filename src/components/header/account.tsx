@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Account = () => {
-  const isLogin = useAppSelector(state => state.auth.isLogin);
+  const isLogin = useAppSelector(
+    (state: { auth: { isLogin: any } }) => state.auth.isLogin,
+  );
   if (isLogin) {
     return (
       <button>

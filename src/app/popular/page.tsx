@@ -1,6 +1,6 @@
 import Header from "@/components/header/header";
 import Title from "@/components/title/title";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/footer";
 import SideBar from "@/components/sideBar/sideBar";
 import Standard from "@/components/reserch/standard";
 import Preview from "@/components/reserch/preview";
