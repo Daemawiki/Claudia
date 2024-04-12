@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Pretendard";
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
