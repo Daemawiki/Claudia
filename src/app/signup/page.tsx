@@ -1,73 +1,70 @@
 "use client";
-import Button from "@/components/button";
-import Header from "@/components/header/header";
-import Title from "@/components/title/title";
-import Input from "@/components/input/input";
-import SideBar from "@/components/sideBar/sideBar";
-import Dropdown from "@/components/input/dropdown";
-import { majorMenu, periodMenu } from "@/constant/dropdownItem";
-import PasswordForm from "@/components/input/passwordForm";
-import Link from "next/link";
-import { useState } from "react";
+import AccountModal from "../login/AccountModal";
+import React, { useState } from "react";
+import EnterEmail from "./EnterEmail";
+import EmailAuthentication from "./EmailAuthentication";
+import SetPassword from "./SetPassword";
+import SetName from "./SetName";
 
-export default function SignUp() {
-  const [gen, setGen] = useState<string>("");
-  const [major, setMajor] = useState<string>("");
+const email = "hamster@dsm.hs.kr";
+const list = [1, 2, 3, 4];
+
+export default function Signup() {
+  interface PropsType {
+    component?: JSX.Element;
+    subtitle?: string;
+    email?: string;
+    buttontitle?: string;
+  }
+
+  let [current, setCurrent] = useState<number>(0);
+
+  const handlerCurrent = () => {
+    if (current < 3) {
+      setCurrent(current + 1);
+    }
+  };
+
+  const modal: PropsType[] = [
+    {
+      component: <EnterEmail list={list} handlerCurrent={handlerCurrent} />,
+      subtitle: "이메일 인증을 위해 DSM 이메일을 입력해주세요",
+      email: "",
+    },
+    {
+      component: (
+        <EmailAuthentication list={list} handlerCurrent={handlerCurrent} />
+      ),
+      subtitle: "로 인증번호를 전송했습니다.",
+      email: email,
+    },
+    {
+      component: <SetPassword list={list} handlerCurrent={handlerCurrent} />,
+      subtitle: "비밀번호를 설정해주세요.",
+      email: "",
+    },
+    {
+      component: <SetName list={list} handlerCurrent={handlerCurrent} />,
+      subtitle: "정보를 입력해주세요.",
+      email: "",
+    },
+  ];
+
   return (
-    <>
-      <Header />
-      <main className="flex min-h-screen justify-center flex-wrap gap-5">
-        <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[20px] px-[100px] py-[60px]">
-          <Title title="회원가입" />
-          <div className="flex flex-col gap-[10px]">
-            <Input title="이름" width={"full"} />
-            <Input
-              title="DSM 이메일"
-              width={"full"}
-              buttonText={"인증"}
-              buttonFontSize={14}
-              buttonStyle={{ position: "absolute", right: "10px" }}
-            />
-            <Input
-              title="인증코드"
-              width={"full"}
-              isNumber
-              buttonText="확인"
-              buttonFontSize={14}
-              buttonStyle={{ position: "absolute", right: "10px" }}
-            />
-            <Dropdown
-              title="기수"
-              content={periodMenu}
-              width={110}
-              setForm={setGen}
-              zIndex={2}
-            />
-            <Dropdown
-              title="전공"
-              content={majorMenu}
-              width={180}
-              setForm={setMajor}
-              zIndex={1}
-            />
-            <PasswordForm />
-            <div className="flex justify-end items-end gap-[10px] pt-5">
-              <Link href={"/login"}>
-                <Button
-                  text="로그인"
-                  color="black"
-                  width={139}
-                  height={48}
-                  fontSize={20}
-                  rounded={16}
-                />
-              </Link>
-              <Button text="회원가입" width={139} height={48} rounded={16} />
-            </div>
-          </div>
+    <div className="z-[100] flex absolute top-0 left-0 h-[100vh] w-full px-5 pt-[80px] bg-black bg-opacity-20 justify-center">
+      {modal.map((i, j) => (
+        <div>
+          {current == j && (
+            <AccountModal
+              title="회원가입"
+              subTitle={`${i.subtitle}`}
+              email={`${i.email}`}
+            >
+              <div className="flex flex-col w-full gap-6">{i.component}</div>
+            </AccountModal>
+          )}
         </div>
-        <SideBar />
-      </main>
-    </>
+      ))}
+    </div>
   );
 }
