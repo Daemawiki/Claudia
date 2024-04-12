@@ -18,7 +18,7 @@ const Nav = ({ text = "", visible = false, array = [] as string[] }) => {
             size={20}
             className={`text-gray-600 group-hover:text-lime-500 ml-1 group-hover:rotate-180 transition ease-in-out`}
           />
-          <ul className="flex flex-col group-hover:left-0 absolute top-10 rounded-b-lg -left-[9999px] w-[100px] shadow-lg bg-white">
+          <ul className="flex flex-col group-hover:left-0 absolute top-10 rounded-lg -left-[9999px] w-[100px] shadow-lg bg-white overflow-hidden">
             {array.map((i, j) => (
               <li
                 key={j}
@@ -43,16 +43,18 @@ function Header2() {
   ];
 
   return (
-    <div className="fixed top-0 w-full px-[32px] flex bg-white justify-center h-[64px] border-b border-gray-200">
+    <div className="fixed top-0 w-full px-[32px] flex bg-white justify-center h-[64px] border-b border-gray-200 z-50">
       <div className="flex w-full max-w-[1400px] items-center justify-between py-3">
         <div className="flex items-center gap-9">
           <div className="flex items-center gap-4">
-            <div className="flex gap-3 items-center">
-              <Logo size={36} className="text-lime-500" />
-              <p className="text-[20px] font-semibold whitespace-nowrap">
-                대마위키
-              </p>
-            </div>
+            <Link href={"/"}>
+              <div className="flex gap-3 items-center">
+                <Logo size={36} className="text-lime-500" />
+                <p className="text-[20px] font-semibold whitespace-nowrap">
+                  대마위키
+                </p>
+              </div>
+            </Link>
             <div className="flex rounded-full px-2 py-1 bg-gray-100 group items-center gap-0.5">
               <p className="font-semibold text-[14px] text-gray-500">v 1.0.0</p>
               <Arrow_Down
