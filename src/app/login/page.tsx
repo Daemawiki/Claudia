@@ -1,37 +1,49 @@
-import Header from "@/components/header/header";
-import Title from "@/components/title/title";
-import SideBar from "@/components/sideBar/sideBar";
-import Input from "@/components/input/input";
-import Button from "@/components/button";
-import Link from "next/link";
+"use client";
+import AccountModal from "./AccountModal";
+import { LoginInput } from "./AccountInput";
+import { Button } from "./Button";
+import { useState } from "react";
 
 export default function Login() {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [pwdValue, setPwdValue] = useState<string>("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPwdValue(e.target.value);
+  };
   return (
-    <>
-      <Header />
-      <main className="flex min-h-screen justify-center flex-wrap gap-5">
-        <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[20px] px-[100px] py-[60px]">
-          <Title title="로그인" />
-          <div className="flex flex-col gap-[10px]">
-            <Input title="DSM 이메일" width={"full"} />
-            <Input title="비밀번호" width={"full"} isPassword={true} />
-            <div className="flex justify-end items-end gap-[10px] pt-5">
-              <Link href={"/signup"}>
-                <Button
-                  text="회원가입"
-                  color="black"
-                  width={139}
-                  height={48}
-                  fontSize={20}
-                  rounded={16}
-                />
-              </Link>
-              <Button text="로그인" width={139} height={48} rounded={16} />
-            </div>
+    <div className="flex h-[100vh] w-full px-5 pt-[14vh] bg-black bg-opacity-20 justify-center">
+      <AccountModal
+        title="로그인"
+        subTitle="대마고에서 일어나는 모든 일을 이곳에서"
+      >
+        <div className="flex w-full flex-col gap-12">
+          <div className="flex flex-col w-full gap-6">
+            <LoginInput
+              value={inputValue}
+              onChange={handleInputChange}
+              inputTitle="이메일"
+              placeholder="이메일 입력"
+              emailform
+            />
+            <LoginInput
+              password
+              value={pwdValue}
+              onChange={handlePasswordChange}
+              inputTitle="비밀번호"
+              placeholder="비밀번호 입력"
+            />
           </div>
+          <Button
+            isValue={inputValue && pwdValue ? true : false}
+            title="로그인"
+          />
         </div>
-        <SideBar />
-      </main>
-    </>
+      </AccountModal>
+    </div>
   );
 }
