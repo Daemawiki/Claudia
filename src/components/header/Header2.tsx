@@ -72,7 +72,7 @@ function Header2() {
         <div className="flex gap-4 items-center">
           <div className="flex items-center gap-4 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md max-w-60 h-9">
             <input
-              className="w-full placeholder:text-gray-400 font-medium text-md"
+              className="w-full placeholder:text-gray-400 font-medium text-md bg-transparent"
               placeholder="검색"
             />
             <Search className="text-gray-400" />
