@@ -1,7 +1,7 @@
 interface TitleProps {
   title: string;
   additionalInfo?: string;
-  lastModifiedTime?: number;
+  lastModifiedTime?: string;
 }
 
 const Title = ({ title, additionalInfo, lastModifiedTime }: TitleProps) => {

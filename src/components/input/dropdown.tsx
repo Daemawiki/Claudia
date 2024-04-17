@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import DropdownItem from "./dropdownItem";
 
 interface DropdownProps {
   title: string;
@@ -9,7 +8,26 @@ interface DropdownProps {
   width: number;
   titlePosition?: "column" | "row";
   setForm: React.Dispatch<React.SetStateAction<string>>;
+  zIndex: number;
 }
+
+interface DropdownItemProps {
+  key: number;
+  item: string;
+  clickHandler: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+const DropdownItem = ({ key, item, clickHandler }: DropdownItemProps) => {
+  return (
+    <div
+      key={key}
+      className="border-t border-black p-[10px] h-[24px] box-content bg-white"
+      onClick={clickHandler}
+    >
+      {item}
+    </div>
+  );
+};
 
 const Dropdown = ({
   title,
@@ -17,10 +35,11 @@ const Dropdown = ({
   width,
   titlePosition = "column",
   setForm: form,
+  zIndex,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [select, setSelect] = useState("");
-  const widthStyle = { width: `${width}px` };
+  const containerStyle = { width: `${width}px`, zIndex: zIndex };
   const flexStyle = {
     flexDirection: titlePosition,
   };
@@ -57,10 +76,10 @@ const Dropdown = ({
       ref={dropdownRef}
     >
       <span className="text-base font-bold w-fit pt-[12.5px]">{title}</span>
-      <div className="relative h-[45px]" style={widthStyle}>
+      <div className="relative h-[45px]" style={containerStyle}>
         <div
           className="border border-solid border-black flex rounded-2xl flex-col absolute overflow-hidden"
-          style={widthStyle}
+          style={containerStyle}
         >
           <div
             className="flex justify-between w-full p-[10px]"

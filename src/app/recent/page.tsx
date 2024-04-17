@@ -21,7 +21,6 @@ export default function Recent() {
   };
   return (
     <>
-      <Header />
       <main className="flex min-h-screen justify-center flex-wrap gap-5">
         <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[60px] px-[100px] py-[60px]">
           <Title title="최근 변경된 페이지" />

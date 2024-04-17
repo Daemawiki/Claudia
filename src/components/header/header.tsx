@@ -1,5 +1,4 @@
 import Image from "next/image";
-import NavContainer from "./nav";
 import Account from "./account";
 import Link from "next/link";
 
@@ -10,17 +9,39 @@ const Header = () => {
         <Image src={"/images/logo.svg"} alt="대마위키" width={64} height={64} />
       </Link>
       <div className="flex justify-start gap-[10px] h-16">
-        <NavContainer
-          text="최근 변경"
-          imgSrc="/images/recently.svg"
-          src="/recent"
-        />
-        <NavContainer
-          text="분류"
-          imgSrc="/images/category.svg"
-          src="division"
-        />
-        <NavContainer text="인기" imgSrc="/images/popular.svg" src="popular" />
+        <Link href={"/recent"}>
+          <div className="flex gap-[10px] items-center p-[10px]">
+            <Image
+              src="/images/recently.svg"
+              alt="recently"
+              width={36}
+              height={36}
+            />
+            <span className="font-bold text-2xl">최근 변경</span>
+          </div>
+        </Link>
+        <Link href={"/division"}>
+          <div className="flex gap-[10px] items-center p-[10px]">
+            <Image
+              src="/images/category.svg"
+              alt="division"
+              width={36}
+              height={36}
+            />
+            <span className="font-bold text-2xl">분류</span>
+          </div>
+        </Link>
+        <Link href={"/popular"}>
+          <div className="flex gap-[10px] items-center p-[10px]">
+            <Image
+              src="/images/popular.svg"
+              alt="popular"
+              width={36}
+              height={36}
+            />
+            <span className="font-bold text-2xl">인기</span>
+          </div>
+        </Link>
       </div>
       <div className="w-[700px] rounded-[30px] flex bg-[#C7E1BA] items-center px-4 gap-[10px] h-[52px] ">
         <div>
