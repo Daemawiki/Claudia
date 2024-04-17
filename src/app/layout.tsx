@@ -5,6 +5,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import StoreProvider from "./StoreProvider";
 import Header2 from "@/components/header/Header2";
 
+
 const sans = Noto_Sans_KR({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
