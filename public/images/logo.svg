@@ -1,12 +1,12 @@
 <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="160" height="160" rx="80" fill="#9CB770"/>
-<path d="M52.5 46.7339H35V67.5H65.4375V59.5M65.4375 75.5V46.7339V59.5M65.4375 59.5H79.5V75.5V41.6374" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="72.5" y="27" width="14" height="14" rx="7" stroke="white" stroke-width="8"/>
-<path d="M116.938 108.766V104M116.938 121.863V88V104M116.938 104H128M104 93.0965H86.5V113.863H104V93.0965Z" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="128.5" y="96.3626" width="14" height="14" rx="7" stroke="white" stroke-width="8"/>
-<path d="M35.5 106H71.5" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M35.5 120H71.5" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M94 61H116" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M94 75H116" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M35.5 93H103.5" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M52.5 46.7339H35V67.5H65.4375V59.5M65.4375 75.5V46.7339V59.5M65.4375 59.5H79.5V75.5V41.6374" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<rect x="72.5" y="27" width="14" height="14" rx="7" stroke="white" strokeWidth="8"/>
+<path d="M116.938 108.766V104M116.938 121.863V88V104M116.938 104H128M104 93.0965H86.5V113.863H104V93.0965Z" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<rect x="128.5" y="96.3626" width="14" height="14" rx="7" stroke="white" strokeWidth="8"/>
+<path d="M35.5 106H71.5" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M35.5 120H71.5" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M94 61H116" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M94 75H116" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M35.5 93H103.5" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
