@@ -8,6 +8,7 @@ import Dropdown from "@/components/input/dropdown";
 import { majorMenu, periodMenu } from "@/constant/dropdownItem";
 import PasswordForm from "@/components/input/passwordForm";
 import Link from "next/link";
+import { SetStateAction } from "react";
 import { useState } from "react";
 
 export default function SignUp() {
@@ -39,15 +40,17 @@ export default function SignUp() {
               title="기수"
               content={periodMenu}
               width={110}
-              setForm={setGen}
-              zIndex={2}
+              setForm={function (value: SetStateAction<string>): void {
+                throw new Error("Function not implemented.");
+              }}
             />
             <Dropdown
               title="전공"
               content={majorMenu}
               width={180}
-              setForm={setMajor}
-              zIndex={1}
+              setForm={function (value: SetStateAction<string>): void {
+                throw new Error("Function not implemented.");
+              }}
             />
             <PasswordForm />
             <div className="flex justify-end items-end gap-[10px] pt-5">
