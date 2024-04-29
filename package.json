@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.18.1",
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "20.11.30",
+    "@types/react": "18.2.73",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
@@ -32,6 +32,6 @@
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.4.3"
   }
 }
