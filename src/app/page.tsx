@@ -9,6 +9,7 @@ import { mainPageIndex } from "@/constant/indexItem";
 import { mainTableItem } from "@/constant/tableItem";
 import "react-quill/dist/quill.snow.css";
 import Header2 from "@/components/header/Header2";
+import EditModal from "@/components/edit/EditModal";
 
 export default function Main() {
   const index = mainPageIndex;
@@ -27,6 +28,7 @@ export default function Main() {
   return (
     <>
       <Header2 />
+      <EditModal />
       {/* <Header />
       <main className="flex min-h-screen justify-center flex-wrap gap-5">
         <div className="flex w-[1000px] bg-white min-h-screen flex-col gap-[60px] px-[100px] py-[60px]">
