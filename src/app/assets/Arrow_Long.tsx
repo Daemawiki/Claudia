@@ -1,23 +1,33 @@
 interface PropsType {
   size?: number;
-  className?: string;
   onClick?: () => void;
+  className?: string;
+  direction?: "left" | "up" | "right" | "down";
 }
 
-export const Arrow_Long_Right = ({
+export const Arrow_Long = ({
   size = 24,
-  onClick,
   className = "",
+  onClick,
+  direction = "left",
 }: PropsType) => {
+  const rotate = {
+    right: "rotate-[0deg]",
+    down: "rotate-[90deg]",
+    left: "rotate-[180deg]",
+    up: "rotate-[270deg]",
+  };
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       fill="none"
-      viewBox="0 0 19 19"
+      viewBox="0 0 24 24"
       onClick={onClick}
-      className={`${onClick ? "cursor-pointer" : ""} ${className}`}
+      className={`${onClick ? "cursor-pointer" : ""} ${className} ${
+        rotate[direction]
+      }`}
     >
       <path
         stroke="currentColor"
