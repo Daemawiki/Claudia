@@ -18,3 +18,7 @@ export * from "./Text_Underline";
 export * from "./Text_Strikethrough";
 export * from "./Text_Link";
 export * from "./Arrow";
+export * from "./Github";
+export * from "./Instagram";
+export * from "./Discord";
+export * from "./User";
