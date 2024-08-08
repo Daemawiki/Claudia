@@ -12,9 +12,9 @@ export const Arrow = ({
   direction = "left",
 }: PropsType) => {
   const rotate = {
-    right: "rotate-[0deg]",
+    left: "rotate-[0deg]",
     up: "rotate-[90deg]",
-    left: "rotate-[180deg]",
+    right: "rotate-[180deg]",
     down: "rotate-[270deg]",
   };
   return (
