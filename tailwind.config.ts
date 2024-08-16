@@ -69,6 +69,20 @@ module.exports = {
           lineHeight: "48px",
         },
       ],
+      medium36: [
+        "36px",
+        {
+          fontWeight: 500,
+          lineHeight: "44px",
+        },
+      ],
+      semibold36: [
+        "32px",
+        {
+          fontWeight: 600,
+          lineHeight: "38px",
+        },
+      ],
       bold36: [
         "36px",
         {
@@ -83,10 +97,25 @@ module.exports = {
           lineHeight: "38px",
         },
       ],
+
       medium28: [
         "28px",
         {
           fontWeight: 500,
+          lineHeight: "34px",
+        },
+      ],
+      semibold28: [
+        "28px",
+        {
+          fontWeight: 600,
+          lineHeight: "34px",
+        },
+      ],
+      bold28: [
+        "28px",
+        {
+          fontWeight: 700,
           lineHeight: "34px",
         },
       ],
@@ -97,7 +126,7 @@ module.exports = {
           lineHeight: "28px",
         },
       ],
-      bold24: [
+      semibold24: [
         "24px",
         {
           fontWeight: 700,
