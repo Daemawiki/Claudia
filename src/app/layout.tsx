@@ -3,8 +3,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
 import StoreProvider from "./StoreProvider";
-import Header2 from "@/components/header/Header2";
-
+import Header from "@/components/Header";
 
 const sans = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -23,7 +22,7 @@ export default function RootLayout({
       <body className={sans.className}>
         <StoreProvider>
           <ReactQueryProvider>
-            <Header2 />
+            <Header />
             {children}
           </ReactQueryProvider>
         </StoreProvider>
