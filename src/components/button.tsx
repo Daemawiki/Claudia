@@ -1,47 +1,23 @@
-interface ButtonProps<T extends (...args: any[]) => void> {
+import React from "react";
+
+interface ButtonProps {
   text: string;
-  color?: string;
-  fontSize?: number;
-  onClick?: T;
-  width: number;
-  height: number;
-  rounded: number;
-  style?: React.CSSProperties;
+  style?: "primary" | "primary2" | "white";
+  onClick?: () => void;
 }
 
-const Button = <T extends (...args: any[]) => void>({
-  text,
-  color,
-  fontSize,
-  onClick,
-  width,
-  height,
-  rounded,
-  style = {},
-}: ButtonProps<T>) => {
-  const widthStyle = { width: `${width}px` };
-  const heightStyle = { height: `${height}px` };
-  const roundedStyle = { borderRadius: `${rounded}px` };
-  let fontSizeStyle = { fontSize: `24px` };
-  if (fontSize) {
-    fontSizeStyle = { fontSize: `${fontSize}px` };
-  }
-
+export const Button = ({ text, onClick, style = "primary" }: ButtonProps) => {
+  const buttonStyle = {
+    primary: "text-lime500 bg-white hover:bg-gray50",
+    primary2: "text-white bg-lime500 hover:bg-lime600",
+    white: "bg-white text-gray800 hover:bg-gray100",
+  };
   return (
     <button
       onClick={onClick}
-      className={`button ${color ? "bg-black" : "bg-[#93DF3F]"} text-white`}
-      style={{
-        ...fontSizeStyle,
-        ...widthStyle,
-        ...heightStyle,
-        ...roundedStyle,
-        ...style,
-      }}
+      className={`transition-all text-semibold16 flex px-3 py-2 rounded-md ${buttonStyle[style]}`}
     >
       {text}
     </button>
   );
 };
-
-export default Button;
