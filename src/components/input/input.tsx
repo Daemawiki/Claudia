@@ -2,7 +2,7 @@
 import { useInput } from "@/hooks/useInput";
 import Image from "next/image";
 import { useState } from "react";
-import Button from "../button";
+import Button from "../Button";
 
 interface InputProps {
   title: string;
