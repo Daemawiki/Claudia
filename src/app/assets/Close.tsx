@@ -17,9 +17,9 @@ export const Close = ({ size = 24, onClick, className = "" }: PropsType) => {
     >
       <path
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="m18 18.5-6-6m0 0-6-6m6 6 6-6m-6 6-6 6"
       />
     </svg>

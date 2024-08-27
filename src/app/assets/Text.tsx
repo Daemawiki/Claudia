@@ -17,9 +17,9 @@ export const Text = ({ size = 24, onClick, className = "" }: PropsType) => {
     >
       <path
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M11.667 22.666H14m0 0h2.333m-2.333 0V6.333m0 0H7V7.5m7-1.167h7V7.5"
       />
     </svg>
