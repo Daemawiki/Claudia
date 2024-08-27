@@ -31,9 +31,9 @@ export const Arrow_Long = ({
     >
       <path
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M16.25 9.5 12.5 5.75m3.75 3.75-3.75 3.75m3.75-3.75H2.75"
       />
     </svg>
