@@ -5,7 +5,7 @@ import { SearchInput } from "./input/SearchInput";
 import { Button } from "./Button";
 import { useRouter } from "next/navigation";
 
-function Header() {
+export const Header = () => {
   const router = useRouter();
   const navList = [
     { text: "분류", link: "/", array: ["동아리", "기수", "전공"] },
@@ -93,5 +93,3 @@ function Header() {
     </div>
   );
 }
-
-export default Header;

@@ -1,6 +1,6 @@
 import { Discord, Github, Instagram, Logo } from "@/app/assets";
 
-const Footer = () => {
+export const Footer = () => {
   const link = [
     { icon: <Instagram size={28} />, url: "" },
     { icon: <Discord size={28} />, url: "" },
@@ -79,5 +79,3 @@ const Footer = () => {
     </div>
   );
 };
-
-export default Footer;
