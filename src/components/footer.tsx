@@ -1,21 +1,81 @@
+import { Discord, Github, Instagram, Logo } from "@/app/assets";
+
 const Footer = () => {
+  const link = [
+    { icon: <Instagram size={28} />, url: "" },
+    { icon: <Discord size={28} />, url: "" },
+    { icon: <Github size={28} />, url: "" },
+  ];
+
+  const list = [
+    { title: "개발자", text: ["김승윤", "김어진", "박지민", "이태영"] },
+    { title: "기술 스택", text: ["Next.js", "Tailwind", "Recoil"] },
+    { title: "팀 DM", text: ["팀소개", "벨로그"] },
+    { title: "ABOUT", text: ["문의사항", "신고"] },
+  ];
+  const info = [
+    { title: "연락처", details: "+82 010-1234-1234" },
+    { title: "이메일", details: "hamster@dsm.hs.kr" },
+    { title: "주소", details: "대덕소프트웨어마이스터고등학교" },
+  ];
   return (
-    <div className="pt-[45px] flex flex-col gap-[10px] items-end">
-      <hr className="w-full bg-[#E7E7E7] h-[1px] border-none" />
-      <span className="text-right text-[#707070]">
-        대마위키는 백과사전이 아니며 검증되지 않았거나, 편향적이거나, 잘못된
-        서술이 있을 수 있습니다.
-        <br />
-        대마위키는 여러분이 직접 수정할 수 있으며
-        <br />
-        문서 내부에 작성된 내용에 대한 저작권 및 모든 책임은 작성자에게
-        있습니다.
-        <br />
-        문서 내용에 대한 오해 및 오류 혹은 갈등에 대하여 개발자는 일체 책임을
-        지지 않습니다.
-        <br />
-        2024-01-25
-      </span>
+    <div className="w-full px-6 flex bg-gray100 justify-center">
+      <div className="w-full max-w-[1200px] flex flex-col gap-40 py-9 border-t border-gray200">
+        <div className="w-full justify-between flex md:flex-col sm:flex-col gap-20">
+          <div className="flex flex-col gap-5">
+            <div className="flex gap-3 items-center">
+              <Logo size={44} className="text-lime500" />
+              <p className="text-semibold24 text-black whitespace-nowrap">
+                대마위키
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-gray400">
+              {link.map(({ icon, url }, index) => (
+                <div key={index} className="flex p-1.5">
+                  {icon}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex w-full justify-end gap-6">
+            {list.map(({ title, text }, index) => (
+              <div
+                key={index}
+                className="flex lg:max-w-[200px] w-full flex-col gap-2"
+              >
+                <p className="text-semibold16 text-gray600 whitespace-nowrap">
+                  {title}
+                </p>
+                {text.map((txt, idx) => (
+                  <p
+                    key={idx}
+                    className="text-medium14 text-gray400 whitespace-nowrap"
+                  >
+                    {txt}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex w-full items-end flex-wrap gap-6 py-4 border-b border-gray200">
+            {info.map(({ title, details }) => (
+              <div className="flex w-full max-w-[200px] flex-col gap-2">
+                <p className="text-medium12 text-gray400">{title}</p>
+                <p className="text-medium14 text-gray600 whitespace-nowrap">
+                  {details}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="w-full justify-between flex">
+            <p className="text-medium12 text-gray400">© 2024 - 대마위키</p>
+            <p className="text-medium12 text-gray400">with XquareInfra</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
