@@ -1,5 +1,5 @@
 import { Info } from "@/constant/documentType";
-import Button from "../button";
+import { Button } from "../Button";
 import duplicationCheck from "@/utils/function/duplicationCheck";
 
 interface ButtonsProps {

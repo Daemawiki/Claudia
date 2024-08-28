@@ -6,7 +6,7 @@ import { Button } from "./Button";
 import { useRouter } from "next/navigation";
 
 function Header() {
-  const route = useRouter();
+  const router = useRouter();
   const navList = [
     { text: "분류", link: "/", array: ["동아리", "기수", "전공"] },
     { text: "게시판", link: "/", array: ["학생", "선생님", "어쩌고"] },
@@ -72,18 +72,21 @@ function Header() {
           </div>
           <div className="flex items-center gap-2">
             <Button
-              onClick={() => route.push("/login")}
+              onClick={() => router.push("/login")}
               text="로그인"
               style="white"
             />
             <Button
-              onClick={() => route.push("/signup")}
+              onClick={() => router.push("/signup")}
               text="회원가입"
               style="primary2"
             />
           </div>
         </div>
-        <div className="hidden md:flex p-1">
+        <div
+          onClick={() => router.push("/login")}
+          className="hidden md:flex p-1 cursor-pointer"
+        >
           <User className="text-gray500" />
         </div>
       </div>
