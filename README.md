@@ -2,6 +2,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"
+      integrity="sha512-n5zPz6LZB0QV1eraRj4OOxRbsV7a12eAGfFcrJ4bBFxxAwwYDp542z5M0w24tKPEhKk2QzjjIpR5hpOjJtGGoA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div>
@@ -52,6 +59,11 @@
             </td>
           </tr>
         </table>
+        <br />
+        <div style="display: flex; justify-content: center">
+          <h2 style="margin: auto 0">기술 스택</h2>
+          <table></table>
+        </div>
       </div>
     </div>
   </body>
