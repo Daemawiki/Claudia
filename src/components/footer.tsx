@@ -72,7 +72,10 @@ export const Footer = () => {
           </div>
           <div className="w-full justify-between flex">
             <p className="text-medium12 text-gray400">© 2024 - 대마위키</p>
-            <p className="text-medium12 text-gray400">with XquareInfra</p>
+            <p className="text-medium12 text-gray400">
+              문서 내부에 작성된 내용에 대한 저작권 및 모든 책임은 작성자에게
+              있습니다.
+            </p>
           </div>
         </div>
       </div>
