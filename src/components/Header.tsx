@@ -8,12 +8,8 @@ import { useRouter } from "next/navigation";
 export const Header = () => {
   const router = useRouter();
   const navList = [
-    {
-      text: "분류",
-      link: "/division",
-      array: ["학생", "선생님", "사건/사고", "동아리"],
-    },
-    { text: "게시판", link: "/", array: ["전공", "선생님", "어쩌고"] },
+    { text: "분류", link: "/division", array: ["동아리", "기수", "전공"] },
+    { text: "게시판", link: "/", array: ["학생", "선생님", "어쩌고"] },
     { text: "최근변경", link: "/recent", array: [""] },
     { text: "팀소개", link: "/", array: [""] },
   ];
@@ -40,7 +36,7 @@ export const Header = () => {
             className="flex items-center gap-2 flex-none
           "
           >
-            {navList.map(({ text, link, array }, index) => (
+            {navList.map(({ text, array, link }, index) => (
               <div
                 onClick={() => router.push(`${link}`)}
                 key={index}
