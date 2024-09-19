@@ -6,6 +6,8 @@ interface PropsType {
   editor: string;
   editDate: string;
   editHistory: { value: string; added?: true; removed?: true }[];
+  isOpen: boolean;
+  handleOpen: () => void;
 }
 
 interface HistoryProps {
@@ -18,29 +20,36 @@ const EditHistory = ({
   editor,
   editDate,
   editHistory,
+  isOpen,
+  handleOpen,
 }: PropsType) => {
   return (
     <div className="py-5 px-7 flex flex-col gap-3">
-      <div className="flex items-center text-medium18 text-black">
+      <div
+        className="flex items-center text-medium18 text-black"
+        onClick={handleOpen}
+      >
         <div className="flex-grow flex gap-3">
           <span className="text-semibold18 text-lime500">{index}</span>
           <span>{title}</span>
         </div>
         <div className="max-w-[240px] flex-grow">{editor}</div>
         <div className="flex-grow max-w-[240px]">{editDate}</div>
-        <Arrow direction="up" />
+        <Arrow direction={isOpen ? "up" : "down"} />
       </div>
-      <div className="flex-col flex px-3 gap-1 text-medium18 border-l-[1px] border-gray200">
-        {editHistory
-          .filter(history => history.added || history.removed)
-          .map(history =>
-            history.added ? (
-              <AddedHistory text={history.value} />
-            ) : (
-              <RemoveHistory text={history.value} />
-            ),
-          )}
-      </div>
+      {isOpen && (
+        <div className="flex-col flex px-3 gap-1 text-medium18 border-l-[1px] border-gray200">
+          {editHistory
+            .filter(history => history.added || history.removed)
+            .map(history =>
+              history.added ? (
+                <AddedHistory text={history.value} />
+              ) : (
+                <RemoveHistory text={history.value} />
+              ),
+            )}
+        </div>
+      )}
     </div>
   );
 };
