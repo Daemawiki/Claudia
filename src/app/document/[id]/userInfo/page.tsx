@@ -129,7 +129,7 @@ export default function UserInfo() {
           </div>
           <div className="flex flex-col gap-5">
             <span className="text-medium20">문서 수정 내역</span>
-            <div className="py-4 flex flex-col border-[1px] border-gray200">
+            <div className="py-4 flex flex-col border-[1px] border-gray200 rounded-xl">
               <div className="px-4">
                 <div className="bg-gray100 p-3 flex text-gray500 rounded-md h-10 items-center">
                   <div className="flex-grow">목차</div>
@@ -149,6 +149,7 @@ export default function UserInfo() {
                     editHistory={editHistory}
                     isOpen={openHistory === key}
                     handleOpen={() => handleOpen(key)}
+                    isFirst={key === 0}
                   />
                 ),
               )}

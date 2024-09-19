@@ -8,6 +8,7 @@ interface PropsType {
   editHistory: { value: string; added?: true; removed?: true }[];
   isOpen: boolean;
   handleOpen: () => void;
+  isFirst: boolean;
 }
 
 interface HistoryProps {
@@ -22,9 +23,14 @@ const EditHistory = ({
   editHistory,
   isOpen,
   handleOpen,
+  isFirst,
 }: PropsType) => {
+  const firstHistoryStyle = isFirst ? "border-t-[0px]" : "";
+
   return (
-    <div className="py-5 px-7 flex flex-col gap-3">
+    <div
+      className={`${firstHistoryStyle} py-5 px-7 flex flex-col gap-3 border-t-[1px] border-gray200`}
+    >
       <div
         className="flex items-center text-medium18 text-black"
         onClick={handleOpen}
