@@ -1,8 +1,73 @@
+"use client";
+
 import { Sidebar } from "@/components";
 import { Title } from "../Title";
 import { User, Calendar } from "@/app/assets";
 import EditHistory from "./EditHistory";
+import { useState } from "react";
+
+interface MockDataType {
+  index: string;
+  title: string;
+  editor: string;
+  editDate: string;
+  editHistory: { value: string; removed?: true; added?: true }[];
+}
+
 export default function UserInfo() {
+  const MockData: MockDataType[] = [
+    {
+      index: "5.1",
+      title: "햄스터라는 사실",
+      editor: "김어진",
+      editDate: "2024.04.16 12:30",
+      editHistory: [
+        {
+          value: "이건 사실이 아닙니다. 명백한 구라입니다",
+          removed: true,
+        },
+        {
+          value: "맞습니다. 그는 햄스터입니다",
+          added: true,
+        },
+      ],
+    },
+    {
+      index: "5.1",
+      title: "햄스터라는 사실",
+      editor: "김어진",
+      editDate: "2024.04.15 08:48",
+      editHistory: [
+        {
+          value: "이건 사실이 아닙니다. 명백한 구라입니다",
+          added: true,
+        },
+      ],
+    },
+    {
+      index: "5.1",
+      title: "햄스터라는 사실",
+      editor: "김어진",
+      editDate: "2024.04.15 08:20",
+      editHistory: [
+        {
+          value: "사실 이태영은 햄스터입니다.",
+          added: true,
+        },
+        {
+          value: "그는 귀여운 인간입니다.",
+          removed: true,
+        },
+      ],
+    },
+  ];
+
+  const [openHistory, setOpenHistory] = useState<number | null>(null);
+
+  const handleOpen = (number: number) => {
+    setOpenHistory(prev => (prev === number ? null : number));
+  };
+
   return (
     <div className="flex justify-center pt-16">
       <Sidebar fixed />
@@ -73,22 +138,20 @@ export default function UserInfo() {
                   <div className="w-6"></div>
                 </div>
               </div>
-              <EditHistory
-                index="5.1"
-                title="햄스터라는 사실"
-                editor="김어진"
-                editDate="2024.04.16 12:30"
-                editHistory={[
-                  {
-                    value: "이건 사실이 아닙니다. 명백한 구라입니다",
-                    removed: true,
-                  },
-                  {
-                    value: "맞습니다. 그는 햄스터입니다",
-                    added: true,
-                  },
-                ]}
-              />
+              {MockData.map(
+                ({ index, title, editor, editDate, editHistory }, key) => (
+                  <EditHistory
+                    key={key}
+                    index={index}
+                    title={title}
+                    editor={editor}
+                    editDate={editDate}
+                    editHistory={editHistory}
+                    isOpen={openHistory === key}
+                    handleOpen={() => handleOpen(key)}
+                  />
+                ),
+              )}
             </div>
           </div>
         </div>
