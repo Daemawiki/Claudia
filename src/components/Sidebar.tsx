@@ -10,7 +10,11 @@ interface ListProps {
   padding?: number;
 }
 
-export const Sidebar = () => {
+interface SidebarProps {
+  fixed?: boolean;
+}
+
+export const Sidebar = ({ fixed }: SidebarProps) => {
   const [browserHeight, setBrowserHeight] = useState<number>(
     window.innerHeight,
   );
@@ -57,19 +61,9 @@ export const Sidebar = () => {
     );
   };
 
-  return (
-    <>
-      {!visible && (
-        <div
-          style={{ height: `calc(${browserHeight}px - 100px)` }}
-          className="top-20 left-0 fixed z-10 w-[40px] peer"
-        />
-      )}
-
-      <div
-        style={{ height: `calc(${browserHeight}px - 100px)` }}
-        className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
-      >
+  const Content = () => {
+    return (
+      <>
         <div className="w-full flex p-4 items-center justify-between">
           <div className="flex items-center">
             <div className="rounded-md px-2 py-1 flex text-gray500 text-semibold16 hover:bg-gray50 cursor-pointer">
@@ -115,7 +109,33 @@ export const Sidebar = () => {
             </div>
           </div>
         </div>
+      </>
+    );
+  };
+
+  if (!fixed) {
+    return (
+      <>
+        {!visible && (
+          <div
+            style={{ height: `calc(${browserHeight}px - 100px)` }}
+            className="top-20 left-0 fixed z-10 w-[40px] peer"
+          />
+        )}
+
+        <div
+          style={{ height: `calc(${browserHeight}px - 100px)` }}
+          className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        >
+          <Content />
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <div className="border-r-[1px] border-gray200">
+        <Content />
       </div>
-    </>
-  );
+    );
+  }
 };
