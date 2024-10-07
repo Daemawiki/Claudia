@@ -1,8 +1,7 @@
-import Header from "@/components/header/header";
 import Title from "@/components/title/title";
 import SideBar from "@/components/sideBar/sideBar";
 import Input from "@/components/input/input";
-import Button from "@/components/button";
+import { Button, Header } from "@/components";
 import Link from "next/link";
 
 export default function Login() {
