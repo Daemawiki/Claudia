@@ -4,28 +4,46 @@ import { Arrow } from "../assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Email, EmailVerification, Name, Password } from "./Register";
+import { Controller, useForm } from "react-hook-form";
+import { SignupFormValues } from "@/interfaces/user";
 
 export default function Signup() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SignupFormValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+      userInfo: { generation: "", major: "" },
+      classInfos: [],
+    },
+  });
+
   const router = useRouter();
   const [pageNum, setPageNum] = useState<number>(0);
   const page = [
     {
-      page: <Email />,
+      page: <Email control={control} errors={errors} />,
       details: "이메일 인증을 위해 DSM 이메일을 입력해주세요",
       buttonText: "인증번호 전송",
     },
     {
-      page: <EmailVerification />,
+      page: <EmailVerification control={control} errors={errors} />,
       details: "hamster@dsm.hs.kr 로 인증번호를 전송했습니다",
       buttonText: "확인",
     },
     {
-      page: <Password />,
+      page: <Password control={control} errors={errors} />,
       details: "비밀번호를 설정해주세요",
       buttonText: "확인",
     },
     {
-      page: <Name />,
+      page: <Name control={control} errors={errors} />,
       details: "이름을 입력해주세요",
       buttonText: "확인",
     },
