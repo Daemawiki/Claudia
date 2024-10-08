@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar } from "../../Sidebar";
+import { Sidebar } from "@/components";
 import { Title } from "./Title";
 import { Profile } from "./Profile";
 import { Toggle } from "./Toggle";
