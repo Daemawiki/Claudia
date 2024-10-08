@@ -10,6 +10,7 @@ interface SignupFormProps {
   control: Control<SignupFormValues>;
   errors: FieldErrors<SignupFormValues>;
 }
+
 export const Email = ({ control, errors }: SignupFormProps) => {
   const router = useRouter();
   return (
@@ -39,7 +40,7 @@ export const Email = ({ control, errors }: SignupFormProps) => {
   );
 };
 
-export const EmailVerification = ({ control, errors }: SignupFormProps) => {
+export const EmailVerification = () => {
   const [verificationCode, setVerificationCode] = useState<string[]>(
     new Array(6).fill(""),
   );
@@ -104,6 +105,7 @@ export const Password = ({ control, errors }: SignupFormProps) => {
     <div className="flex flex-col gap-6 w-full">
       <Controller
         name="password"
+        control={control}
         rules={{
           required: "비밀번호를 입력해주세요.",
           minLength: {
@@ -150,6 +152,8 @@ export const Password = ({ control, errors }: SignupFormProps) => {
 };
 
 export const Name = ({ control, errors }: SignupFormProps) => {
+  if (!control) return null;
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <Controller
@@ -182,13 +186,10 @@ export const Name = ({ control, errors }: SignupFormProps) => {
         rules={{ required: "기수를 선택해주세요." }}
         render={({ field: { onChange, value } }) => (
           <RegisterInput
-            onChange={onChange}
-            value={value}
             dropdownValue={periodMenu}
             type="dropdown"
             placeholder="기수 선택"
             title="기수"
-            error={errors.userInfo?.generation?.message}
           />
         )}
       />
@@ -202,8 +203,6 @@ export const Name = ({ control, errors }: SignupFormProps) => {
             type="dropdown"
             placeholder="전공 선택"
             title="전공"
-            onChange={onChange}
-            value={value}
           />
         )}
       />
