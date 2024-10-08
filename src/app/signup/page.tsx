@@ -33,7 +33,7 @@ export default function Signup() {
       buttonText: "인증번호 전송",
     },
     {
-      page: <EmailVerification control={control} errors={errors} />,
+      page: <EmailVerification />,
       details: "hamster@dsm.hs.kr 로 인증번호를 전송했습니다",
       buttonText: "확인",
     },
@@ -45,7 +45,7 @@ export default function Signup() {
     {
       page: <Name control={control} errors={errors} />,
       details: "이름을 입력해주세요",
-      buttonText: "확인",
+      buttonText: "완료",
     },
   ];
 
@@ -56,11 +56,13 @@ export default function Signup() {
       router.back();
     }
   };
-  const nextStep = () => {
+  const nextStep = handleSubmit(async data => {
     if (pageNum < 3) {
       setPageNum(pageNum + 1);
+    } else {
+      // signupHandler(router, data)
     }
-  };
+  });
 
   return (
     <div className="w-full h-screen flex justify-center pt-24">
@@ -82,7 +84,7 @@ export default function Signup() {
         </div>
         <div className="w-full flex flex-col gap-6">
           <div className="w-full gap-2 flex justify-center items-center">
-            {page.map((item, index) => (
+            {page.map((_, index) => (
               <div
                 key={index}
                 className={`h-2 transition-all rounded-full ${pageNum === index ? "w-4 bg-lime400" : "w-2 bg-gray300"}`}
@@ -91,7 +93,7 @@ export default function Signup() {
           </div>
           <Button
             big
-            onClick={() => nextStep()}
+            onClick={nextStep}
             style="primary2"
             text={page[pageNum].buttonText}
           />
