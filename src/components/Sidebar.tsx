@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Arrow_Double, Edit, Info, Setting, Slash } from "./assets";
+import { Arrow_Double, Edit, Info, Setting, Slash } from "../app/assets";
 import { SearchInput } from "@/components/input/SearchInput";
 
 interface ListProps {
@@ -45,7 +45,7 @@ export const Sidebar = () => {
   const List = ({ icon, text, indexList, padding }: ListProps) => {
     return (
       <div
-        className={`w-full peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${indexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${padding == 2 ? "pl-5" : padding == 3 ? "pl-[30px]" : "pl-2.5"} bg-white ${indexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
+        className={`w-full cursor-pointer peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${indexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${padding == 2 ? "pl-5" : padding == 3 ? "pl-[30px]" : "pl-2.5"} bg-white ${indexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
       >
         {icon}
         <p
