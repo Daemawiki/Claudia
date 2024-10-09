@@ -11,7 +11,7 @@ export const Header = () => {
     { text: "분류", link: "/division", array: ["동아리", "기수", "전공"] },
     { text: "게시판", link: "/", array: ["학생", "선생님", "어쩌고"] },
     { text: "최근변경", link: "/recent", array: [""] },
-    { text: "팀소개", link: "/", array: [""] },
+    { text: "팀소개", link: "/team", array: [""] },
   ];
 
   return (
