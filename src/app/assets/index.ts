@@ -22,3 +22,4 @@ export * from "./Github";
 export * from "./Instagram";
 export * from "./Discord";
 export * from "./User";
+export * from "./Calendar";
