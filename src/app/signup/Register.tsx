@@ -85,7 +85,7 @@ export const EmailVerification = () => {
               value={code}
               onChange={e => handleChange(e, index)}
               onKeyDown={e => handleKeyDown(e, index)}
-              ref={el => (inputRef.current[index] = el)}
+              ref={e => (inputRef.current[index] = e)}
               maxLength={1}
               className="text-center text-black text-semibold24 bg-transparent w-full"
             />
@@ -113,7 +113,7 @@ export const Password = ({ control, errors }: SignupFormProps) => {
             message: "8글자 이상이여야합니다.",
           },
           pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]$/,
+            value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/,
             message: "영문, 숫자, 특수문자가 한글자 이상 포함되어야합니다.",
           },
         }}
