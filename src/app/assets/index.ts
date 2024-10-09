@@ -22,4 +22,8 @@ export * from "./Github";
 export * from "./Instagram";
 export * from "./Discord";
 export * from "./User";
+export * from "./Book";
+export * from "./Warn";
+export * from "./Notebook";
+export * from "./Arrow_Short";
 export * from "./Calendar";
