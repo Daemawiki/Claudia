@@ -6,6 +6,17 @@ import { useRouter } from "next/navigation";
 import { MemberCard } from "./MemberCard";
 
 export default function Team() {
+  const member = [
+    {
+      name: "김어진",
+      img: "https://public-content.pro.arooo.co.kr/community/post/666b919b3b848300126da30e_23d087ab-ec3b-4f74-9a63-b8a0ec737dfb.jpeg",
+      github: "https://github.com/kimeojin35",
+      major: "Frontend · Design",
+    },
+    { name: "김승원", img: "", github: "", major: "Backend" },
+    { name: "박지민", img: "", github: "", major: "Frontend" },
+    { name: "이태영", img: "", github: "", major: "Backend" },
+  ];
   const router = useRouter();
   return (
     <div className="w-full flex justify-center px-6">
@@ -33,10 +44,9 @@ export default function Team() {
             </p>
           </div>
           <div className="w-full flex flex-wrap gap-2">
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
+            {member.map(({ name, img }, index) => (
+              <MemberCard />
+            ))}
           </div>
         </div>
       </div>
