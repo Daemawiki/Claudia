@@ -3,6 +3,13 @@ export interface SignupFormValues {
   email: string;
   password: string;
   passwordCheck: string;
-  userInfo: { generation: string; major: string };
-  classInfos: string[];
+  userInfo: { generation: number; major: string };
+  classInfos: [
+    { year: number; grade: number; classNumber: number; number: number },
+  ];
+}
+
+export interface LoginValues {
+  email: string;
+  password: string;
 }
