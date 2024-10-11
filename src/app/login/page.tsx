@@ -5,7 +5,6 @@ import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { LoginValues } from "@/interfaces/user";
-import { loginHandler } from "@/apis/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -17,9 +16,7 @@ export default function Login() {
     defaultValues: { email: "", password: "" },
   });
 
-  const handleLogin = handleSubmit(async data => {
-    loginHandler(data);
-  });
+  const handleLogin = handleSubmit(async data => {});
 
   return (
     <div className="w-full h-screen flex justify-center pt-24">
