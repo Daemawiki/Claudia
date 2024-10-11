@@ -3,9 +3,24 @@ import React from "react";
 import { Arrow } from "../assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { LoginValues } from "@/interfaces/user";
+import { loginHandler } from "@/apis/auth";
 
 export default function Login() {
   const router = useRouter();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginValues>({
+    defaultValues: { email: "", password: "" },
+  });
+
+  const handleLogin = handleSubmit(async data => {
+    loginHandler(data);
+  });
+
   return (
     <div className="w-full h-screen flex justify-center pt-24">
       <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
@@ -23,15 +38,37 @@ export default function Login() {
             </p>
           </div>
           <div className="flex flex-col gap-6 w-full">
-            <RegisterInput
-              type="email"
-              placeholder="이메일 입력"
-              title="이메일"
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: "이메일을 입력해주세요.",
+              }}
+              render={({ field: { onChange, value } }) => (
+                <RegisterInput
+                  type="email"
+                  placeholder="이메일 입력"
+                  title="이메일"
+                  onChange={onChange}
+                  value={value}
+                  error={errors.email?.message}
+                />
+              )}
             />
-            <RegisterInput
-              placeholder="비밀번호 입력"
-              title="비밀번호"
-              type="password"
+            <Controller
+              name="password"
+              control={control}
+              rules={{ required: "비밀번호를 입력해주세요." }}
+              render={({ field: { onChange, value } }) => (
+                <RegisterInput
+                  placeholder="비밀번호 입력"
+                  title="비밀번호"
+                  type="password"
+                  onChange={onChange}
+                  value={value}
+                  error={errors.password?.message}
+                />
+              )}
             />
           </div>
         </div>
@@ -45,7 +82,7 @@ export default function Login() {
               회원가입
             </p>
           </div>
-          <Button big style="primary2" text="로그인" />
+          <Button onClick={handleLogin} big style="primary2" text="로그인" />
         </div>
       </div>
     </div>
