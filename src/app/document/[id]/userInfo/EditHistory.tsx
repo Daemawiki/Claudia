@@ -25,11 +25,11 @@ const EditHistory = ({
   handleOpen,
   isFirst,
 }: PropsType) => {
-  const firstHistoryStyle = isFirst ? "border-t-[0px]" : "";
+  const firstHistoryStyle = isFirst ? "border-t-[0px]" : "border-t-[1px]";
 
   return (
     <div
-      className={`${firstHistoryStyle} py-5 px-7 flex flex-col gap-3 border-t-[1px] border-gray200`}
+      className={`py-5 px-7 flex flex-col gap-3 ${firstHistoryStyle} border-gray200`}
     >
       <div
         className="flex items-center text-medium18 text-black"
