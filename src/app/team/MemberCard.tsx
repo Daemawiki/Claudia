@@ -21,7 +21,7 @@ export const MemberCard = ({ name, img, github, major }: CardProps) => {
         <p className="text-gray400 text-medium16">{major}</p>
       </div>
       <img
-        src={img}
+        src={img || ""}
         className="absolute w-full h-full grayscale group-hover:grayscale-0 transition-all"
       />
     </div>

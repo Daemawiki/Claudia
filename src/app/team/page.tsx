@@ -48,8 +48,8 @@ export default function Team() {
             </p>
           </div>
           <div className="w-full flex flex-wrap gap-2">
-            {member.map(({ name, img }, index) => (
-              <MemberCard />
+            {member.map(({ name, img, github, major }, index) => (
+              <MemberCard name={name} img={img} github={github} major={major} />
             ))}
           </div>
         </div>
