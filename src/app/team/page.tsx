@@ -58,10 +58,10 @@ export default function Team() {
   ];
   const router = useRouter();
   return (
-    <div className="w-full flex justify-center px-6">
+    <div className="w-full flex justify-center flex-col">
       <div className="w-full max-w-[1200px] flex flex-col pt-16">
         <div className="w-full px-12 py-24 gap-6 flex justify-between">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 bg-white">
             <p className="text-bold40">
               대마위키를 만든
               <br />
@@ -72,7 +72,10 @@ export default function Team() {
               위키 서비스, 대마위키를 기획하였습니다.
             </p>
           </div>
-          <TeamLogo size={240} className="animate-fadeIn" />
+          <div className="relative">
+            <TeamLogo size={240} className="animate-fadeIn" />
+            <div className="h-[500px] w-60 top-0 right-0 bg-gradient-to-t to-transparent from-white via-white absolute" />
+          </div>
         </div>
         <div className="w-full px-12 py-24 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
@@ -87,7 +90,13 @@ export default function Team() {
           </div>
           <div className="w-full flex flex-wrap gap-2">
             {member.map(({ name, img, github, major }, index) => (
-              <MemberCard name={name} img={img} github={github} major={major} />
+              <MemberCard
+                key={index}
+                name={name}
+                img={img}
+                github={github}
+                major={major}
+              />
             ))}
           </div>
         </div>
@@ -104,7 +113,12 @@ export default function Team() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6 w-full">
             {rules.map(({ title, detail }, index) => (
-              <ValuesCard index={index + 1} title={title} details={detail} />
+              <ValuesCard
+                key={index}
+                index={index + 1}
+                title={title}
+                details={detail}
+              />
             ))}
           </div>
           <button className="rounded-full bg-gray100 px-4 py-3 flex text-medium16 w-max">
@@ -149,17 +163,17 @@ export default function Team() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col items-center gap-9 py-24 px-12">
-          <p className="text-semibold18 text-gray400">밤이 되었습니다</p>
-          <p className="text-center font-semibold text-[32px] leading-9">
-            대마위키와 함께하실 분은
-            <br />
-            고개를 들어주세요.
-          </p>
-          <button className="bg-gray100 text-medium16 rounded-full px-4 py-3">
-            대마위키 살펴보기
-          </button>
-        </div>
+      </div>
+      <div className="flex flex-col items-center gap-9 py-24 px-12 bg-gray50">
+        <p className="text-semibold18 text-gray400">밤이 되었습니다</p>
+        <p className="text-center font-semibold text-[32px] leading-9">
+          대마위키와 함께하실 분은
+          <br />
+          고개를 들어주세요.
+        </p>
+        <button className="bg-gray900 text-medium16 text-white rounded-full px-4 py-3">
+          대마위키 살펴보기
+        </button>
       </div>
     </div>
   );
