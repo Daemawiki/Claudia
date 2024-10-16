@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Arrow_Double, Edit, Info, Setting, Slash } from "../app/assets";
 import { SearchInput } from "@/components/input/SearchInput";
 
@@ -15,19 +15,6 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ fixed }: SidebarProps) => {
-  const [browserHeight, setBrowserHeight] = useState<number>(
-    window.innerHeight,
-  );
-
-  const updateBrowserHeight = () => {
-    setBrowserHeight(window.innerHeight);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateBrowserHeight);
-    return () => window.removeEventListener("resize", updateBrowserHeight);
-  }, []);
-
   const [visible, setVisible] = useState<boolean>(true);
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
@@ -61,10 +48,20 @@ export const Sidebar = ({ fixed }: SidebarProps) => {
     );
   };
 
-  const Content = () => {
-    return (
-      <>
-        <div className="w-full flex p-4 items-center justify-between">
+  return (
+    <>
+      {!visible && (
+        <div
+          style={{ height: `calc(100vh - 100px)` }}
+          className="top-20 left-0 fixed z-10 w-[40px] peer"
+        />
+      )}
+
+      <div
+        style={{ height: `calc(100vh - 100px)` }}
+        className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+      >
+        <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
             <div className="rounded-md px-2 py-1 flex text-gray500 text-semibold16 hover:bg-gray50 cursor-pointer">
               학생
@@ -84,7 +81,7 @@ export const Sidebar = ({ fixed }: SidebarProps) => {
             />
           </div>
         </div>
-        <div className="w-full flex flex-col px-5 py-2 gap-8">
+        <div className="w-full flex flex-col px-5 py-2 gap-8 h-full overflow-y-scroll">
           <SearchInput placeholder="문서 내 검색" />
           <div className="w-full flex flex-col gap-2">
             <p className="text-semibold14 text-gray600">설정</p>
@@ -109,33 +106,7 @@ export const Sidebar = ({ fixed }: SidebarProps) => {
             </div>
           </div>
         </div>
-      </>
-    );
-  };
-
-  if (!fixed) {
-    return (
-      <>
-        {!visible && (
-          <div
-            style={{ height: `calc(${browserHeight}px - 100px)` }}
-            className="top-20 left-0 fixed z-10 w-[40px] peer"
-          />
-        )}
-
-        <div
-          style={{ height: `calc(${browserHeight}px - 100px)` }}
-          className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
-        >
-          <Content />
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <div className="border-r-[1px] border-gray200">
-        <Content />
       </div>
-    );
-  }
+    </>
+  );
 };
