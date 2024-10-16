@@ -43,23 +43,11 @@ const Buttons = ({ state, setState, setInfo, newInfo, info }: ButtonsProps) => {
     <div className="flex absolute right-[50px] bottom-[20px] gap-5">
       <Button
         text="취소"
-        color="black"
-        fontSize={20}
         onClick={() => {
           setState("");
         }}
-        width={80}
-        height={40}
-        rounded={16}
       />
-      <Button
-        text="저장"
-        fontSize={20}
-        onClick={onClickHandler}
-        width={80}
-        height={40}
-        rounded={16}
-      />
+      <Button text="저장" onClick={onClickHandler} />
     </div>
   );
 };
