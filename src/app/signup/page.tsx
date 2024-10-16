@@ -19,7 +19,7 @@ export default function Signup() {
       email: "",
       password: "",
       passwordCheck: "",
-      userInfo: { generation: "", major: "" },
+      userInfo: { generation: 0, major: "" },
       classInfos: [],
     },
   });
