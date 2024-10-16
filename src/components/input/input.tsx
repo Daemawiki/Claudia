@@ -2,7 +2,7 @@
 import { useInput } from "@/hooks/useInput";
 import Image from "next/image";
 import { useState } from "react";
-import Button from "../Button";
+import { Button } from "../Button";
 
 interface InputProps {
   title: string;
@@ -85,17 +85,7 @@ const Input = ({
             />
           </button>
         )}
-        {buttonText && (
-          <Button
-            text={buttonText}
-            fontSize={buttonFontSize}
-            width={buttonWidth}
-            height={buttonHeight}
-            rounded={buttonRounded}
-            style={buttonStyle}
-            onClick={onButtonClick}
-          />
-        )}
+        {buttonText && <Button text={buttonText} onClick={onButtonClick} />}
       </div>
     </div>
   );
