@@ -21,10 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={sans.className}>
         <StoreProvider>
-          <ReactQueryProvider>
-            <Header />
-            {children}
-          </ReactQueryProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </StoreProvider>
       </body>
     </html>
