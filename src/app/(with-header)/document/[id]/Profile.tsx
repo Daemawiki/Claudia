@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Frame24 from "../../../../public/images/Frame 24.png";
+import Frame24 from "../../../../../public/images/Frame 24.png";
 import { Github, Instagram } from "@/app/assets";
 import { InfoCard } from "./InfoCard";
 
