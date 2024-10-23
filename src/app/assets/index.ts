@@ -28,3 +28,8 @@ export * from "./Notebook";
 export * from "./Arrow_Short";
 export * from "./Calendar";
 export * from "./TeamLogo";
+export * from "./Add_Plus";
+export * from "./Help";
+export * from "./Heading_H1";
+export * from "./Heading_H2";
+export * from "./Heading_H3";
