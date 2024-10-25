@@ -7,7 +7,7 @@ import {
   Text_Link,
   Text_Strikethrough,
   Text_Underline,
-} from "@/app/assets";
+} from "@/assets";
 import React, { useState } from "react";
 
 const icons = [

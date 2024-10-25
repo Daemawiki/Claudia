@@ -1,4 +1,4 @@
-import { Discord, Github, Instagram, Logo } from "@/app/assets";
+import { Discord, Github, Instagram, Logo } from "@/assets";
 
 export const Footer = () => {
   const link = [

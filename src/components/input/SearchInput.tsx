@@ -1,4 +1,4 @@
-import { Search } from "@/app/assets";
+import { Search } from "@/assets";
 import React from "react";
 
 interface InputProps {

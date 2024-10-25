@@ -1,5 +1,5 @@
 "use client";
-import { Arrow, Hide, Show } from "@/app/assets";
+import { Arrow, Hide, Show } from "@/assets";
 import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 
 interface InputProps {
