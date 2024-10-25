@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Arrow_Double, Edit, Info, Setting, Slash } from "../app/assets";
+import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
 import { SearchInput } from "@/components/input/SearchInput";
 
 interface ListProps {
