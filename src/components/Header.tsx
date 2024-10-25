@@ -1,5 +1,5 @@
 "use client";
-import { Logo, Arrow, User } from "@/app/assets";
+import { Logo, Arrow, User } from "@/assets";
 import React from "react";
 import { SearchInput } from "./input/SearchInput";
 import { Button } from "./Button";
