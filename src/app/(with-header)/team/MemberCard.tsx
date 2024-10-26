@@ -1,5 +1,5 @@
 import React from "react";
-import { Github } from "../assets";
+import { Github } from "@/assets";
 
 interface CardProps {
   name?: string;
