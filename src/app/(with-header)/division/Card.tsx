@@ -1,4 +1,4 @@
-import { Arrow_Short, Book, Notebook, User, Warn } from "../assets";
+import { Arrow_Short, Book, Notebook, User, Warn } from "@/assets";
 
 interface CardProps {
   longWidth?: boolean;

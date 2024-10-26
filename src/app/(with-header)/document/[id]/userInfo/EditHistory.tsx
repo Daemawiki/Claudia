@@ -1,4 +1,4 @@
-import { Arrow } from "@/app/assets";
+import { Arrow } from "@/assets";
 
 interface PropsType {
   index: string;

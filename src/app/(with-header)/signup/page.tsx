@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Arrow } from '@/app/assets';
+import { Arrow } from "@/assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Email, EmailVerification, Name, Password } from "./Register";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Arrow } from "@/app/assets";
+import { Arrow } from "@/assets";
 import { Title } from "../document/[id]/Title";
 import { RegisterInput } from "@/components";
 import { periodMenu, majorMenu, clubMenu } from "@/constant/dropdownItem";

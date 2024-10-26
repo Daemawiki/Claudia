@@ -1,5 +1,5 @@
 "use client";
-import { Arrow } from "@/app/assets";
+import { Arrow } from "@/assets";
 import React, { useState } from "react";
 
 interface ContentsProps {

@@ -1,4 +1,4 @@
-import { Close, Document } from "@/app/assets";
+import { Close, Document } from "@/assets";
 import { Button } from "@/components";
 
 const Edit = () => {

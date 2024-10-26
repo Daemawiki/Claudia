@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Frame24 from "../../../../public/images/Frame 24.png";
-import { Github, Instagram } from "@/app/assets";
+// import Frame24 from "../../../../public/images/Frame 24.png";
+import { Github, Instagram } from "@/assets";
 import { InfoCard } from "./InfoCard";
 
 export const Profile = () => {
@@ -19,7 +19,7 @@ export const Profile = () => {
         <div className="flex items-center gap-12 flex-wrap">
           <Image
             alt=""
-            src={Frame24}
+            src=""
             className="rounded-full h-40 w-40 border border-gray200 bg-gray800 bg-cover"
           />
           <div className="flex flex-col gap-4">
