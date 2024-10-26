@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Arrow } from "@/app/assets";
+import { Arrow } from "@/assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Controller, useForm, useWatch } from "react-hook-form";

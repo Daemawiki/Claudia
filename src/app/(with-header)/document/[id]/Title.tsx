@@ -1,4 +1,4 @@
-import { Show } from "@/app/assets";
+import { Show } from "@/assets";
 import React from "react";
 
 interface TitleProps {

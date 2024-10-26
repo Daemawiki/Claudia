@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Arrow, TeamLogo } from "../assets";
+import { Arrow, TeamLogo } from "@/assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { MemberCard } from "./MemberCard";

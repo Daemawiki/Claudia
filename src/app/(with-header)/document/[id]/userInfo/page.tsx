@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components";
 import { Title } from "../Title";
-import { User, Calendar } from "@/app/assets";
+import { User, Calendar } from "@/assets";
 import EditHistory from "./EditHistory";
 import { useState } from "react";
 
