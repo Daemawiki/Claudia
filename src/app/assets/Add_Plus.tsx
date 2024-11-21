@@ -17,9 +17,9 @@ export const AddPlus = ({ size, onClick, className }: PropsType) => (
     <path
       d="M6.5 12H12.5M12.5 12H18.5M12.5 12V18M12.5 12V6"
       stroke="#9CA3AF"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
