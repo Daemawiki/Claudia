@@ -1,3 +1,4 @@
+"use client";
 import {
   AddPlus,
   Arrow,
@@ -8,6 +9,7 @@ import {
 } from "@/app/assets";
 import { Button } from "@/components";
 import Editor from "./editor";
+import { useState } from "react";
 
 interface IndexT {
   num: string;
@@ -15,7 +17,7 @@ interface IndexT {
 }
 
 const Edit = () => {
-  const indexListArr: IndexT[] = [
+  const [indexListArr, setIndexListArr] = useState<IndexT[]>([
     { num: "1", title: "개요" },
     { num: "2", title: "특징" },
     { num: "3", title: "논란" },
@@ -24,7 +26,7 @@ const Edit = () => {
     { num: "5.1", title: "햄스터라는 사실" },
     { num: "5.2", title: "404 논란" },
     { num: "5.2.1", title: "여러가지 논란이 된 이유" },
-  ];
+  ]);
 
   const IndexList = () => {
     return (
@@ -75,13 +77,6 @@ const Edit = () => {
           <Arrow direction="down" className="text-gray400" />
         </div>
         <IndexList />
-      </div>
-      <div className="flex px-4 py-6">
-        <button className="w-full flex bg-gray100 gap-2 px-2 py-3 justify-center rounded-lg">
-          <AddPlus size={24} />
-          <span className="text-medium18">목차 추가</span>
-          <AddPlus size={24} className="opacity-0" />
-        </button>
       </div>
     </div>
   );
