@@ -91,7 +91,7 @@ const Edit = () => {
       </div>
       <div className="flex flex-grow">
         <EditSideBar />
-        <Editor />
+        <Editor setIndex={(indexList) => setIndexListArr(indexList)} />
       </div>
     </div>
   );
