@@ -193,7 +193,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
     return sections.map(section => (
       <div key={section.id} className="mb-4">
         <div
-          className={`flex items-center cursor-pointer text-medium36 font-bold ${collapsedSections[section.id] ? "text-gray400" : "text-black"}`}
+          className={`flex items-center cursor-pointer text-medium36 ${collapsedSections[section.id] ? "text-gray400" : "text-black"}`}
           onClick={() => toggleSection(section.id)}
         >
           {collapsedSections[section.id] ? (
@@ -216,7 +216,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
           {section.subsections.map(subsection => (
             <div key={subsection.id}>
               <div
-                className={`flex items-center cursor-pointer text-medium36 font-bold mt-2 ${collapsedSections[subsection.id] ? "text-gray400" : "text-black"}`}
+                className={`flex items-center cursor-pointer text-medium36 mt-2 ${collapsedSections[subsection.id] ? "text-gray400" : "text-black"}`}
                 onClick={e => {
                   e.stopPropagation();
                   toggleSection(subsection.id);
@@ -244,7 +244,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
                 {subsection.subsubsections.map(subsubsection => (
                   <div key={subsubsection.id}>
                     <div
-                      className={`flex items-center cursor-pointer text-medium36 font-bold mt-2 ${collapsedSections[subsubsection.id] ? "text-gray400" : "text-black"}`}
+                      className={`flex items-center cursor-pointer text-medium36 mt-2 ${collapsedSections[subsubsection.id] ? "text-gray400" : "text-black"}`}
                       onClick={e => {
                         e.stopPropagation();
                         toggleSection(subsubsection.id);

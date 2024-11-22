@@ -17,16 +17,7 @@ interface IndexT {
 }
 
 const Edit = () => {
-  const [indexListArr, setIndexListArr] = useState<IndexT[]>([
-    { num: "1", title: "개요" },
-    { num: "2", title: "특징" },
-    { num: "3", title: "논란" },
-    { num: "4", title: "성격" },
-    { num: "5", title: "여담" },
-    { num: "5.1", title: "햄스터라는 사실" },
-    { num: "5.2", title: "404 논란" },
-    { num: "5.2.1", title: "여러가지 논란이 된 이유" },
-  ]);
+  const [indexListArr, setIndexListArr] = useState<IndexT[]>([]);
 
   const IndexList = () => {
     return (
@@ -91,7 +82,7 @@ const Edit = () => {
       </div>
       <div className="flex flex-grow">
         <EditSideBar />
-        <Editor setIndex={(indexList) => setIndexListArr(indexList)} />
+        <Editor setIndex={indexList => setIndexListArr(indexList)} />
       </div>
     </div>
   );
