@@ -141,15 +141,13 @@ const Editor = ({ setIndex }: PropsType) => {
     const selectionStart = textarea?.selectionStart as number;
     const selectionEnd = textarea?.selectionEnd as number;
 
-    if (selectionStart !== selectionEnd) {
-      const button = buttonList.find(button => button.name === type);
-      const selectionText = rawText.substring(selectionStart, selectionEnd);
-      const newText =
-        rawText.substring(0, selectionStart) +
-        button?.format(selectionText) +
-        rawText.substring(selectionEnd);
-      setRawText(newText);
-    }
+    const button = buttonList.find(button => button.name === type);
+    const selectionText = rawText.substring(selectionStart, selectionEnd);
+    const newText =
+      rawText.substring(0, selectionStart) +
+      button?.format(selectionText) +
+      rawText.substring(selectionEnd);
+    setRawText(newText);
   };
 
   return (
