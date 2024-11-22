@@ -11,12 +11,13 @@ import {
   Text_Strikethrough,
   Text_Underline,
 } from "@/app/assets";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect, useRef } from "react";
 import TextFormatter from "@/components/TextFormatter";
 
 interface Button {
   name: string;
   svg: JSX.Element;
+  format: (text: string) => string;
 }
 
 interface PropsType {
@@ -76,6 +77,7 @@ const extractIndex = (input: string): Array<Index> => {
 
 const Editor = ({ setIndex }: PropsType) => {
   const [rawText, setRawText] = useState("");
+  const editorRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const newIndex = extractIndex(rawText);
@@ -86,38 +88,47 @@ const Editor = ({ setIndex }: PropsType) => {
     {
       name: "h1",
       svg: <Heading1 size={28} />,
+      format: text => `# ${text}`,
     },
     {
       name: "h2",
       svg: <Heading2 size={28} />,
+      format: text => `## ${text}`,
     },
     {
       name: "h3",
       svg: <Heading3 size={28} />,
+      format: text => `### ${text}`,
     },
     {
       name: "bold",
       svg: <Text_Bold size={28} className="text-gray500" />,
+      format: text => `**${text}**`,
     },
     {
       name: "italic",
       svg: <Text_Italic size={28} className="text-lime500" />,
+      format: text => `~~${text}~~`,
     },
     {
       name: "strikethrough",
       svg: <Text_Strikethrough size={28} className="text-gray500" />,
+      format: text => `--${text}--`,
     },
     {
       name: "underLine",
       svg: <Text_Underline size={28} className="text-gray500" />,
+      format: text => `__${text}__`,
     },
     {
       name: "href",
       svg: <Text_Link size={28} className="text-gray500" />,
+      format: text => `[${text}](https://google.com)`,
     },
     {
       name: "common",
       svg: <Text size={28} className="text-gray500" />,
+      format: text => `${text}`,
     },
   ];
 
@@ -125,12 +136,32 @@ const Editor = ({ setIndex }: PropsType) => {
     setRawText(e.target.value);
   };
 
+  const handleButtonClick = (type: (typeof buttonList)[number]["name"]) => {
+    const textarea = editorRef.current;
+    const selectionStart = textarea?.selectionStart as number;
+    const selectionEnd = textarea?.selectionEnd as number;
+
+    if (selectionStart !== selectionEnd) {
+      const button = buttonList.find(button => button.name === type);
+      const selectionText = rawText.substring(selectionStart, selectionEnd);
+      const newText =
+        rawText.substring(0, selectionStart) +
+        button?.format(selectionText) +
+        rawText.substring(selectionEnd);
+      setRawText(newText);
+    }
+  };
+
   return (
     <div className="flex flex-col flex-grow h-full relative">
       <div className="flex px-12 py-3 justify-between">
         <div className="flex gap-2">
           {buttonList.map(button => (
-            <div className="flex p-[6px] cursor-pointer" key={button.name}>
+            <div
+              className="flex p-[6px] cursor-pointer"
+              key={button.name}
+              onClick={() => handleButtonClick(button.name)}
+            >
               {button.svg}
             </div>
           ))}
@@ -144,6 +175,7 @@ const Editor = ({ setIndex }: PropsType) => {
           className="resize-none overflow-y-scroll h-full flex-grow w-1/2"
           value={rawText}
           onChange={handleOnChange}
+          ref={editorRef}
         ></textarea>
         <div className="flex-grow sm:hidden w-1/2 flex flex-col">
           <TextFormatter text={rawText} />
