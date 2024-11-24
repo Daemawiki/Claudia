@@ -1,6 +1,8 @@
+import { BASE_URL } from './env';
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: 'https://daemawiki-server.xquare.app/',
   timeout: 10000,
+  withCredentials: true, 
 });
