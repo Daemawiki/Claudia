@@ -4,8 +4,9 @@ import { Arrow } from "../assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Email, EmailVerification, Name, Password } from "./Register";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces/user";
+import { mailSend, mailVerify } from "@/apis/mail";
 
 export default function Signup() {
   const {
@@ -17,6 +18,7 @@ export default function Signup() {
     defaultValues: {
       name: "",
       email: "",
+      verificationCode: "",
       password: "",
       passwordCheck: "",
       userInfo: { generation: "", major: "" },
@@ -30,10 +32,10 @@ export default function Signup() {
     {
       page: <Email control={control} errors={errors} />,
       details: "이메일 인증을 위해 DSM 이메일을 입력해주세요",
-      buttonText: "인증번호 전송",
+      buttonText: "인증 코드 전송",
     },
     {
-      page: <EmailVerification />,
+      page: <EmailVerification control={control} errors={errors} />,
       details: "hamster@dsm.hs.kr 로 인증번호를 전송했습니다",
       buttonText: "확인",
     },
@@ -56,11 +58,35 @@ export default function Signup() {
       router.back();
     }
   };
+  const verificationCode = useWatch({ control, name: "verificationCode" });
+
   const nextStep = handleSubmit(async data => {
-    if (pageNum < 3) {
+    if (pageNum === 0) {
+      try {
+        const response = await mailSend(data.email);
+        console.log("인증 코드 전송 완료:", response);
+        setPageNum(pageNum + 1);
+      } catch (error) {
+        console.error("인증 코드 전송 실패:", error);
+        alert("인증 코드 전송 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
+    }
+    if (pageNum === 1) {
+      try {
+        const verification = verificationCode;
+        const response = await mailVerify({
+          email: data.email,
+          code: verification,
+        });
+        console.log("인증 성공:", response);
+        setPageNum(pageNum + 1);
+      } catch (error) {
+        console.error("인증 실패:", error);
+        alert("인증 코드가 올바르지 않습니다.");
+      }
+    }
+    if (1 < pageNum && pageNum < 3) {
       setPageNum(pageNum + 1);
-    } else {
-      // signupHandler(router, data)
     }
   });
 

@@ -26,6 +26,7 @@ export const RegisterInput = ({
 
   // 드롭다운에서 선택한 값을 업데이트하는 함수
   const handleDropdownChange = (item: string) => {
+    console.log(item)
     if (onChange) {
       onChange(item); // 선택된 값을 직접 전달
     }
@@ -51,11 +52,12 @@ export const RegisterInput = ({
 
   const inputType = {
     email: (
-      <div className="flex px-3">
-        <div className="flex rounded-lg border border-gray100 bg-gray50 px-2.5 py-1.5 text-gray600 text-medium18">
-          @dsm.hs.kr
-        </div>
-      </div>
+      // <div className="flex px-3">
+      //   <div className="flex rounded-lg border border-gray100 bg-gray50 px-2.5 py-1.5 text-gray600 text-medium18">
+      //     @dsm.hs.kr
+      //   </div>
+      // </div>
+      <></>
     ),
     password: (
       <div
