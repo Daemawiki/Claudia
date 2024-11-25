@@ -5,9 +5,6 @@ export interface SignupFormValues {
   password: string;
   passwordCheck: string;
   userInfo: { generation: string; major: string };
-<<<<<<< Updated upstream
-  classInfos: string[];
-=======
   classInfos: ISignupClassInfos[];
 }
 
