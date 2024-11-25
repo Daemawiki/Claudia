@@ -18,5 +18,4 @@ export interface ISignupClassInfos {
 export interface LoginValues {
   email: string;
   password: string;
->>>>>>> Stashed changes
 }
