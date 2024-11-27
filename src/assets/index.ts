@@ -28,3 +28,4 @@ export * from "./Notebook";
 export * from "./Arrow_Short";
 export * from "./Calendar";
 export * from "./TeamLogo";
+export * from "./Check";
