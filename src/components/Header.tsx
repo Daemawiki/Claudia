@@ -2,7 +2,7 @@
 import { Logo, Arrow, User } from "@/assets";
 import React from "react";
 import { SearchInput } from "./input/SearchInput";
-import { Button } from "./Button";
+import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 
 export const Header = () => {
@@ -19,7 +19,10 @@ export const Header = () => {
       <div className="py-3 w-full max-w-[1600px] justify-between items-center flex">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-4">
-            <div onClick={() => router.push("/")} className="flex cursor-pointer items-center gap-3">
+            <div
+              onClick={() => router.push("/")}
+              className="flex cursor-pointer items-center gap-3"
+            >
               <Logo size={36} className="text-lime500" />
               <p className="text-black text-semibold20 whitespace-nowrap">
                 대마위키

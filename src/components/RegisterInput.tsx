@@ -1,6 +1,6 @@
 "use client";
 import { Arrow, Hide, Show } from "@/assets";
-import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface InputProps {
   title?: string;
@@ -11,6 +11,7 @@ interface InputProps {
   dropdownValue?: string[];
   onChange?: (e: string) => void;
 }
+
 export const RegisterInput = ({
   title,
   placeholder,
@@ -20,8 +21,8 @@ export const RegisterInput = ({
   onChange,
   dropdownValue,
 }: InputProps) => {
-  const [showPassword, setShowPassword] = useState<boolean>(true);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false); // 비밀번호 보이기
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false); // 드롭다운 열기
   const inputRef = useRef<HTMLDivElement>(null);
 
   // 드롭다운에서 선택한 값을 업데이트하는 함수
@@ -52,9 +53,9 @@ export const RegisterInput = ({
   const inputType = {
     email: (
       <div className="flex px-3">
-        <div className="flex rounded-lg border border-gray100 bg-gray50 px-2.5 py-1.5 text-gray600 text-medium18">
+        {/* <div className="flex rounded-lg border border-gray100 bg-gray50 px-2.5 py-1.5 text-gray600 text-medium18">
           @dsm.hs.kr
-        </div>
+        </div> */}
       </div>
     ),
     password: (
@@ -93,7 +94,7 @@ export const RegisterInput = ({
           ) : (
             <input
               value={value}
-              onChange={e => onChange?.(e.target.value)} // 일반 input에서의 onChange
+              onChange={e => onChange?.(e.target.value)}
               type={showPassword && type === "password" ? "password" : "text"}
               placeholder={placeholder}
               className="w-full p-3 placeholder:text-gray300 text-medium20"
