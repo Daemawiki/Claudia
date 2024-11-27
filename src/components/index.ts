@@ -1,5 +1,5 @@
-export * from "./Button";
-export * from "./Footer";
+export * from "./button";
+export * from "./footer";
 export * from "./Header";
 export * from "./RegisterInput";
 export * from "./Sidebar";
