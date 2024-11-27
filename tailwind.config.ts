@@ -212,10 +212,17 @@ module.exports = {
         "0%": { opacity: "0", transform: "translateY(100px)" },
         "100%": { opacity: "1", transform: "translateY(0px)" },
       },
+      comeOut: {
+        "0%": { opacity: "0", transform: "translateX(200px)" },
+        "20%": { opacity: "1", transform: "translateX(0px)" },
+        "70%": { opacity: "1", transform: "translateX(0px)" },
+        "100%": { opacity: "0", transform: "translateX(200px)" },
+      },
     },
     animation: {
       bouncing: "bouncing 0.5s ease-in-out",
       fadeIn: "fadeIn 1s linear",
+      comeOut: "comeOut 3.5s ease-in-out",
     },
   },
   plugins: [],
