@@ -12,15 +12,9 @@ export const mailSend = async (email: string) => {
     });
 };
 
-export const mailVerify = async ({
-  email,
-  code,
-}: {
-  email: string;
-  code: string;
-}) => {
+export const mailVerify = async (email: string, code: string) => {
   return await instance
-    .post(`/api/mail/verify?target=${email}&code=${code}`, { email, code })
+    .post(`api/mail/verify?target=${email}&code=${code}`)
     .then(res => res.data)
     .catch(err => {
       throw new Error(err.response?.data?.message || "인증 실패");
