@@ -1,5 +1,5 @@
 "use client";
-
+import { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
@@ -21,24 +21,23 @@ export default function RootLayout({
       <body className={sans.className}>
         <StoreProvider>
           <ReactQueryProvider>
-            <div>
-              {/* Toast UI */}
-              <div className="fixed top-4 right-4 space-y-4">
-                {toasts.map(toast => (
-                  <Toast
-                    key={toast.id}
-                    type={toast.type}
-                    message={toast.message}
-                    onClose={() => removeToast(toast.id)}
-                  />
-                ))}
-              </div>
-
-              {/* Context로 addToast 공유 */}
-              <ToastContext.Provider value={{ addToast }}>
+            {/* Context로 addToast 공유 */}
+            <ToastContext.Provider value={{ addToast }}>
+              <div>
+                {/* Toast 리스트 */}
+                <div className="fixed top-20 right-4 space-y-4">
+                  {toasts.map(toast => (
+                    <Toast
+                      key={toast.id}
+                      type={toast.type}
+                      message={toast.message}
+                      onClose={() => removeToast(toast.id)}
+                    />
+                  ))}
+                </div>
                 {children}
-              </ToastContext.Provider>
-            </div>
+              </div>
+            </ToastContext.Provider>
           </ReactQueryProvider>
         </StoreProvider>
       </body>
