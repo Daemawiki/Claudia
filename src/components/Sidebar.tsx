@@ -81,7 +81,7 @@ export const Sidebar = ({ fixed }: SidebarProps) => {
             />
           </div>
         </div>
-        <div className="w-full flex flex-col px-5 py-2 gap-8 h-full overflow-y-scroll">
+        <div className="w-full flex flex-col pl-5 pr-1 py-2 gap-8 h-full overflow-y-scroll">
           <SearchInput placeholder="문서 내 검색" />
           <div className="w-full flex flex-col gap-2">
             <p className="text-semibold14 text-gray600">설정</p>
