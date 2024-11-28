@@ -1,22 +1,46 @@
 "use client";
 import React from "react";
 import { Arrow } from "@/assets";
-import { Button, RegisterInput } from "@/components";
+import { Button, RegisterInput, useToast } from "@/components";
 import { useRouter } from "next/navigation";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { LoginValues } from "@/interfaces/user";
+import { loginHandler } from "@/apis";
 
 export default function Login() {
   const router = useRouter();
+  const { addToast } = useToast();
+
   const {
     control,
-    handleSubmit,
+    handleSubmit, // 로그인핸들러
     formState: { errors },
   } = useForm<LoginValues>({
-    defaultValues: { email: "", password: "" },
-  });
+    defaultValues: { email: "", password: "" }, // 이메일, 비밀번호 기본 값
+  }); // 로그인 폼 유효성 검사
 
-  const handleLogin = handleSubmit(async data => {});
+  const handleLogin = handleSubmit(async data => {
+    try {
+      const response = await loginHandler(data);
+      if (response === 200) {
+        // 로그인 성공
+        addToast("로그인 성공!", "success");
+        router.push("/"); // 로그인 후 리다이렉션
+      } else if (response === 401) {
+        // 인증 실패
+        addToast("이메일 또는 비밀번호가 올바르지 않습니다.", "error");
+      } else {
+        // 기타 오류
+        addToast(
+          "로그인 중 문제가 발생했습니다. 다시 시도해주세요.",
+          "warning",
+        );
+      }
+    } catch (error) {
+      // 네트워크 오류 등 예외 처리
+      addToast("네트워크 오류가 발생했습니다.", "error");
+    }
+  });
 
   return (
     <div className="w-full h-screen flex justify-center pt-24">
@@ -35,6 +59,7 @@ export default function Login() {
             </p>
           </div>
           <div className="flex flex-col gap-6 w-full">
+            {/* 이메일 입력창 검사 */}
             <Controller
               name="email"
               control={control}
@@ -52,6 +77,7 @@ export default function Login() {
                 />
               )}
             />
+            {/* 비밀번호 입력창 검사 */}
             <Controller
               name="password"
               control={control}
@@ -73,13 +99,14 @@ export default function Login() {
           <div className="flex gap-1.5">
             <p className="text-medium16 text-gray600">계정이 없으신가요?</p>
             <p
-              onClick={() => router.push("signup")}
+              onClick={() => router.push("signup")} // 회원가입으로 이동
               className="text-semibold16 text-lime500 hover:text-lime600 cursor-pointer"
             >
               회원가입
             </p>
           </div>
-          <Button onClick={handleLogin} big style="primary2" text="로그인" />
+          <Button onClick={handleLogin} big style="primary2" text="로그인" />{" "}
+          {/* 로그인 핸들러 실행 */}
         </div>
       </div>
     </div>
