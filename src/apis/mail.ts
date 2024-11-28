@@ -4,7 +4,6 @@ export const mailSend = async (email: string) => {
   return await instance
     .post(`api/mail/send?target=${email}&type=REGISTER`)
     .then(res => {
-      console.log(email);
       return res.data;
     })
     .catch(err => {
