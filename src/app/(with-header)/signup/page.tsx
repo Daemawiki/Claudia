@@ -1,13 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Arrow } from "@/assets";
 import { Button, RegisterInput } from "@/components";
 import { useRouter } from "next/navigation";
 import { Email, EmailVerification, Name, Password } from "./Register";
-import { Controller, useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces/user";
+import { mailSend, mailVerify } from "@/apis/mail";
+import { useToast } from "@/components";
+import { registerHandler } from "@/apis";
 
 export default function Signup() {
+  const { addToast } = useToast();
   const {
     control,
     handleSubmit,
@@ -17,12 +21,21 @@ export default function Signup() {
     defaultValues: {
       name: "",
       email: "",
+      verificationCode: "",
       password: "",
       passwordCheck: "",
       userInfo: { generation: 0, major: "" },
-      classInfos: [],
+      classInfos: [
+        {
+          year: 0,
+          grade: 0,
+          classNumber: 0,
+          number: 0,
+        },
+      ],
     },
   });
+  const email = useWatch({ control, name: "email" });
 
   const router = useRouter();
   const [pageNum, setPageNum] = useState<number>(0);
@@ -30,11 +43,11 @@ export default function Signup() {
     {
       page: <Email control={control} errors={errors} />,
       details: "이메일 인증을 위해 DSM 이메일을 입력해주세요",
-      buttonText: "인증번호 전송",
+      buttonText: "인증 코드 전송",
     },
     {
-      page: <EmailVerification />,
-      details: "hamster@dsm.hs.kr 로 인증번호를 전송했습니다",
+      page: <EmailVerification control={control} errors={errors} />,
+      details: `${email} 로 인증 코드를 전송했습니다`,
       buttonText: "확인",
     },
     {
@@ -44,7 +57,7 @@ export default function Signup() {
     },
     {
       page: <Name control={control} errors={errors} />,
-      details: "이름을 입력해주세요",
+      details: "이름을 입력하고 기수와 전공을 선택해주세요",
       buttonText: "완료",
     },
   ];
@@ -56,13 +69,68 @@ export default function Signup() {
       router.back();
     }
   };
+
   const nextStep = handleSubmit(async data => {
-    if (pageNum < 3) {
+    console.log(data);
+    if (pageNum === 0) {
+      try {
+        const response = await mailSend(data.email);
+        addToast("인증 코드 전송 완료", "success");
+        setPageNum(pageNum + 1);
+      } catch (error) {
+        addToast(
+          "인증 코드 전송 중 문제가 발생했습니다. 다시 시도해주세요.",
+          "error",
+        );
+      }
+    }
+    if (pageNum === 1) {
+      try {
+        const response = await mailVerify(data.email, data.verificationCode);
+        setPageNum(pageNum + 1);
+      } catch (error) {
+        addToast("인증 코드가 올바르지 않습니다.", "warning");
+      }
+    }
+    if (1 < pageNum && pageNum < 3) {
       setPageNum(pageNum + 1);
-    } else {
-      // signupHandler(router, data)
+    }
+    if (pageNum === 3) {
+      try {
+        const response = await registerHandler(data);
+        switch (response.status) {
+          case 200: {
+            // 회원가입 성공
+            addToast("회원가입 성공!", "success");
+            router.push("/");
+            break;
+          }
+          default: {
+            // 그 외
+            addToast(
+              "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.",
+              "warning",
+            );
+            break;
+          }
+        }
+      } catch (error) {
+        addToast("네트워크 오류가 발생했습니다.", "error");
+      }
     }
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        nextStep();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [nextStep]);
 
   return (
     <div className="w-full h-screen flex justify-center pt-24">

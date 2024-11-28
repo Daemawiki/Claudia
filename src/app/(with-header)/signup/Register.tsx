@@ -21,12 +21,13 @@ export const Email = ({ control, errors }: SignupFormProps) => {
         rules={{
           required: "이메일을 입력해주세요.",
           pattern: {
-            value: /^[^@]+$|^[^@]+@dsm\.hs\.kr$/,
+            value: /^[A-Za-z0-9+_.-]+@dsm\.hs\.kr$/,
             message: "이메일 형식이 올바르지 않습니다.",
           },
         }}
         render={({ field: { onChange, value } }) => (
           <RegisterInput
+            autoFocus
             type="email"
             placeholder="이메일 입력"
             title="이메일"
@@ -215,12 +216,14 @@ export const Name = ({ control, errors }: SignupFormProps) => {
         rules={{ required: "기수를 선택해주세요." }}
         render={({ field: { onChange, value } }) => (
           <RegisterInput
-            dropdownValue={periodMenu}
+            dropdownValue={[...periodMenu].reverse().map(i => i + "기")}
             type="dropdown"
             placeholder="기수 선택"
             title="기수"
             value={value}
-            onChange={onChange}
+            onChange={selectedValue =>
+              onChange(parseInt(selectedValue.slice(0, -1)))
+            }
           />
         )}
       />
