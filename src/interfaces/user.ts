@@ -4,8 +4,8 @@ export interface SignupFormValues {
   verificationCode: string;
   password: string;
   passwordCheck: string;
-  userInfo: { generation: string; major: string };
-  classInfos: ISignupClassInfos[];
+  userInfo: { generation: number; major: string };
+  classInfos?: ISignupClassInfos[];
 }
 
 export interface ISignupClassInfos {
