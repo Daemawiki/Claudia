@@ -40,9 +40,10 @@ export const Toast = ({
   onClose,
   duration = 3000,
 }: ToastProps) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
+    setVisible(true);
     const timer = setTimeout(() => {
       setVisible(false); // 사라지는 애니메이션 시작
       setTimeout(onClose, 300); // 애니메이션 끝난 후 컴포넌트 제거
@@ -57,7 +58,7 @@ export const Toast = ({
 
   return (
     <div
-      className={`animate-comeOut bg-white opacity-0 flex items-center justify-between ${bgColor} ${textColor} p-4 rounded-md shadow-lg`}
+      className={`bg-white max-w-[430px] animate-comeOut opacity-0 flex items-center justify-between ${bgColor} ${textColor} p-4 rounded-md shadow-lg`}
     >
       <div className="flex items-center">
         <span className="mr-2 text-lg">{icon}</span>

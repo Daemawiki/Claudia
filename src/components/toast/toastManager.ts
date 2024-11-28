@@ -4,9 +4,9 @@ import React, { useState } from "react";
 type MessageType = "success" | "error" | "info" | "warning";
 
 interface ToastProps {
-  id?: string;
-  message?: string;
-  type?: MessageType;
+  id: string;
+  message: string;
+  type: MessageType;
 }
 
 export const useToastManager = () => {
