@@ -1,15 +1,4 @@
-export const periodMenu = [
-  "1기",
-  "2기",
-  "3기",
-  "4기",
-  "5기",
-  "6기",
-  "7기",
-  "8기",
-  "9기",
-  "10기",
-];
+export const periodMenu = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const majorMenu = [
   "프론트엔드",
@@ -21,7 +10,7 @@ export const majorMenu = [
   "AI",
   "게임",
   "보안",
-  "devops",
+  "데브옵스",
   "디자인",
   "미정",
 ];
