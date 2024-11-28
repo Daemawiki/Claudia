@@ -6,10 +6,11 @@ interface InputProps {
   title?: string;
   placeholder?: string;
   error?: string;
-  value?: string;
+  value?: string | number;
   type?: "email" | "password" | "text" | "dropdown";
-  dropdownValue?: string[];
-  onChange?: (e: string) => void;
+  dropdownValue?: string[] | number[];
+  onChange?: (...e: any[]) => void;
+  autoFocus?: boolean;
 }
 
 export const RegisterInput = ({
@@ -20,13 +21,14 @@ export const RegisterInput = ({
   value,
   onChange,
   dropdownValue,
+  autoFocus,
 }: InputProps) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false); // 비밀번호 보이기
+  const [hidePassword, setHidePassword] = useState<boolean>(true); // 비밀번호 숨기기
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false); // 드롭다운 열기
   const inputRef = useRef<HTMLDivElement>(null);
 
   // 드롭다운에서 선택한 값을 업데이트하는 함수
-  const handleDropdownChange = (item: string) => {
+  const handleDropdownChange = (item: string | number) => {
     if (onChange) {
       onChange(item); // 선택된 값을 직접 전달
     }
@@ -60,10 +62,10 @@ export const RegisterInput = ({
     ),
     password: (
       <div
-        onClick={() => setShowPassword(!showPassword)}
+        onClick={() => setHidePassword(!hidePassword)}
         className="flex p-3 cursor-pointer text-gray500"
       >
-        {showPassword ? <Hide /> : <Show />}
+        {hidePassword ? <Hide /> : <Show />}
       </div>
     ),
     text: <></>,
@@ -93,9 +95,10 @@ export const RegisterInput = ({
             </div>
           ) : (
             <input
+              autoFocus={autoFocus}
               value={value}
               onChange={e => onChange?.(e.target.value)}
-              type={showPassword && type === "password" ? "password" : "text"}
+              type={hidePassword && type === "password" ? "password" : "text"}
               placeholder={placeholder}
               className="w-full p-3 placeholder:text-gray300 text-medium20"
             />
