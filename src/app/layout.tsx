@@ -25,7 +25,7 @@ export default function RootLayout({
             <ToastContext.Provider value={{ addToast }}>
               <div>
                 {/* Toast 리스트 */}
-                <div className="fixed top-20 right-4 space-y-4">
+                <div className="fixed z-50 top-20 right-4 space-y-4">
                   {toasts.map(toast => (
                     <Toast
                       key={toast.id}
