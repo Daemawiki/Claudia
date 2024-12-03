@@ -123,7 +123,7 @@ const Editor = ({ setIndex }: PropsType) => {
     {
       name: "href",
       svg: <Text_Link size={28} className="text-gray500" />,
-      format: text => `[${text}](https://google.com)`,
+      format: text => `[${text}](https://example.com)`,
     },
     {
       name: "common",
