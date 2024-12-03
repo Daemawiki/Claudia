@@ -25,7 +25,7 @@ export default function Login() {
       if (response === 200) {
         // 로그인 성공
         addToast("로그인 성공!", "success");
-        router.push("/"); // 로그인 후 리다이렉션
+        router.push("/"); // 로그인 후 메인 이동
       } else if (response === 401) {
         // 인증 실패
         addToast("이메일 또는 비밀번호가 올바르지 않습니다.", "error");
@@ -43,7 +43,7 @@ export default function Login() {
   });
 
   return (
-    <div className="w-full h-screen flex justify-center pt-24">
+    <div className="w-full h-screen flex justify-center pt-6">
       <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
         <div
           onClick={() => router.back()}
