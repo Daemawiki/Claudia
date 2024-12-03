@@ -1,12 +1,5 @@
 "use client";
-import {
-  AddPlus,
-  Arrow,
-  Arrow_Double,
-  Close,
-  Document,
-  Slash,
-} from "@/app/assets";
+import { Arrow_Double, Close, Document, Slash } from "@/app/assets";
 import { Button } from "@/components";
 import Editor from "./editor";
 import { useState } from "react";
@@ -18,6 +11,7 @@ interface IndexT {
 
 const Edit = () => {
   const [indexListArr, setIndexListArr] = useState<IndexT[]>([]);
+  const [visible, setVisible] = useState(true);
 
   const IndexList = () => {
     return (
@@ -48,29 +42,42 @@ const Edit = () => {
     );
   };
 
-  const EditSideBar = () => (
-    <div className="flex flex-col w-full max-w-[280px]">
-      <div className="flex justify-between border-b border-b-gray200 p-3">
-        <div className="flex items-center">
-          <span className="text-gray500 px-2 text-semibold16">학생</span>
-          <Slash className="text-gray300" />
-          <span className="bg-lime50 text-lime500 text-semibold16 px-2 py-[2px]">
-            이태영
-          </span>
+  const EditSideBar = () => {
+    if (visible)
+      return (
+        <div className="flex flex-col w-full max-w-[280px]">
+          <div className="flex justify-between border-b border-b-gray200 p-3">
+            <div className="flex items-center">
+              <span className="text-gray500 px-2 text-semibold16">학생</span>
+              <Slash className="text-gray300" />
+              <span className="bg-lime50 text-lime500 text-semibold16 px-2 py-[2px]">
+                이태영
+              </span>
+            </div>
+            <button
+              className="border rounded-md border-gray100 p-1 text-gray400"
+              onClick={() => setVisible(!visible)}
+            >
+              <Arrow_Double />
+            </button>
+          </div>
+          <div className="flex flex-col gap-5 px-2 py-4">
+            <div className="flex justify-between px-2 w-full">
+              <span className="text-semibold16 text-gray600">목차</span>
+            </div>
+            <IndexList />
+          </div>
         </div>
-        <div className="border rounded-md border-gray100 p-1 text-gray400">
-          <Arrow_Double />
-        </div>
-      </div>
-      <div className="flex flex-col gap-5 px-2 py-4">
-        <div className="flex justify-between px-2 w-full">
-          <span className="text-semibold16 text-gray600">목차</span>
-          <Arrow direction="down" className="text-gray400" />
-        </div>
-        <IndexList />
-      </div>
-    </div>
-  );
+      );
+    return (
+      <button
+        className="border rounded-md border-gray100 p-1 text-gray400"
+        onClick={() => setVisible(!visible)}
+      >
+        <Arrow_Double direction="right" />
+      </button>
+    );
+  };
 
   return (
     <div className="flex flex-col w-full h-[100vh]">
