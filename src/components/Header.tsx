@@ -20,7 +20,7 @@ export const Header = () => {
   const access_token = getCookie("access_token");
 
   return (
-    <div className="fixed w-full z-40 top-0 bg-white border-b border-gray200 flex flex-col">
+    <div className="w-full z-40 top-0 bg-white border-b border-gray200 flex flex-col">
       <div className="flex justify-center w-full px-6 bg-white border-b border-gray200">
         <div className="py-3 w-full max-w-[1600px] justify-between items-center flex">
           <div className="flex items-center gap-6">
