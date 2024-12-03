@@ -167,7 +167,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
           }
         } else if (line.trim() !== "") {
           const content = (
-            <div key={`text-${index}`} className="mx-5 mt-3">
+            <div key={`text-${index}`} className="mx-5 mt-3 mb-12">
               {processFormatting(line)}
             </div>
           );
@@ -191,7 +191,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
     const sections = parseDocument(input.split("\n"));
 
     return sections.map(section => (
-      <div key={section.id} className="mb-4">
+      <div key={section.id} className="mb-12">
         <div
           className={`flex items-center cursor-pointer text-medium36 ${collapsedSections[section.id] ? "text-gray400" : "text-black"}`}
           onClick={() => toggleSection(section.id)}
@@ -208,15 +208,15 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
             {processFormatting(section.textPart)}
           </span>
         </div>
-        <hr />
+        <hr className="border border-[#e7e7e7]" />
         <div
-          className={`${collapsedSections[section.id] ? "hidden" : "block"}`}
+          className={`${collapsedSections[section.id] ? "hidden" : "block"} mb-12`}
         >
           {section.content}
           {section.subsections.map(subsection => (
             <div key={subsection.id}>
               <div
-                className={`flex items-center cursor-pointer text-medium36 mt-2 ${collapsedSections[subsection.id] ? "text-gray400" : "text-black"}`}
+                className={`flex items-center cursor-pointer text-medium28 mt-2 ${collapsedSections[subsection.id] ? "text-gray400" : "text-black"}`}
                 onClick={e => {
                   e.stopPropagation();
                   toggleSection(subsection.id);
@@ -236,7 +236,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
                   {processFormatting(subsection.textPart)}
                 </span>
               </div>
-              <hr />
+              <hr className="border border-[#e7e7e7]" />
               <div
                 className={`${collapsedSections[subsection.id] ? "hidden" : "block"}`}
               >
@@ -244,7 +244,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
                 {subsection.subsubsections.map(subsubsection => (
                   <div key={subsubsection.id}>
                     <div
-                      className={`flex items-center cursor-pointer text-medium36 mt-2 ${collapsedSections[subsubsection.id] ? "text-gray400" : "text-black"}`}
+                      className={`flex items-center cursor-pointer text-medium20 mt-2 ${collapsedSections[subsubsection.id] ? "text-gray400" : "text-black"}`}
                       onClick={e => {
                         e.stopPropagation();
                         toggleSection(subsubsection.id);
@@ -264,7 +264,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
                         {processFormatting(subsubsection.textPart)}
                       </span>
                     </div>
-                    <hr />
+                    <hr className="border border-[#e7e7e7]" />
                     <div
                       className={`${collapsedSections[subsubsection.id] ? "hidden" : "block"}`}
                     >
@@ -280,7 +280,7 @@ const TextFormatter: React.FC<TextFormatterProps> = ({ text }) => {
     ));
   };
 
-  return <div className="space-y-1">{formatText(text)}</div>;
+  return <div>{formatText(text)}</div>;
 };
 
 export default TextFormatter;
