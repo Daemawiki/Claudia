@@ -25,14 +25,7 @@ export default function Signup() {
       password: "",
       passwordCheck: "",
       userInfo: { generation: 0, major: "" },
-      classInfos: [
-        {
-          year: 0,
-          grade: 0,
-          classNumber: 0,
-          number: 0,
-        },
-      ],
+      classInfos: [],
     },
   });
   const email = useWatch({ control, name: "email" });
@@ -133,7 +126,7 @@ export default function Signup() {
   }, [nextStep]);
 
   return (
-    <div className="w-full h-screen flex justify-center pt-24">
+    <div className="w-full h-screen flex justify-center pt-6">
       <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
         <div
           onClick={() => prevStep()}
