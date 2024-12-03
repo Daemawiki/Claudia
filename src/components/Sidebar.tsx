@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
-import { SearchInput } from "@/components/input/SearchInput";
+import { SearchInput } from "@/components";
 
 interface ListProps {
   icon: React.ReactNode;
@@ -12,25 +12,22 @@ interface ListProps {
 
 interface SidebarProps {
   fixed?: boolean;
+  setOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  titleList: titleListProps[];
 }
 
-export const Sidebar = ({ fixed }: SidebarProps) => {
+interface titleListProps {
+  num: string;
+  title: string;
+}
+
+export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
+  setOpenSidebar(visible);
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
     { icon: <Info size={22} />, text: "문서 정보" },
     { icon: <Setting size={22} />, text: "설정" },
-  ];
-
-  const indexListArr = [
-    { num: "1", title: "개요" },
-    { num: "2", title: "특징" },
-    { num: "3", title: "논란" },
-    { num: "4", title: "성격" },
-    { num: "5", title: "여담" },
-    { num: "5.1", title: "햄스터라는 사실" },
-    { num: "5.2", title: "404 논란" },
-    { num: "5.2.1", title: "여러가지 논란이 된 이유" },
   ];
 
   const List = ({ icon, text, indexList, padding }: ListProps) => {
@@ -94,7 +91,7 @@ export const Sidebar = ({ fixed }: SidebarProps) => {
           <div className="w-full flex flex-col gap-2">
             <p className="text-semibold14 text-gray600">목차</p>
             <div className="flex w-full gap-1 flex-col">
-              {indexListArr.map(({ num, title }, index) => (
+              {titleList.map(({ num, title }, index) => (
                 <List
                   padding={num.split(".").length}
                   indexList
