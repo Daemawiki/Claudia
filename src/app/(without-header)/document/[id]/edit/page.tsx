@@ -3,15 +3,18 @@ import { Arrow_Double, Close, Document, Slash } from "@/app/assets";
 import { Button } from "@/components";
 import Editor from "./editor";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface IndexT {
   num: string;
   title: string;
 }
 
-const Edit = () => {
+const Edit = ({ params }: { params: { id: string } }) => {
   const [indexListArr, setIndexListArr] = useState<IndexT[]>([]);
   const [visible, setVisible] = useState(true);
+
+  const router = useRouter();
 
   const IndexList = () => {
     return (
@@ -82,7 +85,10 @@ const Edit = () => {
   return (
     <div className="flex flex-col w-full h-[100vh]">
       <div className="flex justify-between px-6 py-3 items-center border-b border-b-gray200">
-        <Close className="text-gray600 w-6" />
+        <Close
+          className="text-gray600 w-6"
+          onClick={() => router.push(`/document/${params.id}`)}
+        />
         <Button style="primary2" text="저장">
           <Document />
         </Button>
