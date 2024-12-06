@@ -11,7 +11,8 @@ export const loginHandler = async (data: LoginValues) => {
       password: data.password,
     })
     .then(res => {
-      setCookie("accessToken", res.data.accessToken);
+      setCookie("access_token", res.data.access_token);
+      console.log(res);
       return res.status;
     })
     .catch(err => {
