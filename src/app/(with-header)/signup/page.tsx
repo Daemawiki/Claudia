@@ -91,21 +91,16 @@ export default function Signup() {
     if (pageNum === 3) {
       try {
         const response = await registerHandler(data);
-        switch (response.status) {
-          case 200: {
-            // 회원가입 성공
-            addToast("회원가입 성공!", "success");
-            router.push("/");
-            break;
-          }
-          default: {
-            // 그 외
-            addToast(
-              "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.",
-              "warning",
-            );
-            break;
-          }
+        if (response == 200) {
+          // 회원가입 성공
+          addToast("회원가입 성공!", "success");
+          router.push("/");
+        } else {
+          // 그 외
+          addToast(
+            "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.",
+            "warning",
+          );
         }
       } catch (error) {
         addToast("네트워크 오류가 발생했습니다.", "error");

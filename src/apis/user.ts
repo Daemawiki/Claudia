@@ -30,7 +30,7 @@ export const registerHandler = async (data: SignupFormValues) => {
       userInfo: data.userInfo,
       classInfos: data.classInfos,
     })
-    .then(res => res.data)
+    .then(res => res.status)
     .catch(err => {
       console.error(err);
     });
