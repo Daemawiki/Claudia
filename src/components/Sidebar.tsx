@@ -13,8 +13,8 @@ interface ListProps {
 
 interface SidebarProps {
   fixed?: boolean;
-  setOpenSidebar: Dispatch<SetStateAction<boolean>>;
-  titleList: titleListProps[];
+  setOpenSidebar?: Dispatch<SetStateAction<boolean>>;
+  titleList?: titleListProps[];
 }
 
 interface titleListProps {
@@ -24,8 +24,11 @@ interface titleListProps {
 
 export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
+  const tocList = titleList ?? [];
+  const isFixed = fixed ?? false;
 
   useEffect(() => {
+    if (!setOpenSidebar) return;
     setOpenSidebar(visible);
   }, [setOpenSidebar, visible]);
   const listArr = [
@@ -52,7 +55,7 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
 
   return (
     <>
-      {!visible && (
+      {!visible && !isFixed && (
         <button
           type="button"
           onClick={() => setVisible(true)}
@@ -68,7 +71,7 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
 
       <div
         style={{ height: `calc(100vh - 100px)` }}
-        className={`border z-20 fixed top-20 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        className={`border z-20 fixed top-20 ${isFixed || visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
       >
         <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
@@ -80,15 +83,17 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
               이태영
             </div>
           </div>
-          <div
-            onClick={() => setVisible(!visible)}
-            className={`flex p-1 cursor-pointer transition-all absolute right-4 top-3.5`}
-          >
-            <Arrow_Double
-              className="text-gray400 transition-all"
-              direction={visible ? "left" : "right"}
-            />
-          </div>
+          {!isFixed && (
+            <div
+              onClick={() => setVisible(!visible)}
+              className={`flex p-1 cursor-pointer transition-all absolute right-4 top-3.5`}
+            >
+              <Arrow_Double
+                className="text-gray400 transition-all"
+                direction={visible ? "left" : "right"}
+              />
+            </div>
+          )}
         </div>
         <div className="w-full flex flex-col pl-5 pr-1 py-2 gap-8 h-full overflow-y-scroll">
           <SearchInput placeholder="문서 내 검색" />
@@ -100,26 +105,31 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
               ))}
             </div>
           </div>
-          <div className="w-full flex flex-col gap-2">
-            <p className="text-semibold14 text-gray600">목차</p>
-            <div className="flex w-full gap-1 flex-col">
-              {titleList.map(({ num, title }, index) => (
-                <List
-                  padding={num.split(".").length}
-                  indexList
-                  key={index}
-                  icon={<p className="text-semibold18 text-lime500">{num}</p>}
-                  text={title}
-                  onClick={() => {
-                    const targetId = `section-${num.replace(/\./g, "-")}`;
-                    document
-                      .getElementById(targetId)
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                />
-              ))}
+          {tocList.length > 0 && (
+            <div className="w-full flex flex-col gap-2">
+              <p className="text-semibold14 text-gray600">목차</p>
+              <div className="flex w-full gap-1 flex-col">
+                {tocList.map(({ num, title }, index) => (
+                  <List
+                    padding={num.split(".").length}
+                    indexList
+                    key={index}
+                    icon={<p className="text-semibold18 text-lime500">{num}</p>}
+                    text={title}
+                    onClick={() => {
+                      const targetId = `section-${num.replace(/\./g, "-")}`;
+                      document
+                        .getElementById(targetId)
+                        ?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
