@@ -71,7 +71,7 @@ export default function UserInfo() {
   return (
     <div className="flex justify-center pt-16">
       <Sidebar fixed />
-      <div className="flex flex-col max-w-[1200px] flex-grow">
+      <div className="flex flex-grow max-w-screen-xl flex-col">
         <Title />
         <div className="flex flex-col py-6 px-12 gap-20">
           <div className="flex gap-20">
@@ -157,7 +157,7 @@ export default function UserInfo() {
           </div>
         </div>
       </div>
-      <section className="max-w-[1200px]"></section>
+      <section className="max-w-screen-xl"></section>
     </div>
   );
 }
