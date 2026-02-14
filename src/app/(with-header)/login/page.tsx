@@ -2,6 +2,15 @@
 import React from "react";
 import { Arrow } from "@/assets";
 import { Button, RegisterInput, useToast } from "@/components";
+import {
+  authBackButtonClass,
+  authBottomBlockClass,
+  authDescriptionClass,
+  authFormLayoutClass,
+  authFormPanelClass,
+  authInfoBlockClass,
+  authTitleBlockClass,
+} from "@/constant/formStyle";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { LoginValues } from "@/interfaces/user";
@@ -43,18 +52,15 @@ export default function Login() {
   });
 
   return (
-    <div className="w-full h-screen flex justify-center pt-6">
-      <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
-        <div
-          onClick={() => router.back()}
-          className="rounded-md w-fit border border-gray200 p-2 flex bg-white hover:bg-gray50"
-        >
+    <div className={authFormLayoutClass}>
+      <div className={authFormPanelClass}>
+        <div onClick={() => router.back()} className={authBackButtonClass}>
           <Arrow size={28} className="text-gray600" />
         </div>
-        <div className="w-full flex flex-col gap-6">
-          <div className="w-full flex flex-col gap-3">
+        <div className={authInfoBlockClass}>
+          <div className={authTitleBlockClass}>
             <p className="text-bold36 text-black">로그인</p>
-            <p className="text-gray500 text-medium18">
+            <p className={authDescriptionClass}>
               대마고에서 일어나는 모든 일을 이곳에서
             </p>
           </div>
@@ -95,7 +101,7 @@ export default function Login() {
             />
           </div>
         </div>
-        <div className="w-full flex flex-col gap-6">
+        <div className={authBottomBlockClass}>
           <div className="flex gap-1.5">
             <p className="text-medium16 text-gray600">계정이 없으신가요?</p>
             <p
