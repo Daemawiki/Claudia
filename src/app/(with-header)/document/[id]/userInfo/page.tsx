@@ -1,10 +1,10 @@
 "use client";
 
-import { Sidebar } from "@/components";
-import { Title } from "../Title";
-import { User, Calendar } from "@/assets";
-import EditHistory from "./EditHistory";
 import { useState } from "react";
+import { Sidebar } from "@/components";
+import { Calendar, User } from "@/assets";
+import Title from "../Title";
+import EditHistory from "./EditHistory";
 
 interface MockDataType {
   index: string;
@@ -15,7 +15,7 @@ interface MockDataType {
 }
 
 export default function UserInfo() {
-  const MockData: MockDataType[] = [
+  const mockData: MockDataType[] = [
     {
       index: "5.1",
       title: "햄스터라는 사실",
@@ -102,7 +102,7 @@ export default function UserInfo() {
                 <div className="flex gap-5 items-center">
                   <div className="w-[100px] text-medium18">분류</div>
                   <div className="flex px-3 py-[6px] gap-[10px] rounded-full bg-lime100 items-center">
-                    <div className="w-[10px] h-[10px] rounded-full bg-lime400"></div>
+                    <div className="w-[10px] h-[10px] rounded-full bg-lime400" />
                     <span className="whitespace-nowrap">학생</span>
                   </div>
                 </div>
@@ -135,21 +135,24 @@ export default function UserInfo() {
                   <div className="flex-grow">목차</div>
                   <div className="flex-grow max-w-[240px]">이름</div>
                   <div className="flex-grow max-w-[240px]">날짜</div>
-                  <div className="w-6"></div>
+                  <div className="w-6" />
                 </div>
               </div>
-              {MockData.map(
-                ({ index, title, editor, editDate, editHistory }, key) => (
+              {mockData.map(
+                (
+                  { index, title, editor, editDate, editHistory },
+                  listIndex,
+                ) => (
                   <EditHistory
-                    key={key}
+                    key={`${index}-${editDate}`}
                     index={index}
                     title={title}
                     editor={editor}
                     editDate={editDate}
                     editHistory={editHistory}
-                    isOpen={openHistory === key}
-                    handleOpen={() => handleOpen(key)}
-                    isFirst={key === 0}
+                    isOpen={openHistory === listIndex}
+                    handleOpen={() => handleOpen(listIndex)}
+                    isFirst={listIndex === 0}
                   />
                 ),
               )}
@@ -157,7 +160,7 @@ export default function UserInfo() {
           </div>
         </div>
       </div>
-      <section className="max-w-screen-xl"></section>
+      <section className="max-w-screen-xl" />
     </div>
   );
 }

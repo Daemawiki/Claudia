@@ -9,12 +9,16 @@ interface TitleProps {
   noShow?: boolean;
 }
 
-export const Title = ({
-  title = "이태영",
-  views = 210,
+function Title({
+  group,
+  details,
+  title,
+  views,
   noPadding,
   noShow,
-}: TitleProps) => {
+}: TitleProps) {
+  const hasHiddenMetadata = Boolean(group || details);
+
   return (
     <div
       className={`w-full flex justify-between items-center ${noPadding ? "py-8" : "py-12 px-12"} border-b border-gray200`}
@@ -47,6 +51,20 @@ export const Title = ({
           <span>조회수: {views}</span>
         </div>
       )}
+      {hasHiddenMetadata && null}
     </div>
   );
+}
+
+Title.defaultProps = {
+  group: "",
+  details: "",
+  title: "이태영",
+  views: 210,
+  noPadding: false,
+  noShow: false,
 };
+
+export { Title };
+
+export default Title;

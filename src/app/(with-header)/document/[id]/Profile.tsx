@@ -1,8 +1,7 @@
 import React from "react";
-import Image from "next/image";
-import { InfoCard } from "./InfoCard";
+import InfoCardComponent from "./InfoCard";
 
-export const Profile = () => {
+function Profile() {
   const infoArr = [
     { title: "학년", text: "3학년" },
     { title: "전공", text: "백엔드" },
@@ -26,17 +25,22 @@ export const Profile = () => {
             <p className="text-lime500 text-semibold14">2113 이태영</p>
           </div>
           <p className="text-gray600 text-medium18">
-            김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.
+            김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한
+            명입니다.
           </p>
         </div>
       </div>
 
       {/* Metadata Grid */}
       <div className="grid grid-cols-6 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {infoArr.map(({ title, text }, index) => (
-          <InfoCard title={title} text={text} key={index} />
+        {infoArr.map(({ title, text }) => (
+          <InfoCardComponent title={title} text={text} key={title} />
         ))}
       </div>
     </div>
   );
-};
+}
+
+export { Profile };
+
+export default Profile;
