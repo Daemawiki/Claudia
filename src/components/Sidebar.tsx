@@ -53,15 +53,22 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   return (
     <>
       {!visible && (
-        <div
-          style={{ height: `calc(100vh - 100px)` }}
-          className="top-20 left-0 fixed z-10 w-[40px] peer"
-        />
+        <button
+          type="button"
+          onClick={() => setVisible(true)}
+          aria-label="사이드바 열기"
+          className="fixed left-0 top-24 z-30 flex h-10 w-10 items-center justify-center rounded-r-xl border border-l-0 border-gray300 bg-white text-gray400 shadow-sm transition hover:bg-gray50"
+        >
+          <Arrow_Double
+            className="text-gray400 transition-all"
+            direction="right"
+          />
+        </button>
       )}
 
       <div
         style={{ height: `calc(100vh - 100px)` }}
-        className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        className={`border z-20 fixed top-20 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
       >
         <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
