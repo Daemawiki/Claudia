@@ -4,7 +4,7 @@ interface PropsType {
   onClick?: () => void;
 }
 
-export const Close = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Close({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,4 +24,11 @@ export const Close = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+Close.defaultProps = {
+  size: 24,
+  className: "",
+  onClick: undefined,
 };
+
+export default Close;
