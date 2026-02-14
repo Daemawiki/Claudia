@@ -8,7 +8,8 @@ import {
   Text_Strikethrough,
   Text_Underline,
 } from "@/assets";
-import React, { useState } from "react";
+import { Button } from "@/components";
+import React from "react";
 
 const icons = [
   [<Text size={28} />, "Text"],
@@ -24,13 +25,16 @@ function EditModal() {
   return (
     <div className="w-full absolute h-full bg-black bg-opacity-20 flex pt-[120px] px-8 justify-center z-50">
       <div className="flex w-[1000px] h-[560px] rounded-2xl flex-col bg-white">
-        <div className="flex w-full items-center px-6 py-3 justify-between border-b border-gray-200">
+        <div className="flex w-full items-center justify-between border-b border-gray200 px-6 py-3">
           <div className="flex items-center w-full">
-            <Close className="hover:cursor-pointer text-gray-600" />
+            <Close className="text-gray600 hover:cursor-pointer" />
           </div>
           <div className="flex justify-center items-center gap-2">
-            {icons.map(([i, j]) => (
-              <div className="flex p-1 justify-center items-center text-gray-500 hover:text-lime-500 hover:cursor-pointer relative group">
+            {icons.map(([i, j], index) => (
+              <div
+                key={`toolbar-${index}-${j ?? "empty"}`}
+                className="group relative flex items-center justify-center p-1 text-gray500 hover:cursor-pointer hover:text-lime500"
+              >
                 {i}
                 <div className="absolute rounded-[4px] bg-black bg-opacity-60 px-2 py-1 top-10 text-sm font-semibold text-white whitespace-nowrap opacity-0 group-hover:opacity-100">
                   {j}
@@ -39,24 +43,27 @@ function EditModal() {
             ))}
           </div>
           <div className="flex w-full items-center justify-end">
-            <button className="rounded-md gap-2 px-4 py-1.5 flex bg-lime-500 h-fit items-center hover:bg-lime-600">
-              <p className="text-white text-md font-semibold">저장</p>
+            <Button
+              text="저장"
+              style="primary2"
+              className="h-fit gap-2 px-4 py-1.5"
+            >
               <Document size={20} className="text-white"></Document>
-            </button>
+            </Button>
           </div>
         </div>
         <div className="flex w-full flex-col gap-6 px-12 pt-6 pb-12">
           <div className="flex gap-4 items-center">
-            <p className="font-bold text-[32px] text-lime-500">1</p>
+            <p className="font-bold text-[32px] text-lime500">1</p>
             <input
-              className="font-medium text-[32px] placeholder:text-gray-300 w-full"
+              className="w-full text-[32px] font-medium placeholder:text-gray300"
               placeholder="제목"
             ></input>
           </div>
-          <div className="w-full bg-gray-100 h-[1px]" />
+          <div className="h-px w-full bg-gray100" />
           <div className="w-full min-h-[340px] flex">
             <textarea
-              className="placeholder:text-gray-300 text-lg h-full w-full flex break-words resize-none"
+              className="flex h-full w-full resize-none break-words text-lg placeholder:text-gray300"
               placeholder="내용을 입력해주세요."
             ></textarea>
           </div>

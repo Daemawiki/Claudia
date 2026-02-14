@@ -1,7 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, RegisterInput } from "@/components";
-import { useRouter } from "next/navigation";
+import {
+  formFieldErrorClass,
+  otpCellClass,
+  otpInputClass,
+} from "@/constant/formStyle";
 import { periodMenu, majorMenu } from "@/constant/dropdownItem";
 import { Controller, FieldErrors, Control, useWatch } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces/user";
@@ -102,23 +106,20 @@ export const EmailVerification = ({ control, errors }: SignupFormProps) => {
         <div className="w-full flex flex-col gap-3">
           <div className="w-full flex gap-2 justify-center">
             {verificationCode.map((code, index) => (
-              <div
-                key={index}
-                className="w-16 h-16 focus-within:bg-white bg-gray50 rounded-lg flex justify-center items-center border border-gray300"
-              >
+              <div key={index} className={otpCellClass}>
                 <input
                   value={code}
                   onChange={e => handleChange(e, index, onChange)}
                   onKeyDown={e => handleKeyDown(e, index)}
                   ref={e => inputRefEvent(e, index)}
                   maxLength={1}
-                  className="text-center text-black text-semibold24 bg-transparent w-full"
+                  className={otpInputClass}
                 />
               </div>
             ))}
           </div>
           <div className="w-full flex justify-between">
-            <p className="text-medium14 text-red500 ml-2">
+            <p className={`${formFieldErrorClass} ml-2`}>
               {errors.verificationCode?.message}
             </p>
             <Button onClick={reSendMail} style="primary2" text="재전송" />

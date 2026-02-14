@@ -19,6 +19,25 @@
     // 'React' must be in scope when using JSX 에러 해결 (Next.js)
     "react/react-in-jsx-scope": "off",
     // ts파일에서 tsx구문 허용 (Next.js)
-    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@/components/table/*"],
+            "message": "Use modern route-level patterns instead of legacy table components."
+          },
+          {
+            "group": ["@/components/title/*"],
+            "message": "Use route-scoped Title or modern wiki-style header patterns."
+          },
+          {
+            "group": ["@/components/lesson/*"],
+            "message": "Use modern document section patterns instead of legacy lesson component."
+          }
+        ]
+      }
+    ]
   }
 }

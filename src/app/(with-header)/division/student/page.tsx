@@ -15,7 +15,7 @@ function StudentPage() {
   });
   return (
     <div className="w-full flex justify-center">
-      <div className="flex flex-col w-full max-w-[1200px]">
+      <div className="flex w-full max-w-screen-xl flex-col">
         <div className="flex w-full flex-col gap-3 pb-12 pt-28">
           <div className="rounded-md p-2 w-fit border border-gray200 bg-white hover:bg-gray50">
             <Arrow className="text-gray600" />
