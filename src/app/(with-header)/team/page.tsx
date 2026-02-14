@@ -60,7 +60,7 @@ export default function Team() {
   return (
     <div className="w-full flex justify-center flex-col">
       <div className="flex w-full max-w-screen-xl flex-col pt-16">
-        <div className="w-full px-12 py-24 gap-6 flex justify-between">
+        <div className="w-full px-6 lg:px-12 py-16 lg:py-24 gap-6 flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-6 bg-white">
             <p className="text-bold40">
               대마위키를 만든
@@ -72,7 +72,7 @@ export default function Team() {
               위키 서비스, 대마위키를 기획하였습니다.
             </p>
           </div>
-          <div className="relative">
+          <div className="self-center lg:self-auto relative">
             <TeamLogo size={240} className="animate-fadeIn" />
             <div className="h-[500px] w-60 top-0 right-0 bg-gradient-to-t to-transparent from-white via-white absolute" />
           </div>
