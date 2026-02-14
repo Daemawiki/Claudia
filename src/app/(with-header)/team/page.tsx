@@ -59,7 +59,7 @@ export default function Team() {
   const router = useRouter();
   return (
     <div className="w-full flex justify-center flex-col">
-      <div className="w-full max-w-[1200px] flex flex-col pt-16">
+      <div className="flex w-full max-w-screen-xl flex-col pt-16">
         <div className="w-full px-12 py-24 gap-6 flex justify-between">
           <div className="flex flex-col gap-6 bg-white">
             <p className="text-bold40">

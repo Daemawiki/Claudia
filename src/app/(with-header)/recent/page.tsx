@@ -12,7 +12,7 @@ function Recent() {
   });
   return (
     <div className="w-full flex justify-center pb-12">
-      <div className="w-full pt-16 px-12 max-w-[1200px] flex flex-col gap-14">
+      <div className="flex w-full max-w-screen-xl flex-col gap-14 px-12 pt-16">
         <Title
           noPadding
           noShow
