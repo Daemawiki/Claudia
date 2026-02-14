@@ -12,6 +12,7 @@ export const Toggle = ({ num, title, details }: ContentsProps) => {
   // 내용이 있으면 열림, 없으면 닫힘
   const [visible, setVisible] = useState<boolean>(!!details);
   const dotNum = num.split(".").length;
+  const sectionId = `section-${num.replace(/\./g, "-")}`;
 
   // 폰트 크기 결정 - medium으로 변경
   const getFontSize = () => {
@@ -23,10 +24,15 @@ export const Toggle = ({ num, title, details }: ContentsProps) => {
   // 내용에서 키워드 하이라이트 처리
   const renderHighlightedContent = (content: string) => {
     // 숫자와 한글이 결합된 패턴 찾기 (예: "1학년 4반", "오타쿠")
-    const parts = content.split(/(\d+학년\s*\d+반|오타쿠|씹덕|UGAM|언제나\s*타오르는\s*무언가)/g);
+    const parts = content.split(
+      /(\d+학년\s*\d+반|오타쿠|씹덕|UGAM|언제나\s*타오르는\s*무언가)/g,
+    );
 
     return parts.map((part, index) => {
-      const isKeyword = /\d+학년\s*\d+반|오타쿠|씹덕|UGAM|언제나\s*타오르는\s*무언가/.test(part);
+      const isKeyword =
+        /\d+학년\s*\d+반|오타쿠|씹덕|UGAM|언제나\s*타오르는\s*무언가/.test(
+          part,
+        );
       return isKeyword ? (
         <span key={index} className="text-lime500">
           {part}
@@ -38,7 +44,7 @@ export const Toggle = ({ num, title, details }: ContentsProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col mb-6">
+    <div id={sectionId} className="mb-6 flex w-full flex-col scroll-mt-24">
       <div
         onClick={() => setVisible(!visible)}
         className="flex items-center gap-3 py-3 cursor-pointer border-b border-gray200"

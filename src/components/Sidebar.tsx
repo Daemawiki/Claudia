@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
 import { SearchInput } from "@/components";
 
@@ -8,6 +8,7 @@ interface ListProps {
   text: string;
   indexList?: boolean;
   padding?: number;
+  onClick?: () => void;
 }
 
 interface SidebarProps {
@@ -23,16 +24,20 @@ interface titleListProps {
 
 export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
-  setOpenSidebar(visible);
+
+  useEffect(() => {
+    setOpenSidebar(visible);
+  }, [setOpenSidebar, visible]);
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
     { icon: <Info size={22} />, text: "문서 정보" },
     { icon: <Setting size={22} />, text: "설정" },
   ];
 
-  const List = ({ icon, text, indexList, padding }: ListProps) => {
+  const List = ({ icon, text, indexList, padding, onClick }: ListProps) => {
     return (
       <div
+        onClick={onClick}
         className={`w-full cursor-pointer peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${indexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${padding == 2 ? "pl-5" : padding == 3 ? "pl-[30px]" : "pl-2.5"} bg-white ${indexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
       >
         {icon}
@@ -98,6 +103,12 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
                   key={index}
                   icon={<p className="text-semibold18 text-lime500">{num}</p>}
                   text={title}
+                  onClick={() => {
+                    const targetId = `section-${num.replace(/\./g, "-")}`;
+                    document
+                      .getElementById(targetId)
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
                 />
               ))}
             </div>
