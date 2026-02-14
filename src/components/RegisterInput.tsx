@@ -1,5 +1,14 @@
 "use client";
 import { Arrow, Hide, Show } from "@/assets";
+import {
+  formFieldContainerClass,
+  formFieldDropdownTextClass,
+  formFieldErrorClass,
+  formFieldInputClass,
+  formFieldInputRowClass,
+  formFieldLabelClass,
+  formFieldWrapperClass,
+} from "@/constant/formStyle";
 import React, { useState, useEffect, useRef } from "react";
 
 interface InputProps {
@@ -80,17 +89,15 @@ export const RegisterInput = ({
   };
 
   return (
-    <div className="flex flex-col w-full gap-2" ref={inputRef}>
-      <div className="rounded-lg focus-within:border-lime500 overflow-hidden flex flex-col w-full border border-gray200">
-        <div className="w-full px-3 pt-3 flex text-gray600 text-semibold16">
-          {title}
-        </div>
+    <div className={formFieldContainerClass} ref={inputRef}>
+      <div className={formFieldWrapperClass}>
+        <div className={formFieldLabelClass}>{title}</div>
         <div
           onClick={() => type === "dropdown" && setDropdownOpen(!dropdownOpen)}
-          className="gap-2 flex w-full items-center"
+          className={formFieldInputRowClass}
         >
           {type === "dropdown" ? (
-            <div className="w-full cursor-pointer flex p-3 text-medium20 text-gray800">
+            <div className={formFieldDropdownTextClass}>
               {value || placeholder}
             </div>
           ) : (
@@ -100,14 +107,14 @@ export const RegisterInput = ({
               onChange={e => onChange?.(e.target.value)}
               type={hidePassword && type === "password" ? "password" : "text"}
               placeholder={placeholder}
-              className="w-full p-3 placeholder:text-gray300 text-medium20"
+              className={formFieldInputClass}
             />
           )}
           {inputType[type]}
         </div>
       </div>
 
-      <p className="text-medium14 text-red500 relative">
+      <p className={formFieldErrorClass}>
         {error}
         {type === "dropdown" && dropdownOpen && (
           <div className="top-0 z-10 rounded-lg bg-white border border-gray200 shadow-lg overflow-y-scroll absolute w-[432px] h-36 flex flex-col">
