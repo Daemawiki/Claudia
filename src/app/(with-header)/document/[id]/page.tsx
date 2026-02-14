@@ -32,7 +32,7 @@ function Document() {
   ];
   return (
     <div
-      className={`${openSidebar ? "pl-[300px]" : "pl-6"} transition-all pt-20 pb-20 pr-6 bg-gray100 justify-center flex w-full min-h-screen`}
+      className={`${openSidebar ? "pl-6 lg:pl-[300px]" : "pl-6"} transition-all pt-20 pb-20 pr-6 bg-gray100 justify-center flex w-full min-h-screen`}
     >
       <div className="flex w-full max-w-screen-xl flex-col overflow-hidden rounded-2xl border border-gray200 bg-white">
         <Title />

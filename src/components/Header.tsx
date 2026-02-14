@@ -22,8 +22,8 @@ export const Header = () => {
   return (
     <div className="w-full z-40 top-0 bg-white border-b border-gray200 flex flex-col">
       <div className="flex justify-center w-full px-6 bg-white border-b border-gray200">
-        <div className="py-3 w-full max-w-[1600px] justify-between items-center flex">
-          <div className="flex items-center gap-6">
+        <div className="py-3 w-full max-w-[1600px] justify-between items-center flex gap-3">
+          <div className="flex items-center gap-3 lg:gap-6 min-w-0">
             <div className="flex items-center gap-4">
               <div
                 onClick={() => router.push("/")}
@@ -41,15 +41,12 @@ export const Header = () => {
                 <Arrow className="text-gray400" size={16} direction="down" />
               </div>
             </div>
-            <div
-              className="flex items-center gap-2 flex-none
-          "
-            >
+            <div className="flex min-w-0 max-w-full items-center gap-2 overflow-x-auto sm:w-full">
               {navList.map(({ text, array, link }, index) => (
                 <div
                   onClick={() => router.push(`${link}`)}
                   key={index}
-                  className="flex relative items-center justify-center p-2 gap-0.5 group cursor-pointer transition-all"
+                  className="flex relative items-center justify-center p-2 gap-0.5 group cursor-pointer transition-all shrink-0"
                 >
                   <p className="text-semibold18 text-gray600 group-hover:text-lime500 transition-all">
                     {text}
