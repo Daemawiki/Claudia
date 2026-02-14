@@ -121,9 +121,11 @@ export default function Team() {
               />
             ))}
           </div>
-          <button className="rounded-full bg-gray100 px-4 py-3 flex text-medium16 w-max">
-            벨로그 보러가기
-          </button>
+          <Button
+            text="벨로그 보러가기"
+            style="neutral"
+            className="w-max rounded-full px-4 py-3 text-medium16"
+          />
         </div>
         <div className="w-full px-12 py-24 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
@@ -171,9 +173,11 @@ export default function Team() {
           <br />
           고개를 들어주세요.
         </p>
-        <button className="bg-gray900 text-medium16 text-white rounded-full px-4 py-3">
-          대마위키 살펴보기
-        </button>
+        <Button
+          text="대마위키 살펴보기"
+          style="dark"
+          className="rounded-full px-4 py-3 text-medium16"
+        />
       </div>
     </div>
   );

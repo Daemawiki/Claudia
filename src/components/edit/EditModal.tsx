@@ -8,6 +8,7 @@ import {
   Text_Strikethrough,
   Text_Underline,
 } from "@/assets";
+import { Button } from "@/components";
 import React from "react";
 
 const icons = [
@@ -42,13 +43,13 @@ function EditModal() {
             ))}
           </div>
           <div className="flex w-full items-center justify-end">
-            <button
-              type="button"
-              className="flex h-fit items-center gap-2 rounded-md bg-lime500 px-4 py-1.5 hover:bg-lime600"
+            <Button
+              text="저장"
+              style="primary2"
+              className="h-fit gap-2 px-4 py-1.5"
             >
-              <p className="text-white text-md font-semibold">저장</p>
               <Document size={20} className="text-white"></Document>
-            </button>
+            </Button>
           </div>
         </div>
         <div className="flex w-full flex-col gap-6 px-12 pt-6 pb-12">
