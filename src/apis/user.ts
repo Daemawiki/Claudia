@@ -1,28 +1,24 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "./axios";
 import { LoginValues, SignupFormValues } from "@/interfaces/user";
+import { instance } from "./axios";
 import { setCookie } from "./cookies";
 
 // 로그인
 export const loginHandler = async (data: LoginValues) => {
-  return await instance
+  return instance
     .post("/api/auth/login", {
       email: data.email,
       password: data.password,
     })
     .then(res => {
       setCookie("access_token", res.data.access_token);
-      console.log(res);
       return res.status;
     })
-    .catch(err => {
-      console.error(err);
-    });
+    .catch(() => undefined);
 };
 
 // 회원가입
 export const registerHandler = async (data: SignupFormValues) => {
-  return await instance
+  return instance
     .post(`/api/auth/register`, {
       name: data.name,
       email: data.email,
@@ -31,12 +27,11 @@ export const registerHandler = async (data: SignupFormValues) => {
       classInfos: data.classInfos,
     })
     .then(res => res.status)
-    .catch(err => {
-      console.error(err);
-    });
+    .catch(() => undefined);
 };
 
 // 토큰 재발급
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const tokenReissue = async (data: string) => {
-  return await instance.put(`/api/auth/reissue`, {}, {});
+  return instance.put(`/api/auth/reissue`, {}, {});
 };

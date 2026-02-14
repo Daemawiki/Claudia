@@ -1,18 +1,14 @@
 import { instance } from "./axios";
 
 export const mailSend = async (email: string) => {
-  return await instance
+  return instance
     .post(`api/mail/send?target=${email}&type=REGISTER`)
-    .then(res => {
-      return res.data;
-    })
-    .catch(err => {
-      console.error(err.response?.data?.message);
-    });
+    .then(res => res.data)
+    .catch(() => undefined);
 };
 
 export const mailVerify = async (email: string, code: string) => {
-  return await instance
+  return instance
     .post(`api/mail/verify?target=${email}&code=${code}`)
     .then(res => res.data)
     .catch(err => {
