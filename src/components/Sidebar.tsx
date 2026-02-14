@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
 import { SearchInput } from "@/components";
 
@@ -8,6 +8,7 @@ interface ListProps {
   text: string;
   indexList?: boolean;
   padding?: number;
+  onClick?: () => void;
 }
 
 interface SidebarProps {
@@ -23,16 +24,20 @@ interface titleListProps {
 
 export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
-  setOpenSidebar(visible);
+
+  useEffect(() => {
+    setOpenSidebar(visible);
+  }, [setOpenSidebar, visible]);
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
     { icon: <Info size={22} />, text: "문서 정보" },
     { icon: <Setting size={22} />, text: "설정" },
   ];
 
-  const List = ({ icon, text, indexList, padding }: ListProps) => {
+  const List = ({ icon, text, indexList, padding, onClick }: ListProps) => {
     return (
       <div
+        onClick={onClick}
         className={`w-full cursor-pointer peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${indexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${padding == 2 ? "pl-5" : padding == 3 ? "pl-[30px]" : "pl-2.5"} bg-white ${indexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
       >
         {icon}
@@ -48,15 +53,22 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   return (
     <>
       {!visible && (
-        <div
-          style={{ height: `calc(100vh - 100px)` }}
-          className="top-20 left-0 fixed z-10 w-[40px] peer"
-        />
+        <button
+          type="button"
+          onClick={() => setVisible(true)}
+          aria-label="사이드바 열기"
+          className="fixed left-0 top-24 z-30 flex h-10 w-10 items-center justify-center rounded-r-xl border border-l-0 border-gray300 bg-white text-gray400 shadow-sm transition hover:bg-gray50"
+        >
+          <Arrow_Double
+            className="text-gray400 transition-all"
+            direction="right"
+          />
+        </button>
       )}
 
       <div
         style={{ height: `calc(100vh - 100px)` }}
-        className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        className={`border z-20 fixed top-20 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
       >
         <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
@@ -98,6 +110,12 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
                   key={index}
                   icon={<p className="text-semibold18 text-lime500">{num}</p>}
                   text={title}
+                  onClick={() => {
+                    const targetId = `section-${num.replace(/\./g, "-")}`;
+                    document
+                      .getElementById(targetId)
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
                 />
               ))}
             </div>
