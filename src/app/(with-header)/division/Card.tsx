@@ -1,4 +1,10 @@
-import { Arrow_Short, Book, Notebook, User, Warn } from "@/assets";
+import {
+  Arrow_Short as ArrowShort,
+  Book,
+  Notebook,
+  User,
+  Warn,
+} from "@/assets";
 
 interface CardProps {
   longWidth?: boolean;
@@ -6,7 +12,7 @@ interface CardProps {
   onClick?: () => void;
 }
 
-export const Card = ({ longWidth, type, onClick }: CardProps) => {
+export default function Card({ longWidth, type, onClick }: CardProps) {
   const cardIcon = {
     student: {
       icon: <User />,
@@ -30,23 +36,29 @@ export const Card = ({ longWidth, type, onClick }: CardProps) => {
     },
   };
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      className={`w-full group hover:shadow-lg ${longWidth ? "max-w-[468px]" : "max-w-[260px]"} min-w-[220px] flex flex-col justify-between px-6 py-7 bg-white border border-gray200 rounded-2xl h-[260px] transition-all`}
+      className={`w-full group ${longWidth ? "max-w-[468px]" : "max-w-[260px]"} min-w-[220px] flex flex-col justify-between px-6 py-7 bg-white border border-gray200 rounded-2xl h-[260px] transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2`}
     >
       <div className="w-full flex justify-between">
         <div className="rounded-lg flex bg-lime50 border border-lime300 p-2.5 text-lime500">
           {cardIcon[type].icon}
         </div>
-        <Arrow_Short
+        <ArrowShort
           direction={longWidth ? "upRight" : "right"}
-          className="text-gray200 opacity-0 cursor-pointer group-hover:opacity-100 transition-all"
+          className="text-gray300 opacity-60 transition-all group-hover:opacity-100 group-hover:text-gray500"
         />
       </div>
       <div className="w-full flex flex-col gap-2">
         <p className="text-bold28 text-black">{cardIcon[type].title}</p>
         <p className="text-medium16 text-gray500">{cardIcon[type].details}</p>
       </div>
-    </div>
+    </button>
   );
+}
+
+Card.defaultProps = {
+  longWidth: false,
+  onClick: undefined,
 };
