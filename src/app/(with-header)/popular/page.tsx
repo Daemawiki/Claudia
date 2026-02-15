@@ -12,7 +12,7 @@ function Popular() {
 
   return (
     <div className="flex w-full justify-center pb-12">
-      <div className="flex w-full max-w-screen-xl flex-col gap-10 px-12 pt-16">
+      <div className="flex w-full max-w-screen-xl flex-col gap-10 px-6 pt-16 sm:px-4 lg:px-12">
         <PageHeader
           title="인기 문서"
           subtitle="대마위키"
