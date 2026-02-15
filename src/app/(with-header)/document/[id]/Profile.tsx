@@ -13,7 +13,7 @@ export const Profile = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col gap-8 px-12 py-8 border-b border-gray200">
+    <div className="w-full flex flex-col gap-8 border-b border-gray200 px-6 py-8 sm:px-4 lg:px-12">
       {/* Profile Section */}
       <div className="w-full flex items-start gap-6">
         <div className="w-40 h-40 rounded-full border border-gray200 bg-gray100 overflow-hidden flex-shrink-0">
@@ -26,7 +26,8 @@ export const Profile = () => {
             <p className="text-lime500 text-semibold14">2113 이태영</p>
           </div>
           <p className="text-gray600 text-medium18">
-            김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.
+            김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한
+            명입니다.
           </p>
         </div>
       </div>
