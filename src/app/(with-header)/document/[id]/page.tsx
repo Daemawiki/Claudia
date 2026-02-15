@@ -32,12 +32,12 @@ function Document() {
   ];
   return (
     <div
-      className={`${openSidebar ? "pl-6 lg:pl-[300px]" : "pl-6"} transition-all pt-20 pb-20 pr-6 bg-gray100 justify-center flex w-full min-h-screen`}
+      className={`${openSidebar ? "pl-4 lg:pl-[300px]" : "pl-4"} flex w-full min-h-screen justify-center bg-gray100 pb-16 pr-4 pt-[124px] transition-all lg:pb-20 lg:pr-6 lg:pt-20`}
     >
       <div className="flex w-full max-w-screen-xl flex-col overflow-hidden rounded-2xl border border-gray200 bg-white">
         <Title />
         <Profile />
-        <div className="w-full px-12 py-6">
+        <div className="w-full px-6 py-6 sm:px-4 lg:px-12">
           {contentsListArr.map(({ num, title, details }, index) => (
             <Toggle key={index} num={num} title={title} details={details} />
           ))}
