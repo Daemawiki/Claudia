@@ -5,12 +5,12 @@ interface PropsType {
   direction?: "left" | "right" | "up" | "down" | "upRight";
 }
 
-export const Arrow_Short = ({
+function ArrowShort({
   size = 24,
   className = "",
   onClick,
   direction = "left",
-}: PropsType) => {
+}: PropsType) {
   const rotate = {
     upRight: "rotate-[315deg]",
     right: "rotate-[0deg]",
@@ -32,11 +32,19 @@ export const Arrow_Short = ({
     >
       <path
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M5 12h14m0 0-6-6m6 6-6 6"
       />
     </svg>
   );
+}
+ArrowShort.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
+  direction: "left",
 };
+
+export default ArrowShort;

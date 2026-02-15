@@ -15,29 +15,30 @@ export const List = ({
   changeUserName,
   changeTime,
 }: ListProps) => {
+  const isHeader = Boolean(listTitle);
+  const primaryTextClass = isHeader
+    ? "text-medium18 text-gray700"
+    : "text-medium16 text-black";
+  const secondaryTextClass = isHeader
+    ? "text-medium18 text-gray700"
+    : "text-medium16 text-gray500";
+
   return (
     <div
-      className={`w-full gap-2 flex items-center p-5 ${listTitle ? "bg-gray50" : "bg-white border-b border-b-gray100"}`}
+      className={`w-full px-5 py-4 sm:px-4 ${isHeader ? "bg-gray50" : "bg-white border-b border-b-gray100"}`}
     >
-      <p
-        className={`w-full cursor-pointer ${listTitle ? "text-medium18 text-gray700" : "text-medium16"}`}
-      >
-        {title}
-      </p>
-      <div className={`w-full flex items-center gap-2`}>
-        <p
-          className={`w-full ${listTitle ? "text-medium18 text-gray700" : "text-medium16 text-gray500"}`}
-        >
-          {group}
-        </p>
-        <p
-          className={`w-full ${listTitle ? "text-medium18 text-gray700" : "text-medium16"}`}
-        >
-          {changeUserName}
-        </p>
-        <p
-          className={`w-full ${listTitle ? "text-medium18 text-gray700" : "text-medium16 text-gray500"}`}
-        >
+      <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.3fr)] items-center gap-3 sm:hidden">
+        <p className={`${primaryTextClass} truncate`}>{title}</p>
+        <p className={`${secondaryTextClass} truncate`}>{group}</p>
+        <p className={`${primaryTextClass} truncate`}>{changeUserName}</p>
+        <p className={`${secondaryTextClass} truncate`}>{changeTime}</p>
+      </div>
+
+      <div className="hidden grid-cols-2 items-center gap-2 sm:grid">
+        <p className={`${primaryTextClass} truncate`}>{title}</p>
+        <p className={`${secondaryTextClass} truncate text-right`}>{group}</p>
+        <p className={`${primaryTextClass} truncate`}>{changeUserName}</p>
+        <p className={`${secondaryTextClass} truncate text-right`}>
           {changeTime}
         </p>
       </div>

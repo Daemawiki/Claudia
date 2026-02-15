@@ -1,23 +1,24 @@
-export const authFormLayoutClass = "flex h-screen w-full justify-center pt-6";
+export const authFormLayoutClass =
+  "flex min-h-screen w-full justify-center px-4 pt-6 sm:px-5";
 
 export const authFormPanelClass =
-  "flex w-[480px] flex-col gap-12 rounded-3xl p-6";
+  "flex w-full max-w-[480px] flex-col gap-9 rounded-3xl p-6 sm:p-5";
 
 export const authBackButtonClass =
-  "flex w-fit rounded-md border border-gray200 bg-white p-2 hover:bg-gray50";
+  "flex w-fit self-start rounded-md border border-gray200 bg-white p-2 hover:bg-gray50";
 
-export const authInfoBlockClass = "flex w-full flex-col gap-6";
+export const authInfoBlockClass = "flex w-full flex-col gap-5";
 
 export const authTitleBlockClass = "flex w-full flex-col gap-3";
 
 export const authDescriptionClass = "text-medium18 text-gray500";
 
-export const authBottomBlockClass = "flex w-full flex-col gap-6";
+export const authBottomBlockClass = "mt-auto flex w-full flex-col gap-4";
 
 export const formFieldContainerClass = "flex w-full flex-col gap-2";
 
 export const formFieldWrapperClass =
-  "flex w-full flex-col overflow-hidden rounded-lg border border-gray200 focus-within:border-lime500";
+  "relative flex w-full flex-col rounded-lg border border-gray200 focus-within:border-lime500";
 
 export const formFieldLabelClass =
   "flex w-full px-3 pt-3 text-semibold16 text-gray600";
@@ -25,7 +26,7 @@ export const formFieldLabelClass =
 export const formFieldInputRowClass = "flex w-full items-center gap-2";
 
 export const formFieldInputClass =
-  "w-full p-3 text-medium20 placeholder:text-gray300";
+  "w-full p-3 text-medium20 placeholder:text-gray400";
 
 export const formFieldDropdownTextClass =
   "flex w-full cursor-pointer p-3 text-medium20 text-gray800";

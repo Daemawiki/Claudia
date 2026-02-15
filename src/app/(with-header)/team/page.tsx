@@ -60,7 +60,7 @@ export default function Team() {
   return (
     <div className="w-full flex justify-center flex-col">
       <div className="flex w-full max-w-screen-xl flex-col pt-16">
-        <div className="w-full px-12 py-24 gap-6 flex justify-between">
+        <div className="w-full px-6 py-16 sm:px-4 lg:px-12 lg:py-24 gap-6 flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-6 bg-white">
             <p className="text-bold40">
               대마위키를 만든
@@ -72,12 +72,12 @@ export default function Team() {
               위키 서비스, 대마위키를 기획하였습니다.
             </p>
           </div>
-          <div className="relative">
+          <div className="self-center lg:self-auto relative">
             <TeamLogo size={240} className="animate-fadeIn" />
             <div className="h-[500px] w-60 top-0 right-0 bg-gradient-to-t to-transparent from-white via-white absolute" />
           </div>
         </div>
-        <div className="w-full px-12 py-24 gap-12 flex flex-col">
+        <div className="w-full px-6 py-24 sm:px-4 lg:px-12 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
             <p className="text-lime500 text-semibold18">팀 DM 멤버 소개</p>
             <p className="text-bold40">저희를 소개합니다</p>
@@ -100,7 +100,7 @@ export default function Team() {
             ))}
           </div>
         </div>
-        <div className="w-full px-12 py-24 gap-12 flex flex-col">
+        <div className="w-full px-6 py-24 sm:px-4 lg:px-12 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
             <p className="text-[18px] font-bold text-lime500">
               우리들의 가치관
@@ -127,7 +127,7 @@ export default function Team() {
             className="w-max rounded-full px-4 py-3 text-medium16"
           />
         </div>
-        <div className="w-full px-12 py-24 gap-12 flex flex-col">
+        <div className="w-full px-6 py-24 sm:px-4 lg:px-12 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
             <p className="text-semibold18 text-lime500">활동 및 기술 스택</p>
             <p className="text-bold40 text-gray800">저희는 이런 걸 해요</p>
@@ -166,7 +166,7 @@ export default function Team() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-9 py-24 px-12 bg-gray50">
+      <div className="flex flex-col items-center gap-9 bg-gray50 px-6 py-24 sm:px-4 lg:px-12">
         <p className="text-semibold18 text-gray400">밤이 되었습니다</p>
         <p className="text-center font-semibold text-[32px] leading-9">
           대마위키와 함께하실 분은

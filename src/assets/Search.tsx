@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Search = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Search({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,4 +24,11 @@ export const Search = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+Search.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
 };
+
+export default Search;

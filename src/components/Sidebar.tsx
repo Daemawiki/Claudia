@@ -28,6 +28,24 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const isFixed = fixed ?? false;
 
   useEffect(() => {
+    if (isFixed) return;
+
+    const desktopMedia = window.matchMedia("(min-width: 1420px)");
+
+    const syncVisibility = (event?: MediaQueryListEvent) => {
+      const isDesktop = event ? event.matches : desktopMedia.matches;
+      setVisible(isDesktop);
+    };
+
+    syncVisibility();
+    desktopMedia.addEventListener("change", syncVisibility);
+
+    return () => {
+      desktopMedia.removeEventListener("change", syncVisibility);
+    };
+  }, [isFixed]);
+
+  useEffect(() => {
     if (!setOpenSidebar) return;
     setOpenSidebar(visible);
   }, [setOpenSidebar, visible]);
@@ -56,22 +74,35 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   return (
     <>
       {!visible && !isFixed && (
-        <button
-          type="button"
-          onClick={() => setVisible(true)}
-          aria-label="사이드바 열기"
-          className="fixed left-0 top-24 z-30 flex h-10 w-10 items-center justify-center rounded-r-xl border border-l-0 border-gray300 bg-white text-gray400 shadow-sm transition hover:bg-gray50"
-        >
-          <Arrow_Double
-            className="text-gray400 transition-all"
-            direction="right"
-          />
-        </button>
+        <>
+          <button
+            type="button"
+            onClick={() => setVisible(true)}
+            aria-label="목차 열기"
+            className="fixed bottom-6 right-4 z-30 flex items-center gap-2 rounded-full border border-lime300 bg-lime50 px-4 py-2 text-semibold16 text-lime600 shadow-md transition hover:bg-lime100 lg:hidden"
+          >
+            <Arrow_Double
+              className="text-lime500 transition-all"
+              direction="right"
+            />
+            목차
+          </button>
+          <button
+            type="button"
+            onClick={() => setVisible(true)}
+            aria-label="사이드바 열기"
+            className="fixed left-0 top-24 z-30 hidden h-10 w-10 items-center justify-center rounded-r-xl border border-l-0 border-gray300 bg-white text-gray400 shadow-sm transition hover:bg-gray50 lg:flex"
+          >
+            <Arrow_Double
+              className="text-gray400 transition-all"
+              direction="right"
+            />
+          </button>
+        </>
       )}
 
       <div
-        style={{ height: `calc(100vh - 100px)` }}
-        className={`border z-20 fixed top-20 ${isFixed || visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        className={`fixed z-20 flex h-[calc(100vh-124px)] w-[280px] flex-col rounded-r-2xl border border-gray300 bg-white shadow-sm transition-all top-[124px] lg:h-[calc(100vh-100px)] lg:top-20 ${isFixed || visible ? "left-0" : "-left-72"}`}
       >
         <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
@@ -84,15 +115,17 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
             </div>
           </div>
           {!isFixed && (
-            <div
+            <button
+              type="button"
+              aria-label="사이드바 닫기"
               onClick={() => setVisible(!visible)}
-              className={`flex p-1 cursor-pointer transition-all absolute right-4 top-3.5`}
+              className="absolute right-4 top-3.5 flex p-1 transition-all"
             >
               <Arrow_Double
                 className="text-gray400 transition-all"
                 direction={visible ? "left" : "right"}
               />
-            </div>
+            </button>
           )}
         </div>
         <div className="w-full flex flex-col pl-5 pr-1 py-2 gap-8 h-full overflow-y-scroll">
@@ -118,12 +151,14 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
                     text={title}
                     onClick={() => {
                       const targetId = `section-${num.replace(/\./g, "-")}`;
-                      document
-                        .getElementById(targetId)
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
+                      document.getElementById(targetId)?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+
+                      if (window.innerWidth < 1420) {
+                        setVisible(false);
+                      }
                     }}
                   />
                 ))}
