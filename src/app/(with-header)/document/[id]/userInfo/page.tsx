@@ -1,10 +1,10 @@
 "use client";
 
 import { Sidebar } from "@/components";
-import { Title } from "../Title";
 import { User, Calendar } from "@/assets";
-import EditHistory from "./EditHistory";
 import { useState } from "react";
+import { Title } from "../Title";
+import EditHistory from "./EditHistory";
 
 interface MockDataType {
   index: string;
@@ -69,40 +69,46 @@ export default function UserInfo() {
   };
 
   return (
-    <div className="flex justify-center pt-16">
+    <div className="flex justify-center pt-16 sm:pt-10">
       <Sidebar fixed />
       <div className="flex flex-grow max-w-screen-xl flex-col">
         <Title />
-        <div className="flex flex-col py-6 px-12 gap-20">
-          <div className="flex gap-20">
+        <div className="flex flex-col px-12 py-6 gap-20 sm:px-4 sm:gap-10">
+          <div className="flex gap-20 sm:flex-col sm:gap-8">
             <div className="flex flex-col gap-5">
               <span className="text-medium20">문서 정보</span>
               <div className="flex flex-col gap-4">
-                <div className="flex gap-5 items-center">
-                  <div className="w-[100px] text-medium18">생성자</div>
+                <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-2">
+                  <div className="w-[100px] text-medium18 sm:w-auto">
+                    생성자
+                  </div>
                   <div className="flex px-3 py-2 gap-2 border-[1px] border-gray200 rounded-lg">
                     <User className="text-gray500" />
                     <span>이태영</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center">
-                  <div className="w-[100px] text-medium18">문서 생성일</div>
+                <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-2">
+                  <div className="w-[100px] text-medium18 sm:w-auto">
+                    문서 생성일
+                  </div>
                   <div className="flex px-3 py-2 gap-2 border-[1px] border-gray200 rounded-lg">
                     <Calendar className="text-gray500" />
                     <span className="whitespace-nowrap">2024.09.12 10:39</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center">
-                  <div className="w-[100px] text-medium18">최근 수정일</div>
+                <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-2">
+                  <div className="w-[100px] text-medium18 sm:w-auto">
+                    최근 수정일
+                  </div>
                   <div className="flex px-3 py-2 gap-2 border-[1px] border-gray200 rounded-lg">
                     <Calendar className="text-gray500" />
                     <span className="whitespace-nowrap">2024.08.03 23:20</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center">
-                  <div className="w-[100px] text-medium18">분류</div>
+                <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-2">
+                  <div className="w-[100px] text-medium18 sm:w-auto">분류</div>
                   <div className="flex px-3 py-[6px] gap-[10px] rounded-full bg-lime100 items-center">
-                    <div className="w-[10px] h-[10px] rounded-full bg-lime400"></div>
+                    <div className="w-[10px] h-[10px] rounded-full bg-lime400" />
                     <span className="whitespace-nowrap">학생</span>
                   </div>
                 </div>
@@ -110,7 +116,7 @@ export default function UserInfo() {
             </div>
             <div className="flex flex-col gap-5 flex-grow">
               <span className="text-medium20">기여자</span>
-              <div className="flex gap-4 p-4 border-[1px] border-gray200 rounded-xl flex-wrap flex-shrink-0 w-full">
+              <div className="flex w-full flex-shrink-0 flex-wrap gap-4 border-[1px] border-gray200 rounded-xl p-4 sm:gap-3">
                 <span>박지민</span>
                 <span>박지민</span>
                 <span>박지민</span>
@@ -129,19 +135,19 @@ export default function UserInfo() {
           </div>
           <div className="flex flex-col gap-5">
             <span className="text-medium20">문서 수정 내역</span>
-            <div className="py-4 flex flex-col border-[1px] border-gray200 rounded-xl">
+            <div className="py-4 flex flex-col border-[1px] border-gray200 rounded-xl overflow-x-auto">
               <div className="px-4">
-                <div className="bg-gray100 p-3 flex text-gray500 rounded-md h-10 items-center">
+                <div className="bg-gray100 p-3 flex text-gray500 rounded-md h-10 items-center min-w-[540px] sm:min-w-[480px]">
                   <div className="flex-grow">목차</div>
                   <div className="flex-grow max-w-[240px]">이름</div>
                   <div className="flex-grow max-w-[240px]">날짜</div>
-                  <div className="w-6"></div>
+                  <div className="w-6" />
                 </div>
               </div>
               {MockData.map(
                 ({ index, title, editor, editDate, editHistory }, key) => (
                   <EditHistory
-                    key={key}
+                    key={`${editDate}-${title}`}
                     index={index}
                     title={title}
                     editor={editor}
@@ -157,7 +163,7 @@ export default function UserInfo() {
           </div>
         </div>
       </div>
-      <section className="max-w-screen-xl"></section>
+      <section className="max-w-screen-xl" />
     </div>
   );
 }
