@@ -131,9 +131,14 @@ export default function Signup() {
   return (
     <div className={authFormLayoutClass}>
       <div className={authFormPanelClass}>
-        <div onClick={() => prevStep()} className={authBackButtonClass}>
+        <button
+          type="button"
+          onClick={() => prevStep()}
+          className={authBackButtonClass}
+          aria-label="이전 단계"
+        >
           <Arrow size={28} className="text-gray600" />
-        </div>
+        </button>
         <div className={authInfoBlockClass}>
           <div className={authTitleBlockClass}>
             <p className="text-bold36 text-black">회원가입</p>
@@ -142,11 +147,11 @@ export default function Signup() {
           {page[pageNum].page}
         </div>
         <div className={authBottomBlockClass}>
-          <div className="w-full gap-2 flex justify-center items-center">
+          <div className="mx-auto flex w-fit items-center gap-2">
             {page.map((_, index) => (
               <div
                 key={index}
-                className={`h-2 transition-all rounded-full ${pageNum === index ? "w-4 bg-lime400" : "w-2 bg-gray300"}`}
+                className={`h-2 rounded-full transition-all ${pageNum === index ? "w-5 bg-lime400" : "w-2 bg-gray300"}`}
               />
             ))}
           </div>

@@ -72,7 +72,7 @@ export const RegisterInput = ({
     password: (
       <div
         onClick={() => setHidePassword(!hidePassword)}
-        className="flex p-3 cursor-pointer text-gray500"
+        className="flex items-center justify-center px-3 text-gray500 cursor-pointer"
       >
         {hidePassword ? <Hide /> : <Show />}
       </div>
@@ -112,24 +112,23 @@ export const RegisterInput = ({
           )}
           {inputType[type]}
         </div>
-      </div>
-
-      <p className={formFieldErrorClass}>
-        {error}
         {type === "dropdown" && dropdownOpen && (
-          <div className="top-0 z-10 rounded-lg bg-white border border-gray200 shadow-lg overflow-y-scroll absolute w-[432px] h-36 flex flex-col">
-            {dropdownValue?.map((item, index) => (
-              <div
-                key={index}
+          <div className="absolute left-0 right-0 top-full z-20 mt-1 flex max-h-36 flex-col overflow-y-scroll rounded-lg border border-gray200 bg-white shadow-lg">
+            {dropdownValue?.map(item => (
+              <button
+                key={String(item)}
+                type="button"
                 onClick={() => handleDropdownChange(item)}
-                className="w-full py-3 px-4 border-b border-b-gray100 text-black text-medium18 hover:bg-gray50"
+                className="w-full border-b border-b-gray100 px-4 py-3 text-left text-black text-medium18 hover:bg-gray50"
               >
                 {item}
-              </div>
+              </button>
             ))}
           </div>
         )}
-      </p>
+      </div>
+
+      <p className={formFieldErrorClass}>{error}</p>
     </div>
   );
 };

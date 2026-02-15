@@ -54,9 +54,14 @@ export default function Login() {
   return (
     <div className={authFormLayoutClass}>
       <div className={authFormPanelClass}>
-        <div onClick={() => router.back()} className={authBackButtonClass}>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className={authBackButtonClass}
+          aria-label="뒤로 가기"
+        >
           <Arrow size={28} className="text-gray600" />
-        </div>
+        </button>
         <div className={authInfoBlockClass}>
           <div className={authTitleBlockClass}>
             <p className="text-bold36 text-black">로그인</p>
