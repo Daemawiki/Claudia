@@ -12,7 +12,7 @@ function Profile() {
   ];
 
   return (
-    <div className="w-full flex flex-col gap-8 px-12 py-8 border-b border-gray200">
+    <div className="w-full flex flex-col gap-8 border-b border-gray200 px-6 py-8 sm:px-4 lg:px-12">
       {/* Profile Section */}
       <div className="w-full flex items-start gap-6">
         <div className="w-40 h-40 rounded-full border border-gray200 bg-gray100 overflow-hidden flex-shrink-0">

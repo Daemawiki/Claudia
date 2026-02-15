@@ -4,11 +4,7 @@ interface PropsType {
   onClick?: () => void;
 }
 
-export const Text_Bold = ({
-  size = 24,
-  onClick,
-  className = "",
-}: PropsType) => {
+function TextBold({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,4 +24,11 @@ export const Text_Bold = ({
       />
     </svg>
   );
+}
+TextBold.defaultProps = {
+  size: 24,
+  className: "",
+  onClick: undefined,
 };
+
+export default TextBold;

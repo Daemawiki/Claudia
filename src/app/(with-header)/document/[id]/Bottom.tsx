@@ -9,13 +9,10 @@ function Bottom() {
   ];
 
   return (
-    <div className="w-full flex flex-col px-12 py-8">
+    <div className="w-full flex flex-col px-6 py-8 sm:px-4 lg:px-12">
       <div className="flex flex-wrap gap-2 pb-4">
         {documentList.map(text => (
-          <span
-            key={text}
-            className="text-lime500 text-medium14 hover:text-lime600 cursor-pointer"
-          >
+          <span key={text} className="text-lime500 text-medium14">
             {text}
             {text !== documentList[documentList.length - 1] && " ·"}
           </span>

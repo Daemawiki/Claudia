@@ -21,7 +21,7 @@ function Title({
 
   return (
     <div
-      className={`w-full flex justify-between items-center ${noPadding ? "py-8" : "py-12 px-12"} border-b border-gray200`}
+      className={`w-full flex justify-between items-center ${noPadding ? "py-8" : "py-12 px-6 sm:px-4 lg:px-12"} border-b border-gray200`}
     >
       <h1 className="text-bold36 text-black">{title}</h1>
       {!noShow && (
