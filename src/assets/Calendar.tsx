@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Calendar = ({ size = 24, onClick, className }: PropsType) => {
+function Calendar({ size = 24, onClick, className }: PropsType) {
   return (
     <svg
       width={size}
@@ -24,4 +24,11 @@ export const Calendar = ({ size = 24, onClick, className }: PropsType) => {
       />
     </svg>
   );
+}
+Calendar.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: undefined,
 };
+
+export default Calendar;
