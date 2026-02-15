@@ -9,21 +9,16 @@ export const Bottom = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col px-12 py-8">
+    <div className="w-full flex flex-col px-6 py-8 sm:px-4 lg:px-12">
       <div className="flex flex-wrap gap-2 pb-4">
         {documentList.map((text, index) => (
-          <span
-            key={index}
-            className="text-lime500 text-medium14 hover:text-lime600 cursor-pointer"
-          >
+          <span key={index} className="text-lime500 text-medium14">
             {text}
             {index < documentList.length - 1 && " ·"}
           </span>
         ))}
       </div>
-      <p className="text-gray400 text-medium12">
-        최근 수정: 2024-08-04 07:03
-      </p>
+      <p className="text-gray400 text-medium12">최근 수정: 2024-08-04 07:03</p>
     </div>
   );
 };
