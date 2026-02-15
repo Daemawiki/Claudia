@@ -118,7 +118,7 @@ function Main() {
 
   return (
     <div className="flex w-full justify-center bg-gray100 pb-28">
-      <div className="flex w-full max-w-6xl flex-col items-center px-4 md:px-4 sm:px-4">
+      <div className="flex w-full max-w-screen-xl flex-col items-center px-6 sm:px-4 lg:px-12">
         <section className="flex w-full flex-col items-center gap-8 pb-28 pt-20 text-center">
           <button
             type="button"

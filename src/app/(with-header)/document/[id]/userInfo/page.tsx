@@ -73,7 +73,7 @@ export default function UserInfo() {
       <Sidebar fixed />
       <div className="flex flex-grow max-w-screen-xl flex-col">
         <Title />
-        <div className="flex flex-col px-12 py-6 gap-20 sm:px-4 sm:gap-10">
+        <div className="flex flex-col gap-20 px-6 py-6 sm:px-4 sm:gap-10 lg:px-12">
           <div className="flex gap-20 sm:flex-col sm:gap-8">
             <div className="flex flex-col gap-5">
               <span className="text-medium20">문서 정보</span>
