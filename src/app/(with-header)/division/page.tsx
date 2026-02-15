@@ -1,11 +1,10 @@
 import { Title } from "../document/[id]/Title";
-import { Card } from "./Card";
-import StudentPage from "./student/page";
+import Card from "./Card";
 
 export default function Division() {
   return (
     <div className="w-full flex justify-center pb-12">
-      <div className="flex w-full max-w-screen-xl flex-col gap-14 px-12 pt-16">
+      <div className="flex w-full max-w-screen-xl flex-col gap-14 px-6 pt-16 sm:px-4 lg:px-12">
         <Title
           noPadding
           noShow
