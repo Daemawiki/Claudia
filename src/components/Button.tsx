@@ -53,10 +53,10 @@ export const Button = ({
       type={type}
       onClick={onClick}
       disabled={isDisabled}
-      className={`inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap transition-all ${
+      className={`inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2 ${
         big
-          ? "rounded-lg p-4 text-semibold18"
-          : "rounded-md px-3 py-2 text-semibold16"
+          ? "min-h-12 rounded-lg px-4 py-3 text-semibold18"
+          : "min-h-10 rounded-md px-3 py-2 text-semibold16"
       } ${buttonStyle[style][isDisabled ? "disabled" : "enabled"]} ${
         isDisabled ? "cursor-not-allowed" : "cursor-pointer"
       } ${className}`}
