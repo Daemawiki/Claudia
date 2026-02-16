@@ -1,7 +1,7 @@
 import React from "react";
 import { Arrow } from "@/assets";
 
-export const Pagination = () => {
+function Pagination() {
   const arr = [1, 2, 3, 4, 5];
   return (
     <div className="w-full flex justify-center gap-7 px-6">
@@ -33,4 +33,7 @@ export const Pagination = () => {
       </button>
     </div>
   );
-};
+}
+
+export { Pagination };
+export default Pagination;

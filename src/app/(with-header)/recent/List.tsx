@@ -2,19 +2,19 @@ import React from "react";
 
 interface ListProps {
   listTitle?: boolean;
-  title?: string;
-  group?: string;
-  changeUserName?: string;
-  changeTime?: string;
+  title: string;
+  group: string;
+  changeUserName: string;
+  changeTime: string;
 }
 
-export const List = ({
-  listTitle,
+function List({
+  listTitle = false,
   title,
   group,
   changeUserName,
   changeTime,
-}: ListProps) => {
+}: ListProps) {
   const isHeader = Boolean(listTitle);
   const primaryTextClass = isHeader
     ? "text-medium18 text-gray700"
@@ -44,4 +44,11 @@ export const List = ({
       </div>
     </div>
   );
+}
+
+List.defaultProps = {
+  listTitle: false,
 };
+
+export { List };
+export default List;

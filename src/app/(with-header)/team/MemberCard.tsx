@@ -2,13 +2,13 @@ import React from "react";
 import { Github } from "@/assets";
 
 interface CardProps {
-  name?: string;
-  img?: string;
-  github?: string;
-  major?: string;
+  name: string;
+  img: string;
+  github: string;
+  major: string;
 }
 
-export const MemberCard = ({ name, img, github, major }: CardProps) => {
+function MemberCard({ name, img, github, major }: CardProps) {
   return (
     <div className="group rounded-lg w-full max-w-[270px] h-[360px] relative overflow-hidden">
       <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex translate-y-8 flex-col gap-1 rounded-md bg-white p-4 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 sm:translate-y-0 sm:opacity-100 md:translate-y-0 md:opacity-100 lg:translate-y-8 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
@@ -24,10 +24,13 @@ export const MemberCard = ({ name, img, github, major }: CardProps) => {
         <p className="text-gray400 text-medium16">{major}</p>
       </div>
       <img
-        src={img || ""}
+        src={img}
         alt={name ? `${name} 프로필 이미지` : "팀원 프로필 이미지"}
         className="absolute h-full w-full grayscale transition-all group-hover:grayscale-0 sm:grayscale-0 md:grayscale-0 lg:grayscale"
       />
     </div>
   );
-};
+}
+
+export { MemberCard };
+export default MemberCard;
