@@ -1,5 +1,10 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
+
+import { loginHandler } from "@/apis";
 import { Arrow } from "@/assets";
 import { Button, RegisterInput, useToast } from "@/components";
 import {
@@ -11,43 +16,58 @@ import {
   authInfoBlockClass,
   authTitleBlockClass,
 } from "@/constant/formStyle";
-import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
 import { LoginValues } from "@/interfaces/user";
-import { loginHandler } from "@/apis";
+
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return "";
+}
 
 export default function Login() {
   const router = useRouter();
   const { addToast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     control,
-    handleSubmit, // 로그인핸들러
+    handleSubmit,
     formState: { errors },
   } = useForm<LoginValues>({
-    defaultValues: { email: "", password: "" }, // 이메일, 비밀번호 기본 값
-  }); // 로그인 폼 유효성 검사
+    defaultValues: { email: "", password: "" },
+  });
 
   const handleLogin = handleSubmit(async data => {
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      const response = await loginHandler(data);
-      if (response === 200) {
-        // 로그인 성공
+      const status = await loginHandler(data);
+
+      if (status === 200) {
         addToast("로그인 성공!", "success");
-        router.push("/"); // 로그인 후 메인 이동
-      } else if (response === 401) {
-        // 인증 실패
-        addToast("이메일 또는 비밀번호가 올바르지 않습니다.", "error");
-      } else {
-        // 기타 오류
-        addToast(
-          "로그인 중 문제가 발생했습니다. 다시 시도해주세요.",
-          "warning",
-        );
+        router.push("/");
+        return;
       }
+
+      if (status === 401) {
+        addToast("이메일 또는 비밀번호가 올바르지 않습니다.", "error");
+        return;
+      }
+
+      addToast("로그인 중 문제가 발생했습니다. 다시 시도해주세요.", "warning");
     } catch (error) {
-      // 네트워크 오류 등 예외 처리
-      addToast("네트워크 오류가 발생했습니다.", "error");
+      addToast(
+        getErrorMessage(error) || "네트워크 오류가 발생했습니다.",
+        "error",
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   });
 
@@ -69,14 +89,11 @@ export default function Login() {
               대마고에서 일어나는 모든 일을 이곳에서
             </p>
           </div>
-          <div className="flex flex-col gap-6 w-full">
-            {/* 이메일 입력창 검사 */}
+          <div className="w-full flex flex-col gap-6">
             <Controller
               name="email"
               control={control}
-              rules={{
-                required: "이메일을 입력해주세요.",
-              }}
+              rules={{ required: "이메일을 입력해주세요." }}
               render={({ field: { onChange, value } }) => (
                 <RegisterInput
                   type="email"
@@ -88,7 +105,6 @@ export default function Login() {
                 />
               )}
             />
-            {/* 비밀번호 입력창 검사 */}
             <Controller
               name="password"
               control={control}
@@ -107,17 +123,23 @@ export default function Login() {
           </div>
         </div>
         <div className={authBottomBlockClass}>
-          <div className="flex gap-1.5">
+          <div className="flex items-center gap-1.5 sm:flex-col sm:items-start">
             <p className="text-medium16 text-gray600">계정이 없으신가요?</p>
-            <p
-              onClick={() => router.push("signup")} // 회원가입으로 이동
-              className="text-semibold16 text-lime500 hover:text-lime600 cursor-pointer"
+            <button
+              type="button"
+              onClick={() => router.push("/signup")}
+              className="text-semibold16 text-lime500 hover:text-lime600"
             >
               회원가입
-            </p>
+            </button>
           </div>
-          <Button onClick={handleLogin} big style="primary2" text="로그인" />{" "}
-          {/* 로그인 핸들러 실행 */}
+          <Button
+            big
+            onClick={handleLogin}
+            disabled={isSubmitting}
+            className="!bg-lime500 !text-white hover:!bg-lime600"
+            text={isSubmitting ? "로그인 중..." : "로그인"}
+          />
         </div>
       </div>
     </div>

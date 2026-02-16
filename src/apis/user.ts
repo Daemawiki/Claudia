@@ -13,7 +13,13 @@ export const loginHandler = async (data: LoginValues) => {
       setCookie("access_token", res.data.access_token);
       return res.status;
     })
-    .catch(() => undefined);
+    .catch(err => {
+      if (err.response?.status === 401) {
+        return 401;
+      }
+
+      throw new Error(err.response?.data?.message || "로그인 실패");
+    });
 };
 
 // 회원가입
