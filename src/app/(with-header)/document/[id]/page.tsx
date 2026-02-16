@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { Sidebar } from "@/components";
-import Bottom from "./Bottom";
-import Profile from "./Profile";
-import Title from "./Title";
-import Toggle from "./Toggle";
+import { Bottom } from "./Bottom";
+import { Profile } from "./Profile";
+import { Title } from "./Title";
+import { Toggle } from "./Toggle";
 
 function Document() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(true);

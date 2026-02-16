@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Sidebar } from "@/components";
 import { Calendar, User } from "@/assets";
-import Title from "../Title";
+import { Title } from "../Title";
 import EditHistory from "./EditHistory";
 
 interface MockDataType {
