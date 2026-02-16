@@ -1,4 +1,5 @@
 "use client";
+
 import { Arrow, Hide, Show } from "@/assets";
 import {
   formFieldContainerClass,
@@ -18,11 +19,11 @@ interface InputProps {
   value?: string | number;
   type?: "email" | "password" | "text" | "dropdown";
   dropdownValue?: string[] | number[];
-  onChange?: (...e: any[]) => void;
+  onChange?: (value: string) => void;
   autoFocus?: boolean;
 }
 
-export const RegisterInput = ({
+function RegisterInput({
   title,
   placeholder,
   type = "text",
@@ -30,16 +31,21 @@ export const RegisterInput = ({
   value,
   onChange,
   dropdownValue,
-  autoFocus,
-}: InputProps) => {
+  autoFocus = false,
+}: InputProps) {
   const [hidePassword, setHidePassword] = useState<boolean>(true); // 비밀번호 숨기기
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false); // 드롭다운 열기
   const inputRef = useRef<HTMLDivElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  const toggleDropdownOpen = () => {
+    setDropdownOpen(prev => !prev);
+  };
 
   // 드롭다운에서 선택한 값을 업데이트하는 함수
   const handleDropdownChange = (item: string | number) => {
     if (onChange) {
-      onChange(item); // 선택된 값을 직접 전달
+      onChange(String(item)); // 선택된 값을 직접 전달
     }
     setDropdownOpen(false); // 드롭다운 닫기
   };
@@ -61,6 +67,12 @@ export const RegisterInput = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (autoFocus && type !== "dropdown") {
+      textInputRef.current?.focus();
+    }
+  }, [autoFocus, type]);
+
   const inputType = {
     email: (
       <div className="flex px-3">
@@ -70,21 +82,28 @@ export const RegisterInput = ({
       </div>
     ),
     password: (
-      <div
-        onClick={() => setHidePassword(!hidePassword)}
+      <button
+        type="button"
+        onClick={() => setHidePassword(prev => !prev)}
         className="flex items-center justify-center px-3 text-gray500 cursor-pointer"
+        aria-label={hidePassword ? "비밀번호 표시" : "비밀번호 숨기기"}
       >
         {hidePassword ? <Hide /> : <Show />}
-      </div>
+      </button>
     ),
-    text: <></>,
+    text: null,
     dropdown: (
-      <div className="p-3 flex cursor-pointer">
+      <button
+        type="button"
+        onClick={toggleDropdownOpen}
+        className="p-3 flex cursor-pointer"
+        aria-label="드롭다운 열기"
+      >
         <Arrow
           className="text-gray600 transition-all"
           direction={dropdownOpen ? "up" : "down"}
         />
-      </div>
+      </button>
     ),
   };
 
@@ -92,17 +111,14 @@ export const RegisterInput = ({
     <div className={formFieldContainerClass} ref={inputRef}>
       <div className={formFieldWrapperClass}>
         <div className={formFieldLabelClass}>{title}</div>
-        <div
-          onClick={() => type === "dropdown" && setDropdownOpen(!dropdownOpen)}
-          className={formFieldInputRowClass}
-        >
+        <div className={formFieldInputRowClass}>
           {type === "dropdown" ? (
             <div className={formFieldDropdownTextClass}>
               {value || placeholder}
             </div>
           ) : (
             <input
-              autoFocus={autoFocus}
+              ref={textInputRef}
               value={value}
               onChange={e => onChange?.(e.target.value)}
               type={hidePassword && type === "password" ? "password" : "text"}
@@ -131,4 +147,18 @@ export const RegisterInput = ({
       <p className={formFieldErrorClass}>{error}</p>
     </div>
   );
+}
+
+RegisterInput.defaultProps = {
+  title: "",
+  placeholder: "",
+  error: "",
+  value: "",
+  type: "text",
+  dropdownValue: [],
+  onChange: undefined,
+  autoFocus: false,
 };
+
+export { RegisterInput };
+export default RegisterInput;

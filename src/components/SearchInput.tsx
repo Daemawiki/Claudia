@@ -5,7 +5,7 @@ interface InputProps {
   placeholder?: string;
 }
 
-export const SearchInput = ({ placeholder }: InputProps) => {
+function SearchInput({ placeholder }: InputProps) {
   return (
     <div className="flex min-h-10 w-full items-center gap-2 overflow-hidden rounded-md border border-gray200 bg-gray50 px-3 py-2 transition-all focus-within:bg-white">
       <input
@@ -17,4 +17,11 @@ export const SearchInput = ({ placeholder }: InputProps) => {
       </div>
     </div>
   );
+}
+
+SearchInput.defaultProps = {
+  placeholder: "",
 };
+
+export { SearchInput };
+export default SearchInput;
