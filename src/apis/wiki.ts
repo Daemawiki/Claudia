@@ -1,5 +1,6 @@
 import {
   WikiCategory,
+  WikiDocumentDetail,
   WikiDivisionCategory,
   WikiDocumentSummary,
   WikiRecentChange,
@@ -131,6 +132,59 @@ const divisionCategories: WikiDivisionCategory[] = [
   },
 ];
 
+const documentDetails: Record<string, WikiDocumentDetail> = {
+  "lee-taeyoung": {
+    id: "lee-taeyoung",
+    title: "이태영",
+    category: "student",
+    views: 210,
+    badgeText: "2113 이태영",
+    description:
+      "김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.",
+    profileInfo: [
+      { title: "학년", text: "3학년" },
+      { title: "전공", text: "백엔드" },
+      { title: "생년월일", text: "10 · 1-1" },
+      { title: "MBTI", text: "INTP" },
+      { title: "성별", text: "대장 갓이" },
+      { title: "대마입학", text: "2007 / 11 / 03" },
+    ],
+    sections: [
+      { num: "1", title: "개요", details: "1학년 4반의 오타쿠 이태영." },
+      { num: "2", title: "특징", details: "" },
+      { num: "3", title: "논란", details: "" },
+      {
+        num: "4",
+        title: "성격",
+        details: "오타쿠 씹덕의 성격을 가졌다.",
+      },
+      {
+        num: "4.1",
+        title: "MBTI",
+        details: "UGAM : 우울감이다.",
+      },
+      {
+        num: "4.1.1",
+        title: "오타쿠",
+        details: "이상한 걸 좋아한다.",
+      },
+      {
+        num: "5",
+        title: "망언록",
+        details:
+          "너무나도 청렴한 사람이라 명언록만 있지, 망언록은 존재하지 않는다.",
+      },
+    ],
+    relatedDocuments: [
+      "관련 문서",
+      "이태영",
+      "대마위키",
+      "동아리 대장님이 작성",
+    ],
+    lastUpdated: "2024-08-04 07:03",
+  },
+};
+
 const wait = <T>(value: T) =>
   new Promise<T>(resolve => {
     setTimeout(() => resolve(value), 120);
@@ -153,3 +207,7 @@ export const fetchRecentChangesByCategory = async (
 export const fetchDivisionCategories = async (): Promise<
   WikiDivisionCategory[]
 > => wait(divisionCategories);
+
+export const fetchWikiDocumentDetail = async (
+  id: string,
+): Promise<WikiDocumentDetail | null> => wait(documentDetails[id] ?? null);

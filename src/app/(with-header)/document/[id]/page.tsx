@@ -1,49 +1,88 @@
 "use client";
 
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+
+import { fetchWikiDocumentDetail } from "@/apis";
+import { WikiDocumentDetail } from "@/interfaces/wiki";
 import { Sidebar } from "@/components";
 import { Bottom } from "./Bottom";
 import { Profile } from "./Profile";
 import { Title } from "./Title";
 import { Toggle } from "./Toggle";
 
-function Document() {
-  const [openSidebar, setOpenSidebar] = useState<boolean>(true);
-  const contentsListArr = [
+const defaultDocument: WikiDocumentDetail = {
+  id: "lee-taeyoung",
+  title: "이태영",
+  category: "student",
+  views: 210,
+  badgeText: "2113 이태영",
+  description:
+    "김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.",
+  profileInfo: [
+    { title: "학년", text: "3학년" },
+    { title: "전공", text: "백엔드" },
+    { title: "생년월일", text: "10 · 1-1" },
+    { title: "MBTI", text: "INTP" },
+    { title: "성별", text: "대장 갓이" },
+    { title: "대마입학", text: "2007 / 11 / 03" },
+  ],
+  sections: [
     { num: "1", title: "개요", details: "1학년 4반의 오타쿠 이태영." },
     { num: "2", title: "특징", details: "" },
-    { num: "3", title: "논란", details: "" },
-    { num: "4", title: "성격", details: "오타쿠 씹덕의 성격을 가졌다." },
-    {
-      num: "4.1",
-      title: "MBTI",
-      details: "UGAM : 우울감이다.",
-    },
-    {
-      num: "4.1.1",
-      title: "오타쿠",
-      details: "이상한 걸 좋아한다.",
-    },
-    {
-      num: "5",
-      title: "망언록",
-      details:
-        "“너무나도 청렴한 사람이라 명언록만 있지, 망언록은 존재하지 않는다.”",
-    },
-  ];
+  ],
+  relatedDocuments: ["관련 문서", "이태영", "대마위키", "동아리 대장님이 작성"],
+  lastUpdated: "2024-08-04 07:03",
+};
+
+function Document() {
+  const [openSidebar, setOpenSidebar] = useState<boolean>(true);
+  const params = useParams<{ id: string }>();
+  const rawId = params.id;
+  const documentId = Array.isArray(rawId) ? rawId[0] : rawId;
+  const { data, isLoading } = useQuery<WikiDocumentDetail | null>({
+    queryKey: ["wiki-document", documentId],
+    queryFn: () => fetchWikiDocumentDetail(documentId),
+    enabled: Boolean(documentId),
+  });
+
+  const documentData = data ?? defaultDocument;
+  const contentsListArr = documentData.sections.map(({ num, title }) => ({
+    num,
+    title,
+  }));
+
   return (
     <div
       className={`${openSidebar ? "pl-4 lg:pl-[300px]" : "pl-4"} flex w-full min-h-screen justify-center bg-gray100 pb-16 pr-4 pt-[124px] transition-all lg:pb-20 lg:pr-6 lg:pt-20`}
     >
       <div className="flex w-full max-w-screen-xl flex-col overflow-hidden rounded-2xl border border-gray200 bg-white">
-        <Title />
-        <Profile />
+        <Title title={documentData.title} views={documentData.views} />
+        <Profile
+          badgeText={documentData.badgeText}
+          description={documentData.description}
+          infoArr={documentData.profileInfo}
+        />
         <div className="w-full px-6 py-6 sm:px-4 lg:px-12">
-          {contentsListArr.map(({ num, title, details }) => (
+          {isLoading && (
+            <p className="text-medium16 text-gray500">
+              문서를 불러오는 중입니다...
+            </p>
+          )}
+          {!isLoading && !data && (
+            <p className="text-medium16 text-gray500">
+              문서를 찾을 수 없어 기본 내용을 표시합니다.
+            </p>
+          )}
+          {documentData.sections.map(({ num, title, details }) => (
             <Toggle key={num} num={num} title={title} details={details} />
           ))}
         </div>
-        <Bottom />
+        <Bottom
+          documentList={documentData.relatedDocuments}
+          lastUpdated={documentData.lastUpdated}
+        />
       </div>
       <Sidebar titleList={contentsListArr} setOpenSidebar={setOpenSidebar} />
     </div>

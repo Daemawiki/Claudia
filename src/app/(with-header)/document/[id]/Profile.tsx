@@ -1,15 +1,15 @@
 import React from "react";
+import { WikiDocumentInfoItem } from "@/interfaces/wiki";
 import InfoCardComponent from "./InfoCard";
 
-function Profile() {
-  const infoArr = [
-    { title: "학년", text: "3학년" },
-    { title: "전공", text: "백엔드" },
-    { title: "생년월일", text: "10 · 1-1" },
-    { title: "MBTI", text: "INTP" },
-    { title: "성별", text: "대장 갓이" },
-    { title: "대마입학", text: "2007 / 11 / 03" },
-  ];
+interface ProfileProps {
+  badgeText?: string;
+  description?: string;
+  infoArr?: WikiDocumentInfoItem[];
+}
+
+function Profile({ badgeText, description, infoArr }: ProfileProps) {
+  const items = infoArr ?? [];
 
   return (
     <div className="w-full flex flex-col gap-8 border-b border-gray200 px-6 py-8 sm:px-4 lg:px-12">
@@ -22,18 +22,15 @@ function Profile() {
         </div>
         <div className="flex flex-col gap-4 flex-1">
           <div className="px-4 py-2 bg-lime50 rounded-lg w-fit">
-            <p className="text-lime500 text-semibold14">2113 이태영</p>
+            <p className="text-lime500 text-semibold14">{badgeText}</p>
           </div>
-          <p className="text-gray600 text-medium18">
-            김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한
-            명입니다.
-          </p>
+          <p className="text-gray600 text-medium18">{description}</p>
         </div>
       </div>
 
       {/* Metadata Grid */}
       <div className="grid grid-cols-6 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {infoArr.map(({ title, text }) => (
+        {items.map(({ title, text }) => (
           <InfoCardComponent title={title} text={text} key={title} />
         ))}
       </div>
@@ -44,3 +41,17 @@ function Profile() {
 export { Profile };
 
 export default Profile;
+
+Profile.defaultProps = {
+  badgeText: "2113 이태영",
+  description:
+    "김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.",
+  infoArr: [
+    { title: "학년", text: "3학년" },
+    { title: "전공", text: "백엔드" },
+    { title: "생년월일", text: "10 · 1-1" },
+    { title: "MBTI", text: "INTP" },
+    { title: "성별", text: "대장 갓이" },
+    { title: "대마입학", text: "2007 / 11 / 03" },
+  ],
+};
