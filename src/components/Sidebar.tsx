@@ -1,34 +1,87 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
-import { SearchInput } from "@/components";
 
-interface ListProps {
-  icon: React.ReactNode;
+import { useEffect, useState } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+
+import {
+  Arrow_Double as ArrowDouble,
+  Edit,
+  Info,
+  Setting,
+  Slash,
+} from "@/assets";
+import { SearchInput } from "@/components/SearchInput";
+
+interface SidebarListItemProps {
+  icon: ReactNode;
   text: string;
-  indexList?: boolean;
-  padding?: number;
-  onClick?: () => void;
+  isIndexList: boolean;
+  paddingLevel: number;
+  onClick: () => void;
 }
 
 interface SidebarProps {
   fixed?: boolean;
   setOpenSidebar?: Dispatch<SetStateAction<boolean>>;
-  titleList?: titleListProps[];
+  titleList?: TitleListProps[];
 }
 
-interface titleListProps {
+interface TitleListProps {
   num: string;
   title: string;
 }
 
-export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
+const defaultSetOpenSidebar: Dispatch<SetStateAction<boolean>> = () =>
+  undefined;
+
+function getPaddingClass(paddingLevel: number): string {
+  if (paddingLevel === 2) {
+    return "pl-5";
+  }
+
+  if (paddingLevel === 3) {
+    return "pl-[30px]";
+  }
+
+  return "pl-2.5";
+}
+
+function SidebarListItem({
+  icon,
+  text,
+  isIndexList,
+  paddingLevel,
+  onClick,
+}: SidebarListItemProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${isIndexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${getPaddingClass(paddingLevel)} bg-white ${isIndexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
+    >
+      {icon}
+      <p
+        className={`${isIndexList ? "text-medium18" : "text-medium16"} overflow-hidden overflow-ellipsis text-nowrap`}
+      >
+        {text}
+      </p>
+    </button>
+  );
+}
+
+function Sidebar({
+  fixed = false,
+  setOpenSidebar = defaultSetOpenSidebar,
+  titleList = [],
+}: SidebarProps) {
   const [visible, setVisible] = useState<boolean>(true);
-  const tocList = titleList ?? [];
-  const isFixed = fixed ?? false;
+  const tocList = titleList;
+  const isFixed = fixed;
 
   useEffect(() => {
-    if (isFixed) return;
+    if (isFixed) {
+      return () => {};
+    }
 
     const desktopMedia = window.matchMedia("(min-width: 1420px)");
 
@@ -46,30 +99,24 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   }, [isFixed]);
 
   useEffect(() => {
-    if (!setOpenSidebar) return;
     setOpenSidebar(visible);
   }, [setOpenSidebar, visible]);
+
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
     { icon: <Info size={22} />, text: "문서 정보" },
     { icon: <Setting size={22} />, text: "설정" },
   ];
 
-  const List = ({ icon, text, indexList, padding, onClick }: ListProps) => {
-    return (
-      <div
-        onClick={onClick}
-        className={`w-full cursor-pointer peer transition-all flex items-center text-gray600 overflow-hidden text-nowrap rounded-lg ${indexList ? "gap-2" : "gap-3"} py-2.5 pr-2.5 ${padding == 2 ? "pl-5" : padding == 3 ? "pl-[30px]" : "pl-2.5"} bg-white ${indexList ? "hover:bg-lime50" : "hover:bg-gray100"}`}
-      >
-        {icon}
-        <p
-          className={`${indexList ? "text-medium18" : "text-medium16"} overflow-hidden overflow-ellipsis text-nowrap`}
-        >
-          {text}
-        </p>
-      </div>
-    );
+  const handleOpenSidebar = () => {
+    setVisible(true);
   };
+
+  const handleToggleSidebar = () => {
+    setVisible(prev => !prev);
+  };
+
+  const handleNoop = () => undefined;
 
   return (
     <>
@@ -77,11 +124,11 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
         <>
           <button
             type="button"
-            onClick={() => setVisible(true)}
+            onClick={handleOpenSidebar}
             aria-label="목차 열기"
             className="fixed bottom-6 right-4 z-30 flex items-center gap-2 rounded-full border border-lime300 bg-lime50 px-4 py-2 text-semibold16 text-lime600 shadow-md transition hover:bg-lime100 lg:hidden"
           >
-            <Arrow_Double
+            <ArrowDouble
               className="text-lime500 transition-all"
               direction="right"
             />
@@ -89,11 +136,11 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
           </button>
           <button
             type="button"
-            onClick={() => setVisible(true)}
+            onClick={handleOpenSidebar}
             aria-label="사이드바 열기"
             className="fixed left-0 top-24 z-30 hidden h-10 w-10 items-center justify-center rounded-r-xl border border-l-0 border-gray300 bg-white text-gray400 shadow-sm transition hover:bg-gray50 lg:flex"
           >
-            <Arrow_Double
+            <ArrowDouble
               className="text-gray400 transition-all"
               direction="right"
             />
@@ -118,10 +165,10 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
             <button
               type="button"
               aria-label="사이드바 닫기"
-              onClick={() => setVisible(!visible)}
+              onClick={handleToggleSidebar}
               className="absolute right-4 top-3.5 flex p-1 transition-all"
             >
-              <Arrow_Double
+              <ArrowDouble
                 className="text-gray400 transition-all"
                 direction={visible ? "left" : "right"}
               />
@@ -133,8 +180,15 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
           <div className="w-full flex flex-col gap-2">
             <p className="text-semibold14 text-gray600">설정</p>
             <div className="flex w-full gap-1 flex-col">
-              {listArr.map(({ icon, text }, index) => (
-                <List key={index} icon={icon} text={text} />
+              {listArr.map(({ icon, text }) => (
+                <SidebarListItem
+                  key={text}
+                  icon={icon}
+                  text={text}
+                  isIndexList={false}
+                  paddingLevel={1}
+                  onClick={handleNoop}
+                />
               ))}
             </div>
           </div>
@@ -142,11 +196,11 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
             <div className="w-full flex flex-col gap-2">
               <p className="text-semibold14 text-gray600">목차</p>
               <div className="flex w-full gap-1 flex-col">
-                {tocList.map(({ num, title }, index) => (
-                  <List
-                    padding={num.split(".").length}
-                    indexList
-                    key={index}
+                {tocList.map(({ num, title }) => (
+                  <SidebarListItem
+                    paddingLevel={num.split(".").length}
+                    isIndexList
+                    key={`${num}-${title}`}
                     icon={<p className="text-semibold18 text-lime500">{num}</p>}
                     text={title}
                     onClick={() => {
@@ -169,4 +223,13 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
       </div>
     </>
   );
+}
+
+Sidebar.defaultProps = {
+  fixed: false,
+  setOpenSidebar: defaultSetOpenSidebar,
+  titleList: [],
 };
+
+export { Sidebar };
+export default Sidebar;

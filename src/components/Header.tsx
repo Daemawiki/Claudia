@@ -1,11 +1,13 @@
 "use client";
-import { Logo, Arrow, User, Search } from "@/assets";
-import React from "react";
-import { SearchInput } from "@/components";
-import { usePathname, useRouter } from "next/navigation";
-import { getCookie } from "@/apis/cookies";
 
-export const Header = () => {
+import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+
+import { getCookie } from "@/apis/cookies";
+import { Arrow, Logo, Search, User } from "@/assets";
+import { SearchInput } from "@/components/SearchInput";
+
+function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const navList = [
@@ -151,4 +153,7 @@ export const Header = () => {
       </div>
     </div>
   );
-};
+}
+
+export { Header };
+export default Header;
