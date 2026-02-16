@@ -27,7 +27,9 @@ export const registerHandler = async (data: SignupFormValues) => {
       classInfos: data.classInfos,
     })
     .then(res => res.status)
-    .catch(() => undefined);
+    .catch(err => {
+      throw new Error(err.response?.data?.message || "회원가입 실패");
+    });
 };
 
 // 토큰 재발급
