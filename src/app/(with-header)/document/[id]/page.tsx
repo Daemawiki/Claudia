@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
-import { fetchWikiDocumentDetail } from "@/apis";
-import { WikiDocumentDetail } from "@/interfaces/wiki";
+import {
+  fetchWikiDocumentDetail,
+  updateWikiDocumentPhoto,
+  updateWikiDocumentProfile,
+} from "@/apis";
+import {
+  WikiDocumentDetail,
+  WikiDocumentProfileUpdateInput,
+} from "@/interfaces/wiki";
 import { Sidebar } from "@/components";
 import { Bottom } from "./Bottom";
 import { Profile } from "./Profile";
@@ -17,6 +24,7 @@ const defaultDocument: WikiDocumentDetail = {
   title: "이태영",
   category: "student",
   views: 210,
+  profileImageUrl: "",
   badgeText: "2113 이태영",
   description:
     "김승윤이 사랑한 김어진 박지민 이태영 최고의 인재 팀원 중 한 명입니다.",
@@ -38,14 +46,65 @@ const defaultDocument: WikiDocumentDetail = {
 
 function Document() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(true);
+  const queryClient = useQueryClient();
   const params = useParams<{ id: string }>();
   const rawId = params.id;
   const documentId = Array.isArray(rawId) ? rawId[0] : rawId;
+  const queryKey = ["wiki-document", documentId];
+
   const { data, isLoading } = useQuery<WikiDocumentDetail | null>({
-    queryKey: ["wiki-document", documentId],
-    queryFn: () => fetchWikiDocumentDetail(documentId),
+    queryKey,
+    queryFn: () => {
+      if (!documentId) {
+        return Promise.resolve(null);
+      }
+
+      return fetchWikiDocumentDetail(documentId);
+    },
     enabled: Boolean(documentId),
   });
+
+  const profileMutation = useMutation({
+    mutationFn: (input: WikiDocumentProfileUpdateInput) => {
+      if (!documentId) {
+        return Promise.resolve(null);
+      }
+
+      return updateWikiDocumentProfile(documentId, input);
+    },
+    onSuccess: updated => {
+      if (!updated) {
+        return;
+      }
+
+      queryClient.setQueryData(queryKey, updated);
+    },
+  });
+
+  const photoMutation = useMutation({
+    mutationFn: (profileImageUrl: string) => {
+      if (!documentId) {
+        return Promise.resolve(null);
+      }
+
+      return updateWikiDocumentPhoto(documentId, profileImageUrl);
+    },
+    onSuccess: updated => {
+      if (!updated) {
+        return;
+      }
+
+      queryClient.setQueryData(queryKey, updated);
+    },
+  });
+
+  const handleSaveProfile = (input: WikiDocumentProfileUpdateInput) => {
+    profileMutation.mutate(input);
+  };
+
+  const handleUploadPhoto = (profileImageUrl: string) => {
+    photoMutation.mutate(profileImageUrl);
+  };
 
   const documentData = data ?? defaultDocument;
   const contentsListArr = documentData.sections.map(({ num, title }) => ({
@@ -63,6 +122,11 @@ function Document() {
           badgeText={documentData.badgeText}
           description={documentData.description}
           infoArr={documentData.profileInfo}
+          profileImageUrl={documentData.profileImageUrl}
+          canEdit={Boolean(data)}
+          isSaving={profileMutation.isPending || photoMutation.isPending}
+          onSave={handleSaveProfile}
+          onUploadPhoto={handleUploadPhoto}
         />
         <div className="w-full px-6 py-6 sm:px-4 lg:px-12">
           {isLoading && (
