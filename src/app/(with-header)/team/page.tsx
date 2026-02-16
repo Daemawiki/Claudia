@@ -1,32 +1,35 @@
 "use client";
+
 import React from "react";
-import { Arrow, TeamLogo } from "@/assets";
-import { Button, RegisterInput } from "@/components";
-import { useRouter } from "next/navigation";
-import { MemberCard } from "./MemberCard";
-import { ValuesCard } from "./ValuesCard";
+import { TeamLogo } from "@/assets";
+import TeamMemberCard from "./MemberCard";
+import TeamValuesCard from "./ValuesCard";
 
 export default function Team() {
   const member = [
     {
+      id: "member-kim-eojin",
       name: "김어진",
       img: "https://public-content.pro.arooo.co.kr/community/post/666b919b3b848300126da30e_23d087ab-ec3b-4f74-9a63-b8a0ec737dfb.jpeg",
       github: "https://github.com/kimeojin35",
       major: "Frontend · Design",
     },
     {
+      id: "member-kim-seungwon",
       name: "김승원",
       img: "https://public-content.pro.arooo.co.kr/community/post/666b919b3b848300126da30e_23d087ab-ec3b-4f74-9a63-b8a0ec737dfb.jpeg",
       github: "",
       major: "Backend",
     },
     {
+      id: "member-park-jimin",
       name: "박지민",
       img: "https://public-content.pro.arooo.co.kr/community/post/666b919b3b848300126da30e_23d087ab-ec3b-4f74-9a63-b8a0ec737dfb.jpeg",
       github: "",
       major: "Frontend",
     },
     {
+      id: "member-lee-taeyoung",
       name: "이태영",
       img: "https://public-content.pro.arooo.co.kr/community/post/666b919b3b848300126da30e_23d087ab-ec3b-4f74-9a63-b8a0ec737dfb.jpeg",
       github: "",
@@ -36,27 +39,35 @@ export default function Team() {
 
   const rules = [
     {
+      id: "rule-user-experience-1",
+      order: 1,
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-user-experience-2",
+      order: 2,
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-user-experience-3",
+      order: 3,
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-user-experience-4",
+      order: 4,
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
   ];
-  const router = useRouter();
+
   return (
     <div className="w-full flex justify-center flex-col">
       <div className="flex w-full max-w-screen-xl flex-col pt-16">
@@ -89,9 +100,9 @@ export default function Team() {
             </p>
           </div>
           <div className="w-full flex flex-wrap gap-2">
-            {member.map(({ name, img, github, major }, index) => (
-              <MemberCard
-                key={index}
+            {member.map(({ id, name, img, github, major }) => (
+              <TeamMemberCard
+                key={id}
                 name={name}
                 img={img}
                 github={github}
@@ -112,20 +123,21 @@ export default function Team() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6 w-full">
-            {rules.map(({ title, detail }, index) => (
-              <ValuesCard
-                key={index}
-                index={index + 1}
+            {rules.map(({ id, order, title, detail }) => (
+              <TeamValuesCard
+                key={id}
+                index={order}
                 title={title}
                 details={detail}
               />
             ))}
           </div>
-          <Button
-            text="벨로그 보러가기"
-            style="neutral"
-            className="w-max rounded-full px-4 py-3 text-medium16"
-          />
+          <button
+            type="button"
+            className="inline-flex min-h-10 w-max shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-full bg-gray100 px-4 py-3 text-medium16 text-gray700 transition-all hover:bg-gray200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2"
+          >
+            벨로그 보러가기
+          </button>
         </div>
         <div className="w-full px-6 py-24 sm:px-4 lg:px-12 gap-12 flex flex-col">
           <div className="flex flex-col gap-6">
@@ -173,11 +185,12 @@ export default function Team() {
           <br />
           고개를 들어주세요.
         </p>
-        <Button
-          text="대마위키 살펴보기"
-          style="dark"
-          className="rounded-full px-4 py-3 text-medium16"
-        />
+        <button
+          type="button"
+          className="inline-flex min-h-10 shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-full bg-gray900 px-4 py-3 text-medium16 text-white transition-all hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2"
+        >
+          대마위키 살펴보기
+        </button>
       </div>
     </div>
   );
