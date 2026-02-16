@@ -12,7 +12,7 @@ interface ButtonProps {
   children?: Readonly<React.ReactNode>;
 }
 
-export const Button = ({
+function Button({
   text,
   onClick,
   style = "primary",
@@ -22,7 +22,7 @@ export const Button = ({
   disabled = false,
   className = "",
   children,
-}: ButtonProps) => {
+}: ButtonProps) {
   const isDisabled = state === "disabled" || disabled;
 
   const buttonStyle = {
@@ -48,21 +48,52 @@ export const Button = ({
     },
   };
 
+  const buttonClassName = `inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2 ${
+    big
+      ? "min-h-12 rounded-lg px-4 py-3 text-semibold18"
+      : "min-h-10 rounded-md px-3 py-2 text-semibold16"
+  } ${buttonStyle[style][isDisabled ? "disabled" : "enabled"]} ${
+    isDisabled ? "cursor-not-allowed" : "cursor-pointer"
+  } ${className}`;
+
+  if (type === "submit") {
+    return (
+      <button
+        type="submit"
+        onClick={onClick}
+        disabled={isDisabled}
+        className={buttonClassName}
+      >
+        {text}
+        {children}
+      </button>
+    );
+  }
+
   return (
     <button
-      type={type}
+      type="button"
       onClick={onClick}
       disabled={isDisabled}
-      className={`inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime300 focus-visible:ring-offset-2 ${
-        big
-          ? "min-h-12 rounded-lg px-4 py-3 text-semibold18"
-          : "min-h-10 rounded-md px-3 py-2 text-semibold16"
-      } ${buttonStyle[style][isDisabled ? "disabled" : "enabled"]} ${
-        isDisabled ? "cursor-not-allowed" : "cursor-pointer"
-      } ${className}`}
+      className={buttonClassName}
     >
       {text}
       {children}
     </button>
   );
+}
+
+Button.defaultProps = {
+  text: "",
+  style: "primary",
+  state: "enabled",
+  onClick: undefined,
+  big: false,
+  type: "button",
+  disabled: false,
+  className: "",
+  children: null,
 };
+
+export { Button };
+export default Button;
