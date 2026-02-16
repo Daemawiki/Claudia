@@ -1,6 +1,7 @@
 import {
   WikiCategory,
   WikiDocumentDetail,
+  WikiDocumentProfileUpdateInput,
   WikiDivisionCategory,
   WikiDocumentSummary,
   WikiRecentChange,
@@ -185,6 +186,15 @@ const documentDetails: Record<string, WikiDocumentDetail> = {
   },
 };
 
+const cloneDocumentDetail = (
+  detail: WikiDocumentDetail,
+): WikiDocumentDetail => ({
+  ...detail,
+  profileInfo: detail.profileInfo.map(item => ({ ...item })),
+  sections: detail.sections.map(section => ({ ...section })),
+  relatedDocuments: [...detail.relatedDocuments],
+});
+
 const wait = <T>(value: T) =>
   new Promise<T>(resolve => {
     setTimeout(() => resolve(value), 120);
@@ -210,4 +220,50 @@ export const fetchDivisionCategories = async (): Promise<
 
 export const fetchWikiDocumentDetail = async (
   id: string,
-): Promise<WikiDocumentDetail | null> => wait(documentDetails[id] ?? null);
+): Promise<WikiDocumentDetail | null> => {
+  const detail = documentDetails[id];
+
+  return wait(detail ? cloneDocumentDetail(detail) : null);
+};
+
+export const updateWikiDocumentProfile = async (
+  id: string,
+  input: WikiDocumentProfileUpdateInput,
+): Promise<WikiDocumentDetail | null> => {
+  const current = documentDetails[id];
+
+  if (!current) {
+    return wait(null);
+  }
+
+  const nextDetail: WikiDocumentDetail = {
+    ...current,
+    badgeText: input.badgeText,
+    description: input.description,
+    profileInfo: input.profileInfo.map(item => ({ ...item })),
+  };
+
+  documentDetails[id] = nextDetail;
+
+  return wait(cloneDocumentDetail(nextDetail));
+};
+
+export const updateWikiDocumentPhoto = async (
+  id: string,
+  profileImageUrl: string,
+): Promise<WikiDocumentDetail | null> => {
+  const current = documentDetails[id];
+
+  if (!current) {
+    return wait(null);
+  }
+
+  const nextDetail: WikiDocumentDetail = {
+    ...current,
+    profileImageUrl,
+  };
+
+  documentDetails[id] = nextDetail;
+
+  return wait(cloneDocumentDetail(nextDetail));
+};

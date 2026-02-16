@@ -34,11 +34,18 @@ export interface WikiDocumentInfoItem {
   text: string;
 }
 
+export interface WikiDocumentProfileUpdateInput {
+  badgeText: string;
+  description: string;
+  profileInfo: WikiDocumentInfoItem[];
+}
+
 export interface WikiDocumentDetail {
   id: string;
   title: string;
   category: WikiCategory;
   views: number;
+  profileImageUrl?: string;
   badgeText: string;
   description: string;
   profileInfo: WikiDocumentInfoItem[];
