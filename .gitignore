@@ -37,3 +37,39 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+
+# local UI audit artifacts (root only)
+# keep retained captures under docs/artifacts/
+/agent*.png
+/agent*.jpg
+/agent*.jpeg
+/audit*.png
+/audit*.jpg
+/audit*.jpeg
+/desktop-*.png
+/desktop-*.jpg
+/desktop-*.jpeg
+/dmwcomm*.png
+/dmwcomm*.jpg
+/dmwcomm*.jpeg
+/main-*.png
+/main-*.jpg
+/main-*.jpeg
+/mobile-*.png
+/mobile-*.jpg
+/mobile-*.jpeg
+/popular-*.png
+/popular-*.jpg
+/popular-*.jpeg
+/pr*.png
+/pr*.jpg
+/pr*.jpeg
+/shell-audit-*.png
+/shell-audit-*.jpg
+/shell-audit-*.jpeg
+/ui*.png
+/ui*.jpg
+/ui*.jpeg
+/worktree-*.png
+/worktree-*.jpg
+/worktree-*.jpeg
