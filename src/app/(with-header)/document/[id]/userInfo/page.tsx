@@ -1,8 +1,8 @@
 "use client";
 
-import { Sidebar } from "@/components";
-import { User, Calendar } from "@/assets";
 import { useState } from "react";
+import { Sidebar } from "@/components";
+import { Calendar, User } from "@/assets";
 import { Title } from "../Title";
 import EditHistory from "./EditHistory";
 
@@ -15,7 +15,7 @@ interface MockDataType {
 }
 
 export default function UserInfo() {
-  const MockData: MockDataType[] = [
+  const mockData: MockDataType[] = [
     {
       index: "5.1",
       title: "햄스터라는 사실",
@@ -144,18 +144,21 @@ export default function UserInfo() {
                   <div className="w-6" />
                 </div>
               </div>
-              {MockData.map(
-                ({ index, title, editor, editDate, editHistory }, key) => (
+              {mockData.map(
+                (
+                  { index, title, editor, editDate, editHistory },
+                  listIndex,
+                ) => (
                   <EditHistory
-                    key={`${editDate}-${title}`}
+                    key={`${index}-${editDate}`}
                     index={index}
                     title={title}
                     editor={editor}
                     editDate={editDate}
                     editHistory={editHistory}
-                    isOpen={openHistory === key}
-                    handleOpen={() => handleOpen(key)}
-                    isFirst={key === 0}
+                    isOpen={openHistory === listIndex}
+                    handleOpen={() => handleOpen(listIndex)}
+                    isFirst={listIndex === 0}
                   />
                 ),
               )}

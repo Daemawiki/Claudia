@@ -1,10 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
 import { Sidebar } from "@/components";
-import { Title } from "./Title";
-import { Profile } from "./Profile";
-import { Toggle } from "./Toggle";
 import { Bottom } from "./Bottom";
+import { Profile } from "./Profile";
+import { Title } from "./Title";
+import { Toggle } from "./Toggle";
 
 function Document() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(true);
@@ -38,8 +39,8 @@ function Document() {
         <Title />
         <Profile />
         <div className="w-full px-6 py-6 sm:px-4 lg:px-12">
-          {contentsListArr.map(({ num, title, details }, index) => (
-            <Toggle key={index} num={num} title={title} details={details} />
+          {contentsListArr.map(({ num, title, details }) => (
+            <Toggle key={num} num={num} title={title} details={details} />
           ))}
         </div>
         <Bottom />
