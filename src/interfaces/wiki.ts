@@ -22,3 +22,27 @@ export interface WikiDivisionCategory {
   featured?: boolean;
   route?: string;
 }
+
+export interface WikiDocumentSection {
+  num: string;
+  title: string;
+  details: string;
+}
+
+export interface WikiDocumentInfoItem {
+  title: string;
+  text: string;
+}
+
+export interface WikiDocumentDetail {
+  id: string;
+  title: string;
+  category: WikiCategory;
+  views: number;
+  badgeText: string;
+  description: string;
+  profileInfo: WikiDocumentInfoItem[];
+  sections: WikiDocumentSection[];
+  relatedDocuments: string[];
+  lastUpdated: string;
+}
