@@ -1,16 +1,27 @@
-import React from "react";
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchRecentChanges, wikiCategoryLabel } from "@/apis";
 import { Title } from "../document/[id]/Title";
 import RecentList from "./List";
 import RecentPagination from "./Pagination";
 
 function Recent() {
-  const arr = Array.from({ length: 10 }, (_, index) => ({
-    id: `recent-${index + 1}`,
-    title: "이태영",
-    group: "학생",
-    changeUserName: "김승원",
-    changeTime: "2424-08-28 08:37",
-  }));
+  const { data, isLoading } = useQuery({
+    queryKey: ["recent-changes"],
+    queryFn: fetchRecentChanges,
+  });
+
+  const rows =
+    data?.map(change => ({
+      id: change.id,
+      title: change.title,
+      group: wikiCategoryLabel(change.category),
+      changeUserName: change.editor,
+      changeTime: change.updatedAt,
+    })) ?? [];
+
   return (
     <div className="w-full flex justify-center pb-12">
       <div className="flex w-full max-w-screen-xl flex-col gap-14 px-6 pt-16 sm:px-4 lg:px-12">
@@ -29,16 +40,27 @@ function Recent() {
             changeUserName="변경자"
             changeTime="변경 시간"
           />
-          {arr.map(({ id, title, group, changeUserName, changeTime }) => (
-            <RecentList
-              key={id}
-              listTitle={false}
-              title={title}
-              group={group}
-              changeUserName={changeUserName}
-              changeTime={changeTime}
-            />
-          ))}
+          {isLoading && (
+            <div className="border-b border-b-gray100 px-5 py-6 text-medium16 text-gray500 sm:px-4">
+              최근 변경을 불러오는 중입니다...
+            </div>
+          )}
+          {!isLoading && rows.length === 0 && (
+            <div className="border-b border-b-gray100 px-5 py-6 text-medium16 text-gray500 sm:px-4">
+              표시할 최근 변경 항목이 없습니다.
+            </div>
+          )}
+          {!isLoading &&
+            rows.map(({ id, title, group, changeUserName, changeTime }) => (
+              <RecentList
+                key={id}
+                listTitle={false}
+                title={title}
+                group={group}
+                changeUserName={changeUserName}
+                changeTime={changeTime}
+              />
+            ))}
         </div>
         <RecentPagination />
       </div>

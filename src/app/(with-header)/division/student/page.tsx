@@ -1,18 +1,30 @@
+"use client";
+
+import { fetchRecentChangesByCategory, wikiCategoryLabel } from "@/apis";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Arrow } from "@/assets";
-import { Title } from "../../document/[id]/Title";
 import { RegisterInput } from "@/components";
 import { periodMenu, majorMenu, clubMenu } from "@/constant/dropdownItem";
+import { Title } from "../../document/[id]/Title";
 import { Pagination } from "../../recent/Pagination";
 import { List } from "../../recent/List";
 
 function StudentPage() {
-  const arr = new Array(10).fill({
-    title: "이태영",
-    group: "학생",
-    changeUserName: "김승원",
-    changeTime: "2424-08-28 08:37",
+  const { data, isLoading } = useQuery({
+    queryKey: ["recent-changes", "student"],
+    queryFn: () => fetchRecentChangesByCategory("student"),
   });
+
+  const rows =
+    data?.map(change => ({
+      id: change.id,
+      title: change.title,
+      group: wikiCategoryLabel(change.category),
+      changeUserName: change.editor,
+      changeTime: change.updatedAt,
+    })) ?? [];
+
   return (
     <div className="w-full flex justify-center">
       <div className="flex w-full max-w-screen-xl flex-col px-6 sm:px-4 lg:px-12">
@@ -52,15 +64,26 @@ function StudentPage() {
               changeUserName="변경자"
               changeTime="변경 시간"
             />
-            {arr.map(({ title, group, changeUserName, changeTime }, index) => (
-              <List
-                key={index}
-                title={title}
-                group={group}
-                changeUserName={changeUserName}
-                changeTime={changeTime}
-              />
-            ))}
+            {isLoading && (
+              <div className="border-b border-b-gray100 px-5 py-6 text-medium16 text-gray500 sm:px-4">
+                학생 문서를 불러오는 중입니다...
+              </div>
+            )}
+            {!isLoading && rows.length === 0 && (
+              <div className="border-b border-b-gray100 px-5 py-6 text-medium16 text-gray500 sm:px-4">
+                표시할 학생 문서가 없습니다.
+              </div>
+            )}
+            {!isLoading &&
+              rows.map(({ id, title, group, changeUserName, changeTime }) => (
+                <List
+                  key={id}
+                  title={title}
+                  group={group}
+                  changeUserName={changeUserName}
+                  changeTime={changeTime}
+                />
+              ))}
           </div>
           <Pagination />
         </div>
