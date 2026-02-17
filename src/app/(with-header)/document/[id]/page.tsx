@@ -23,11 +23,16 @@ function Document() {
       title: "오타쿠",
       details: "이상한 걸 좋아한다.",
     },
-    { num: "5", title: "망언록", details: "“너무나도 청렴한 사람이라 명언록만 있지, 망언록은 존재하지 않는다.”" },
+    {
+      num: "5",
+      title: "망언록",
+      details:
+        "“너무나도 청렴한 사람이라 명언록만 있지, 망언록은 존재하지 않는다.”",
+    },
   ];
   return (
     <div
-      className={`${openSidebar ? "pl-[300px]" : "pl-6"} transition-all pt-20 pb-20 pr-6 bg-gray100 justify-center flex w-full min-h-screen`}
+      className={`${openSidebar ? "lg:pl-[320px]" : "lg:pl-6"} pl-4 pr-4 lg:pr-6 transition-all pt-24 pb-20 bg-gray100 justify-center flex w-full min-h-screen`}
     >
       <div className="max-w-[1200px] w-full flex flex-col rounded-2xl bg-white border border-gray200 overflow-hidden">
         <Title />

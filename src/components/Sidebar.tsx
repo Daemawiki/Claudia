@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Arrow_Double, Edit, Info, Setting, Slash } from "@/assets";
 import { SearchInput } from "@/components";
 
@@ -23,7 +23,17 @@ interface titleListProps {
 
 export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
-  setOpenSidebar(visible);
+
+  useEffect(() => {
+    setOpenSidebar(visible);
+  }, [setOpenSidebar, visible]);
+
+  useEffect(() => {
+    if (window.innerWidth < 1420) {
+      setVisible(false);
+    }
+  }, []);
+
   const listArr = [
     { icon: <Edit size={22} />, text: "문서 수정" },
     { icon: <Info size={22} />, text: "문서 정보" },
@@ -50,13 +60,33 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
       {!visible && (
         <div
           style={{ height: `calc(100vh - 100px)` }}
-          className="top-20 left-0 fixed z-10 w-[40px] peer"
+          className="hidden lg:block top-20 left-0 fixed z-10 w-[40px] peer"
+        />
+      )}
+
+      {!visible && (
+        <button
+          type="button"
+          aria-label="목차 열기"
+          onClick={() => setVisible(true)}
+          className="lg:hidden fixed top-24 left-3 z-30 min-h-[44px] min-w-[44px] rounded-xl border border-gray200 bg-white shadow-md flex items-center justify-center"
+        >
+          <Arrow_Double className="text-gray500" direction="right" />
+        </button>
+      )}
+
+      {visible && (
+        <button
+          type="button"
+          aria-label="목차 닫기 배경"
+          onClick={() => setVisible(false)}
+          className="lg:hidden fixed inset-0 z-20 bg-black/20"
         />
       )}
 
       <div
-        style={{ height: `calc(100vh - 100px)` }}
-        className={`border z-20 fixed top-20 hover:left-0 peer-hover:left-0 ${visible ? "left-0" : "-left-72"} transition-all bg-white rounded-r-2xl border-gray300 w-[280px] flex flex-col`}
+        style={{ height: `calc(100vh - 80px)` }}
+        className={`border z-30 fixed top-20 transition-all bg-white rounded-r-2xl border-gray300 w-[300px] max-w-[calc(100vw-28px)] flex flex-col ${visible ? "left-0" : "-left-80"} lg:hover:left-0 lg:peer-hover:left-0`}
       >
         <div className="w-full flex p-4 items-center justify-between overflow">
           <div className="flex items-center">
@@ -68,15 +98,17 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
               이태영
             </div>
           </div>
-          <div
+          <button
+            type="button"
+            aria-label={visible ? "목차 닫기" : "목차 열기"}
             onClick={() => setVisible(!visible)}
-            className={`flex p-1 cursor-pointer transition-all absolute right-4 top-3.5`}
+            className="flex p-1 cursor-pointer transition-all absolute right-4 top-3.5 min-h-[44px] min-w-[44px] items-center justify-center"
           >
             <Arrow_Double
               className="text-gray400 transition-all"
               direction={visible ? "left" : "right"}
             />
-          </div>
+          </button>
         </div>
         <div className="w-full flex flex-col pl-5 pr-1 py-2 gap-8 h-full overflow-y-scroll">
           <SearchInput placeholder="문서 내 검색" />
