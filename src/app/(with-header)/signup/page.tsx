@@ -143,12 +143,14 @@ export default function Signup() {
         className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl"
         onKeyDown={handleStepEnterSubmit}
       >
-        <div
+        <button
+          type="button"
+          aria-label="이전 단계"
           onClick={() => prevStep()}
           className="rounded-md w-fit border border-gray200 p-2 flex bg-white hover:bg-gray50"
         >
           <Arrow size={28} className="text-gray600" />
-        </div>
+        </button>
         <div className="w-full flex flex-col gap-6">
           <div className="w-full flex flex-col gap-3">
             <p className="text-bold36 text-black">회원가입</p>

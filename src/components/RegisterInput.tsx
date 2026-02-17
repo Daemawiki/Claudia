@@ -61,16 +61,18 @@ export const RegisterInput = ({
       </div>
     ),
     password: (
-      <div
+      <button
+        type="button"
+        aria-label="비밀번호 표시 전환"
         onClick={() => setHidePassword(!hidePassword)}
         className="flex p-3 cursor-pointer text-gray500"
       >
         {hidePassword ? <Hide /> : <Show />}
-      </div>
+      </button>
     ),
     text: <></>,
     dropdown: (
-      <div className="p-3 flex cursor-pointer">
+      <div className="p-3 flex">
         <Arrow
           className="text-gray600 transition-all"
           direction={dropdownOpen ? "up" : "down"}
@@ -85,15 +87,21 @@ export const RegisterInput = ({
         <div className="w-full px-3 pt-3 flex text-gray600 text-semibold16">
           {title}
         </div>
-        <div
-          onClick={() => type === "dropdown" && setDropdownOpen(!dropdownOpen)}
-          className="gap-2 flex w-full items-center"
-        >
-          {type === "dropdown" ? (
-            <div className="w-full cursor-pointer flex p-3 text-medium20 text-gray800">
+        {type === "dropdown" ? (
+          <button
+            type="button"
+            onClick={() => setDropdownOpen(prev => !prev)}
+            aria-haspopup="listbox"
+            aria-expanded={dropdownOpen}
+            className="gap-2 flex w-full items-center"
+          >
+            <span className="w-full flex p-3 text-medium20 text-gray800 text-left">
               {value || placeholder}
-            </div>
-          ) : (
+            </span>
+            {inputType[type]}
+          </button>
+        ) : (
+          <div className="gap-2 flex w-full items-center">
             <input
               autoFocus={autoFocus}
               value={value}
@@ -102,27 +110,33 @@ export const RegisterInput = ({
               placeholder={placeholder}
               className="w-full p-3 placeholder:text-gray300 text-medium20"
             />
-          )}
-          {inputType[type]}
-        </div>
+            {inputType[type]}
+          </div>
+        )}
       </div>
 
-      <p className="text-medium14 text-red500 relative">
+      <div className="text-medium14 text-red500 relative">
         {error}
         {type === "dropdown" && dropdownOpen && (
-          <div className="top-0 z-10 rounded-lg bg-white border border-gray200 shadow-lg overflow-y-scroll absolute w-[432px] h-36 flex flex-col">
+          <div
+            role="listbox"
+            className="top-0 z-10 rounded-lg bg-white border border-gray200 shadow-lg overflow-y-scroll absolute w-[432px] h-36 flex flex-col"
+          >
             {dropdownValue?.map((item, index) => (
-              <div
+              <button
+                type="button"
                 key={index}
                 onClick={() => handleDropdownChange(item)}
+                role="option"
+                aria-selected={String(value) === String(item)}
                 className="w-full py-3 px-4 border-b border-b-gray100 text-black text-medium18 hover:bg-gray50"
               >
                 {item}
-              </div>
+              </button>
             ))}
           </div>
         )}
-      </p>
+      </div>
     </div>
   );
 };
