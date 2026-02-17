@@ -1,13 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Arrow } from "@/assets";
-import { Button, RegisterInput } from "@/components";
+import { Button, useToast } from "@/components";
 import { useRouter } from "next/navigation";
 import { Email, EmailVerification, Name, Password } from "./Register";
 import { useForm, useWatch } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces/user";
 import { mailSend, mailVerify } from "@/apis/mail";
-import { useToast } from "@/components";
 import { registerHandler } from "@/apis";
 
 export default function Signup() {
@@ -16,7 +15,6 @@ export default function Signup() {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<SignupFormValues>({
     defaultValues: {
       name: "",
@@ -32,6 +30,7 @@ export default function Signup() {
 
   const router = useRouter();
   const [pageNum, setPageNum] = useState<number>(0);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const page = [
     {
       page: <Email control={control} errors={errors} />,
@@ -64,65 +63,86 @@ export default function Signup() {
   };
 
   const nextStep = handleSubmit(async data => {
-    console.log(data);
-    if (pageNum === 0) {
-      try {
-        const response = await mailSend(data.email);
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      if (pageNum === 0) {
+        await mailSend(data.email);
         addToast("인증 코드 전송 완료", "success");
-        setPageNum(pageNum + 1);
-      } catch (error) {
+        setPageNum(prev => prev + 1);
+        return;
+      }
+
+      if (pageNum === 1) {
+        await mailVerify(data.email, data.verificationCode);
+        setPageNum(prev => prev + 1);
+        return;
+      }
+
+      if (pageNum === 2) {
+        setPageNum(prev => prev + 1);
+        return;
+      }
+
+      if (pageNum === 3) {
+        const response = await registerHandler(data);
+
+        if (response === 200) {
+          addToast("회원가입 성공!", "success");
+          router.push("/");
+          return;
+        }
+
+        addToast(
+          "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.",
+          "warning",
+        );
+      }
+    } catch (error) {
+      if (pageNum === 0) {
         addToast(
           "인증 코드 전송 중 문제가 발생했습니다. 다시 시도해주세요.",
           "error",
         );
+        return;
       }
-    }
-    if (pageNum === 1) {
-      try {
-        const response = await mailVerify(data.email, data.verificationCode);
-        setPageNum(pageNum + 1);
-      } catch (error) {
+
+      if (pageNum === 1) {
         addToast("인증 코드가 올바르지 않습니다.", "warning");
+        return;
       }
-    }
-    if (1 < pageNum && pageNum < 3) {
-      setPageNum(pageNum + 1);
-    }
-    if (pageNum === 3) {
-      try {
-        const response = await registerHandler(data);
-        if (response == 200) {
-          // 회원가입 성공
-          addToast("회원가입 성공!", "success");
-          router.push("/");
-        } else {
-          // 그 외
-          addToast(
-            "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.",
-            "warning",
-          );
-        }
-      } catch (error) {
-        addToast("네트워크 오류가 발생했습니다.", "error");
-      }
+
+      addToast("네트워크 오류가 발생했습니다.", "error");
+    } finally {
+      setIsSubmitting(false);
     }
   });
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        nextStep();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [nextStep]);
+  const handleStepEnterSubmit = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Enter" || e.nativeEvent.isComposing) {
+      return;
+    }
+
+    const target = e.target as HTMLElement;
+
+    if (target.tagName === "TEXTAREA") {
+      return;
+    }
+
+    e.preventDefault();
+    nextStep();
+  };
 
   return (
     <div className="w-full h-screen flex justify-center pt-6">
-      <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
+      <div
+        className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl"
+        onKeyDown={handleStepEnterSubmit}
+      >
         <div
           onClick={() => prevStep()}
           className="rounded-md w-fit border border-gray200 p-2 flex bg-white hover:bg-gray50"
@@ -151,7 +171,7 @@ export default function Signup() {
             big
             onClick={nextStep}
             style="primary2"
-            text={page[pageNum].buttonText}
+            text={isSubmitting ? "처리 중..." : page[pageNum].buttonText}
           />
         </div>
       </div>
