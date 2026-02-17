@@ -43,8 +43,8 @@ export default function Login() {
   });
 
   return (
-    <div className="w-full h-screen flex justify-center pt-6">
-      <div className="w-[480px] flex flex-col gap-12 p-6 rounded-3xl">
+    <div className="w-full flex justify-center px-4 py-8 md:py-6 sm:py-4">
+      <div className="w-full max-w-[520px] flex flex-col gap-10 rounded-3xl border border-gray200 bg-white p-6 shadow-sm md:p-5 sm:p-4">
         <button
           type="button"
           aria-label="뒤로 가기"
@@ -97,7 +97,7 @@ export default function Login() {
             />
           </div>
         </div>
-        <div className="w-full flex flex-col gap-6">
+        <div className="w-full flex flex-col gap-5">
           <div className="flex gap-1.5">
             <p className="text-medium16 text-gray600">계정이 없으신가요?</p>
             <button
