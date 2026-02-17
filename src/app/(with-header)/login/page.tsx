@@ -99,7 +99,7 @@ export default function Login() {
           <div className="flex gap-1.5">
             <p className="text-medium16 text-gray600">계정이 없으신가요?</p>
             <p
-              onClick={() => router.push("signup")} // 회원가입으로 이동
+              onClick={() => router.push("/signup")} // 회원가입으로 이동
               className="text-semibold16 text-lime500 hover:text-lime600 cursor-pointer"
             >
               회원가입
