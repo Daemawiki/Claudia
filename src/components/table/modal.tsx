@@ -23,15 +23,27 @@ const TableModal = ({ state, setState, close }: TableModalProps) => {
   }, []);
   return (
     <div className="flex flex-col border-[1px]" ref={moreRef}>
-      <div className="px-2" onClick={() => setState("add")}>
+      <button
+        type="button"
+        className="px-2 text-left"
+        onClick={() => setState("add")}
+      >
         <span>추가</span>
-      </div>
-      <div className="border-t-[1px] px-2" onClick={() => setState("edit")}>
+      </button>
+      <button
+        type="button"
+        className="border-t-[1px] px-2 text-left"
+        onClick={() => setState("edit")}
+      >
         <span>수정</span>
-      </div>
-      <div className="border-t-[1px] px-2" onClick={() => setState("del")}>
+      </button>
+      <button
+        type="button"
+        className="border-t-[1px] px-2 text-left"
+        onClick={() => setState("del")}
+      >
         <span className="text-[#ff0000]">삭제</span>
-      </div>
+      </button>
     </div>
   );
 };
