@@ -4,7 +4,7 @@ interface TitleProps {
   lastModifiedTime?: string;
 }
 
-const Title = ({ title, additionalInfo, lastModifiedTime }: TitleProps) => {
+function Title({ title, additionalInfo, lastModifiedTime }: TitleProps) {
   let subText = additionalInfo || "";
   if (lastModifiedTime) subText = `최근 수정 시각 : ${lastModifiedTime}`;
   return (
@@ -13,6 +13,11 @@ const Title = ({ title, additionalInfo, lastModifiedTime }: TitleProps) => {
       <span className="text-sm text-[#BDBDBD]">{subText}</span>
     </div>
   );
+}
+
+Title.defaultProps = {
+  additionalInfo: "",
+  lastModifiedTime: "",
 };
 
 export default Title;
