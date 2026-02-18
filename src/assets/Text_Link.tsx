@@ -4,11 +4,7 @@ interface PropsType {
   onClick?: () => void;
 }
 
-export const Text_Link = ({
-  size = 24,
-  onClick,
-  className = "",
-}: PropsType) => {
+function TextLink({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,4 +24,13 @@ export const Text_Link = ({
       />
     </svg>
   );
+}
+
+TextLink.defaultProps = {
+  size: 24,
+  className: "",
+  onClick: undefined,
 };
+
+export { TextLink as Text_Link };
+export default TextLink;
