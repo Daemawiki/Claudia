@@ -4,7 +4,7 @@ interface PropsType {
   onClick?: () => void;
 }
 
-export const Github = ({ size = 24, className = "", onClick }: PropsType) => {
+function Github({ size = 24, className = "", onClick }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,13 @@ export const Github = ({ size = 24, className = "", onClick }: PropsType) => {
       />
     </svg>
   );
+}
+
+Github.defaultProps = {
+  size: 24,
+  className: "",
+  onClick: undefined,
 };
+
+export { Github };
+export default Github;
