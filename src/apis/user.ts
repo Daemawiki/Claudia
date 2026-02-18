@@ -1,42 +1,40 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "./axios";
 import { LoginValues, SignupFormValues } from "@/interfaces/user";
+import { instance } from "./axios";
 import { setCookie } from "./cookies";
 
 // 로그인
 export const loginHandler = async (data: LoginValues) => {
-  return await instance
-    .post("/api/auth/login", {
+  try {
+    const response = await instance.post("/api/auth/login", {
       email: data.email,
       password: data.password,
-    })
-    .then(res => {
-      setCookie("access_token", res.data.access_token);
-      console.log(res);
-      return res.status;
-    })
-    .catch(err => {
-      console.error(err);
     });
+
+    setCookie("access_token", response.data.access_token);
+    return response.status;
+  } catch {
+    return undefined;
+  }
 };
 
 // 회원가입
 export const registerHandler = async (data: SignupFormValues) => {
-  return await instance
-    .post(`/api/auth/register`, {
+  try {
+    const response = await instance.post(`/api/auth/register`, {
       name: data.name,
       email: data.email,
       password: data.password,
       userInfo: data.userInfo,
       classInfos: data.classInfos,
-    })
-    .then(res => res.status)
-    .catch(err => {
-      console.error(err);
     });
+
+    return response.status;
+  } catch {
+    return undefined;
+  }
 };
 
 // 토큰 재발급
-export const tokenReissue = async (data: string) => {
-  return await instance.put(`/api/auth/reissue`, {}, {});
+export const tokenReissue = async () => {
+  return instance.put(`/api/auth/reissue`, {}, {});
 };
