@@ -75,3 +75,5 @@ export const document = {
   view: 4,
   version: 1,
 };
+
+export default document;
