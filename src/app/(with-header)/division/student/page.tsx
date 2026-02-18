@@ -1,18 +1,19 @@
 import React from "react";
 import { Arrow } from "@/assets";
-import { Title } from "../../document/[id]/Title";
 import { RegisterInput } from "@/components";
 import { periodMenu, majorMenu, clubMenu } from "@/constant/dropdownItem";
+import { Title } from "../../document/[id]/Title";
 import { Pagination } from "../../recent/Pagination";
 import { List } from "../../recent/List";
 
 function StudentPage() {
-  const arr = new Array(10).fill({
+  const arr = Array.from({ length: 10 }, (_, index) => ({
+    id: `student-${index}`,
     title: "이태영",
     group: "학생",
     changeUserName: "김승원",
     changeTime: "2424-08-28 08:37",
-  });
+  }));
   return (
     <div className="w-full flex justify-center">
       <div className="flex flex-col w-full max-w-[1200px]">
@@ -52,9 +53,9 @@ function StudentPage() {
               changeUserName="변경자"
               changeTime="변경 시간"
             />
-            {arr.map(({ title, group, changeUserName, changeTime }, index) => (
+            {arr.map(({ id, title, group, changeUserName, changeTime }) => (
               <List
-                key={index}
+                key={id}
                 title={title}
                 group={group}
                 changeUserName={changeUserName}
