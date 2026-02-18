@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
 
 function Popular() {
-  return <></>;
+  return null;
 }
 
 export default Popular;

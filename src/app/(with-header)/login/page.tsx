@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { Arrow } from "@/assets";
 import { Button, RegisterInput, useToast } from "@/components";
@@ -41,6 +42,8 @@ export default function Login() {
       addToast("네트워크 오류가 발생했습니다.", "error");
     }
   });
+
+  const loginButtonStyle = "primary2" as const;
 
   return (
     <div className="w-full flex justify-center px-4 py-8 md:py-6 sm:py-4">
@@ -108,7 +111,12 @@ export default function Login() {
               회원가입
             </button>
           </div>
-          <Button onClick={handleLogin} big style="primary2" text="로그인" />{" "}
+          <Button
+            onClick={handleLogin}
+            big
+            {...{ style: loginButtonStyle }}
+            text="로그인"
+          />
           {/* 로그인 핸들러 실행 */}
         </div>
       </div>

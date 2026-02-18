@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components";
 import { IndexItem, mainPageIndex } from "@/constant/indexItem";
@@ -42,6 +43,9 @@ function Main() {
     loadMain();
   }, [loadMain]);
 
+  const retryButtonStyle = "primary2" as const;
+  const refreshButtonStyle = "white" as const;
+
   return (
     <section className="w-full min-h-[calc(100dvh-160px)] bg-gray50 px-4 py-8 md:py-6 sm:py-4">
       <div className="mx-auto flex w-full max-w-[1320px] gap-6 md:flex-col sm:flex-col">
@@ -75,7 +79,11 @@ function Main() {
               <p className="text-semibold20 text-red500">불러오기 실패</p>
               <p className="text-medium16 text-gray700">{errorMessage}</p>
               <div className="w-fit">
-                <Button onClick={loadMain} style="primary2" text="다시 시도" />
+                <Button
+                  onClick={loadMain}
+                  {...{ style: retryButtonStyle }}
+                  text="다시 시도"
+                />
               </div>
             </div>
           )}
@@ -89,7 +97,11 @@ function Main() {
                 잠시 후 다시 시도하거나 관리자에게 상태를 문의해주세요.
               </p>
               <div className="w-fit">
-                <Button onClick={loadMain} style="white" text="새로고침" />
+                <Button
+                  onClick={loadMain}
+                  {...{ style: refreshButtonStyle }}
+                  text="새로고침"
+                />
               </div>
             </div>
           )}
