@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useState } from "react";
 
 export function useModal<T>() {
@@ -9,3 +10,5 @@ export function useModal<T>() {
 
   return { state, close, setState };
 }
+
+export default useModal;

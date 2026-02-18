@@ -12,20 +12,25 @@ const initialState: AuthState = {
   isLogin: true,
 };
 
-const authReducer = (state = initialState, action: AuthAction): AuthState => {
+const authReducer = (
+  state: AuthState | undefined,
+  action: AuthAction,
+): AuthState => {
+  const currentState = state ?? initialState;
+
   switch (action.type) {
     case LOGIN:
       return {
-        ...state,
+        ...currentState,
         isLogin: true,
       };
     case LOGOUT:
       return {
-        ...state,
+        ...currentState,
         isLogin: false,
       };
     default:
-      return state;
+      return currentState;
   }
 };
 

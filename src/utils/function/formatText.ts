@@ -1,6 +1,4 @@
 const formatText = (text: string) => {
-  // 각 HTML 태그에 대응하는 스타일을 정의합니다.
-
   interface StylesType {
     strong: string;
     i: string;
@@ -15,26 +13,26 @@ const formatText = (text: string) => {
     s: "text-decoration: line-through;",
   };
 
+  const isStyleTag = (tag: string): tag is keyof StylesType =>
+    tag === "strong" || tag === "i" || tag === "u" || tag === "s";
+
   const formattedText = text.replaceAll(
     /<(\/?)(strong|i|u|s|p)>(.*?)<\/\2>/g,
-    (match, p1, p2, p3) => {
-      // p1은 시작 태그(`<`)의 슬래시를 나타내며, p2는 실제 태그 이름을 나타냅니다.
-      // 시작 태그인 경우 스타일을 적용합니다.
+    (match: string, p1: string, p2: string, p3: string) => {
+      if (p1 === "" && p2 === "p") {
+        return `${p3}<br /></${p2}>`;
+      }
+
       if (p1 === "") {
-        if (p2 === "p") {
-          return `${p3}<br /></${p2}>`;
-        } else {
-          return `<span style="${(styles as any)[p2]}">${p3}</span>`;
+        if (isStyleTag(p2)) {
+          return `<span style="${styles[p2]}">${p3}</span>`;
         }
+
+        return match;
       }
-      // 종료 태그인 경우 스타일을 초기화합니다.
-      else {
-        if (p2 === "p") {
-          return "";
-        } else {
-          return "</span>";
-        }
-      }
+
+      if (p2 === "p") return "";
+      return "</span>";
     },
   );
 
