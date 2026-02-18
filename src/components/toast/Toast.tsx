@@ -1,4 +1,5 @@
 "use client";
+
 import { Check, Close, Info, Warn } from "@/assets";
 import React, { useEffect, useState } from "react";
 
@@ -7,8 +8,8 @@ type MessageType = "success" | "error" | "info" | "warning";
 interface ToastProps {
   message: string;
   type: MessageType;
-  onClose: () => void; // 닫기 핸들러
-  duration?: number; // 자동 닫힘 시간 (ms)
+  onClose: () => void;
+  duration?: number;
 }
 
 const typeStyles = {
@@ -34,19 +35,14 @@ const typeStyles = {
   },
 };
 
-export const Toast = ({
-  type,
-  message,
-  onClose,
-  duration = 3000,
-}: ToastProps) => {
+function Toast({ type, message, onClose, duration }: ToastProps) {
   const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     setVisible(true);
     const timer = setTimeout(() => {
-      setVisible(false); // 사라지는 애니메이션 시작
-      setTimeout(onClose, 300); // 애니메이션 끝난 후 컴포넌트 제거
+      setVisible(false);
+      setTimeout(onClose, 300);
     }, duration);
 
     return () => clearTimeout(timer);
@@ -65,9 +61,10 @@ export const Toast = ({
         <p>{message}</p>
       </div>
       <button
+        type="button"
         onClick={() => {
           setVisible(false);
-          setTimeout(onClose, 300); // 애니메이션 후 제거
+          setTimeout(onClose, 300);
         }}
         className="ml-4"
       >
@@ -75,4 +72,10 @@ export const Toast = ({
       </button>
     </div>
   );
+}
+
+Toast.defaultProps = {
+  duration: 3000,
 };
+
+export default Toast;
