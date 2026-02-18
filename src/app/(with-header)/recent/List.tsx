@@ -8,13 +8,13 @@ interface ListProps {
   changeTime?: string;
 }
 
-export const List = ({
+function List({
   listTitle,
   title,
   group,
   changeUserName,
   changeTime,
-}: ListProps) => {
+}: ListProps) {
   return (
     <div
       className={`w-full gap-2 flex items-center p-5 ${listTitle ? "bg-gray50" : "bg-white border-b border-b-gray100"}`}
@@ -24,7 +24,7 @@ export const List = ({
       >
         {title}
       </p>
-      <div className={`w-full flex items-center gap-2`}>
+      <div className="w-full flex items-center gap-2">
         <p
           className={`w-full ${listTitle ? "text-medium18 text-gray700" : "text-medium16 text-gray500"}`}
         >
@@ -43,4 +43,15 @@ export const List = ({
       </div>
     </div>
   );
+}
+
+List.defaultProps = {
+  listTitle: false,
+  title: "",
+  group: "",
+  changeUserName: "",
+  changeTime: "",
 };
+
+export { List };
+export default List;
