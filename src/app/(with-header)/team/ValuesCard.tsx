@@ -4,7 +4,7 @@ interface PropsType {
   details: string;
 }
 
-export const ValuesCard = ({ index, title, details }: PropsType) => {
+function ValuesCard({ index, title, details }: PropsType) {
   return (
     <div className="border-gray200 w-full border rounded-2xl flex flex-col gap-4 p-6">
       <div className="flex w-11 h-11 justify-center items-center rounded-md bg-lime50">
@@ -14,4 +14,7 @@ export const ValuesCard = ({ index, title, details }: PropsType) => {
       <p className="text-medium16 text-gray500">{details}</p>
     </div>
   );
-};
+}
+
+export { ValuesCard };
+export default ValuesCard;
