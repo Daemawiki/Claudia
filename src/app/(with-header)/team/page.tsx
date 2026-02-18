@@ -1,8 +1,7 @@
 "use client";
+
 import React from "react";
-import { Arrow, TeamLogo } from "@/assets";
-import { Button, RegisterInput } from "@/components";
-import { useRouter } from "next/navigation";
+import { TeamLogo } from "@/assets";
 import { MemberCard } from "./MemberCard";
 import { ValuesCard } from "./ValuesCard";
 
@@ -36,27 +35,31 @@ export default function Team() {
 
   const rules = [
     {
+      id: "rule-1",
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-2",
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-3",
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
     {
+      id: "rule-4",
       title: "사용자 편의성을 중시해요",
       detail:
         "구성원에게 도덕성을 기대해요. 라운지를 깨끗하게 사용하는 것, 지각하지 않는 것, 법인카드 사용 규정을 잘 지키는 것 등 우리가 서로에게 약속한 모습들을 보여줘요.",
     },
   ];
-  const router = useRouter();
+
   return (
     <div className="w-full flex justify-center flex-col">
       <div className="w-full max-w-[1200px] flex flex-col pt-16">
@@ -89,9 +92,9 @@ export default function Team() {
             </p>
           </div>
           <div className="w-full flex flex-wrap gap-2">
-            {member.map(({ name, img, github, major }, index) => (
+            {member.map(({ name, img, github, major }) => (
               <MemberCard
-                key={index}
+                key={name}
                 name={name}
                 img={img}
                 github={github}
@@ -112,16 +115,19 @@ export default function Team() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6 w-full">
-            {rules.map(({ title, detail }, index) => (
+            {rules.map(({ id, title, detail }, index) => (
               <ValuesCard
-                key={index}
+                key={id}
                 index={index + 1}
                 title={title}
                 details={detail}
               />
             ))}
           </div>
-          <button className="rounded-full bg-gray100 px-4 py-3 flex text-medium16 w-max">
+          <button
+            type="button"
+            className="rounded-full bg-gray100 px-4 py-3 flex text-medium16 w-max"
+          >
             벨로그 보러가기
           </button>
         </div>
@@ -171,7 +177,10 @@ export default function Team() {
           <br />
           고개를 들어주세요.
         </p>
-        <button className="bg-gray900 text-medium16 text-white rounded-full px-4 py-3">
+        <button
+          type="button"
+          className="bg-gray900 text-medium16 text-white rounded-full px-4 py-3"
+        >
           대마위키 살펴보기
         </button>
       </div>
