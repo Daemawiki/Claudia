@@ -15,7 +15,15 @@ interface HistoryProps {
   text: string;
 }
 
-const EditHistory = ({
+function RemoveHistory({ text }: HistoryProps) {
+  return <span className="text-gray400 line-through">{text}</span>;
+}
+
+function AddedHistory({ text }: HistoryProps) {
+  return <span className="text-lime500">{text}</span>;
+}
+
+function EditHistory({
   index,
   title,
   editor,
@@ -24,14 +32,15 @@ const EditHistory = ({
   isOpen,
   handleOpen,
   isFirst,
-}: PropsType) => {
+}: PropsType) {
   const firstHistoryStyle = isFirst ? "border-t-[0px]" : "border-t-[1px]";
 
   return (
     <div
       className={`py-5 px-7 flex flex-col gap-3 ${firstHistoryStyle} border-gray200`}
     >
-      <div
+      <button
+        type="button"
         className="flex items-center text-medium18 text-black"
         onClick={handleOpen}
       >
@@ -42,30 +51,24 @@ const EditHistory = ({
         <div className="max-w-[240px] flex-grow">{editor}</div>
         <div className="flex-grow max-w-[240px]">{editDate}</div>
         <Arrow direction={isOpen ? "up" : "down"} />
-      </div>
+      </button>
       {isOpen && (
         <div className="flex-col flex px-3 gap-1 text-medium18 border-l-[1px] border-gray200">
           {editHistory
             .filter(history => history.added || history.removed)
-            .map(history =>
-              history.added ? (
-                <AddedHistory text={history.value} />
+            .map(history => {
+              const historyKey = `${history.value}-${history.added ? "a" : "r"}`;
+
+              return history.added ? (
+                <AddedHistory key={historyKey} text={history.value} />
               ) : (
-                <RemoveHistory text={history.value} />
-              ),
-            )}
+                <RemoveHistory key={historyKey} text={history.value} />
+              );
+            })}
         </div>
       )}
     </div>
   );
-};
-
-const RemoveHistory = ({ text }: HistoryProps) => {
-  return <span className="text-gray400 line-through">{text}</span>;
-};
-
-const AddedHistory = ({ text }: HistoryProps) => {
-  return <span className="text-lime500">{text}</span>;
-};
+}
 
 export default EditHistory;
