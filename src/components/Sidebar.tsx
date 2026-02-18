@@ -12,8 +12,8 @@ interface ListProps {
 
 interface SidebarProps {
   fixed?: boolean;
-  setOpenSidebar: Dispatch<SetStateAction<boolean>>;
-  titleList: titleListProps[];
+  setOpenSidebar?: Dispatch<SetStateAction<boolean>>;
+  titleList?: titleListProps[];
 }
 
 interface titleListProps {
@@ -23,9 +23,10 @@ interface titleListProps {
 
 export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
   const [visible, setVisible] = useState<boolean>(true);
+  const safeTitleList = titleList ?? [];
 
   useEffect(() => {
-    setOpenSidebar(visible);
+    setOpenSidebar?.(visible);
   }, [setOpenSidebar, visible]);
 
   useEffect(() => {
@@ -123,7 +124,7 @@ export const Sidebar = ({ fixed, setOpenSidebar, titleList }: SidebarProps) => {
           <div className="w-full flex flex-col gap-2">
             <p className="text-semibold14 text-gray600">목차</p>
             <div className="flex w-full gap-1 flex-col">
-              {titleList.map(({ num, title }, index) => (
+              {safeTitleList.map(({ num, title }, index) => (
                 <List
                   padding={num.split(".").length}
                   indexList
