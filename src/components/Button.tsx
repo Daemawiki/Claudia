@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 interface ButtonProps {
   text?: string;
@@ -9,14 +9,14 @@ interface ButtonProps {
   children?: Readonly<React.ReactNode>;
 }
 
-export const Button = ({
+function Button({
   text,
   onClick,
   style = "primary",
   state = "enabled",
   big,
   children,
-}: ButtonProps) => {
+}: ButtonProps) {
   const buttonStyle = {
     primary: { enabled: "text-lime500 bg-white hover:bg-gray50", disabled: "" },
     primary2: {
@@ -26,14 +26,25 @@ export const Button = ({
     white: { enabled: "", disabled: "" },
   };
   return (
-    <>
-      <button
-        onClick={onClick}
-        className={`transition-all justify-center items-center gap-1 flex  ${big ? "rounded-lg p-4 text-semibold18" : "px-3 py-2 rounded-md text-semibold16"} ${buttonStyle[style][state]}`}
-      >
-        {text}
-        {children}
-      </button>
-    </>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`transition-all justify-center items-center gap-1 flex  ${big ? "rounded-lg p-4 text-semibold18" : "px-3 py-2 rounded-md text-semibold16"} ${buttonStyle[style][state]}`}
+    >
+      {text}
+      {children}
+    </button>
   );
+}
+
+Button.defaultProps = {
+  text: "",
+  style: "primary",
+  state: "enabled",
+  onClick: undefined,
+  big: false,
+  children: null,
 };
+
+export { Button };
+export default Button;
