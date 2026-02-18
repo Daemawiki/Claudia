@@ -4,7 +4,7 @@ interface PropsType {
   onClick?: () => void;
 }
 
-export const User = ({ size = 24, className = "", onClick }: PropsType) => {
+function User({ size = 24, className = "", onClick }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,4 +24,13 @@ export const User = ({ size = 24, className = "", onClick }: PropsType) => {
       />
     </svg>
   );
+}
+
+User.defaultProps = {
+  size: 24,
+  className: "",
+  onClick: undefined,
 };
+
+export { User };
+export default User;

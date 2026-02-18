@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Hide = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Hide({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,4 +24,13 @@ export const Hide = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+
+Hide.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
 };
+
+export { Hide };
+export default Hide;

@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Discord = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Discord({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,13 @@ export const Discord = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+
+Discord.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
 };
+
+export { Discord };
+export default Discord;

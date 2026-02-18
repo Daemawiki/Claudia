@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Logo = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Logo({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,4 +23,13 @@ export const Logo = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+
+Logo.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
 };
+
+export { Logo };
+export default Logo;
