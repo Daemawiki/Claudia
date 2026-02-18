@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Sidebar } from "@/components";
 import { Title } from "./Title";
@@ -38,8 +39,8 @@ function Document() {
         <Title />
         <Profile />
         <div className="w-full px-12 py-6">
-          {contentsListArr.map(({ num, title, details }, index) => (
-            <Toggle key={index} num={num} title={title} details={details} />
+          {contentsListArr.map(({ num, title, details }) => (
+            <Toggle key={num} num={num} title={title} details={details} />
           ))}
         </div>
         <Bottom />
