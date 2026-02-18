@@ -4,12 +4,14 @@ import { List } from "./List";
 import { Pagination } from "./Pagination";
 
 function Recent() {
-  const arr = new Array(10).fill({
+  const arr = Array.from({ length: 10 }, (_, index) => ({
+    id: `recent-${index}`,
     title: "이태영",
     group: "학생",
     changeUserName: "김승원",
     changeTime: "2424-08-28 08:37",
-  });
+  }));
+
   return (
     <div className="w-full flex justify-center pb-12">
       <div className="w-full pt-16 px-12 max-w-[1200px] flex flex-col gap-14">
@@ -28,9 +30,9 @@ function Recent() {
             changeUserName="변경자"
             changeTime="변경 시간"
           />
-          {arr.map(({ title, group, changeUserName, changeTime }, index) => (
+          {arr.map(({ id, title, group, changeUserName, changeTime }) => (
             <List
-              key={index}
+              key={id}
               title={title}
               group={group}
               changeUserName={changeUserName}
