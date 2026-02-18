@@ -2,21 +2,24 @@ interface CategoryProps {
   groups: string[][];
 }
 
-const Category = ({ groups }: CategoryProps) => {
+function Category({ groups }: CategoryProps) {
   const renderGroups = () => {
-    const formatGroups = groups.map((group, index) => {
-      const format = group.map((item, index) => {
-        const isLastItem = index === group.length - 1;
+    const formatGroups = groups.map((group, groupIndex) => {
+      const format = group.map((item, itemIndex) => {
+        const isLastItem = itemIndex === group.length - 1;
         return (
-          <span className="text-myDocumentNameColor flex gap-[6px]">
+          <span
+            key={`${group.join("-")}-${item}`}
+            className="text-myDocumentNameColor flex gap-[6px]"
+          >
             {`${item}`}
             <span>{isLastItem ? "" : "/"}</span>
           </span>
         );
       });
-      const isLastGroup = index === groups.length - 1;
+      const isLastGroup = groupIndex === groups.length - 1;
       return (
-        <span className="flex gap-[10px]">
+        <span key={group.join("-")} className="flex gap-[10px]">
           <span className="flex gap-[6px]">{format}</span>
           {isLastGroup ? "" : "|"}
         </span>
@@ -30,6 +33,6 @@ const Category = ({ groups }: CategoryProps) => {
       {renderGroups()}
     </div>
   );
-};
+}
 
 export default Category;
