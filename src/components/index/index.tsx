@@ -5,15 +5,13 @@ interface IndexProps {
   index: IndexItem[];
 }
 
-const Index = ({ index }: IndexProps) => {
+function Index({ index }: IndexProps) {
   const rernderIndex = (indexObject: IndexItem[]) => {
-    return indexObject.map((item, index) => {
+    return indexObject.map(item => {
       return (
-        <Link href={`#${item.title}`}>
+        <Link key={item.index} href={`#${item.title}`}>
           <div className="text-[18px] border-l-2 border-l-transparent hover:border-l-[#93CB56] hover:bg-[#F5F5F5] pl-[10px] hover:cursor-pointer">
-            <span key={index} className="text-[#93DF3F]">
-              {item.index}
-            </span>
+            <span className="text-[#93DF3F]">{item.index}</span>
             <span>{`. ${item.title}`}</span>
           </div>
         </Link>
@@ -26,6 +24,6 @@ const Index = ({ index }: IndexProps) => {
       <div className="flex flex-col gap-[2px]">{rernderIndex(index)}</div>
     </div>
   );
-};
+}
 
 export default Index;
