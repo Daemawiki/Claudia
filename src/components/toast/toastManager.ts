@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 
 type MessageType = "success" | "error" | "info" | "warning";
 
@@ -9,7 +10,7 @@ interface ToastProps {
   type: MessageType;
 }
 
-export const useToastManager = () => {
+function useToastManager() {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
 
   const addToast = (message: string, type: MessageType) => {
@@ -22,4 +23,6 @@ export const useToastManager = () => {
   };
 
   return { toasts, addToast, removeToast };
-};
+}
+
+export default useToastManager;
