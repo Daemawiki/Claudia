@@ -5,33 +5,65 @@ import { Button, SearchInput } from "@/components";
 import { usePathname, useRouter } from "next/navigation";
 import { getCookie } from "@/apis/cookies";
 
+interface NavItem {
+  text: string;
+  link: string;
+  priority: number;
+  subItems?: {
+    text: string;
+    link: string;
+  }[];
+}
+
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const navList = [
+  const navList: NavItem[] = [
     {
       text: "분류",
       link: "/division",
-      array: ["학생", "선생님", "사건/사고", "동아리"],
+      subItems: [
+        { text: "학생", link: "/division/student" },
+        { text: "선생님", link: "/division" },
+        { text: "사건/사고", link: "/division" },
+        { text: "동아리", link: "/division" },
+      ],
       priority: 1,
     },
     {
-      text: "게시판",
-      link: "/",
-      array: ["학생", "선생님", "어쩌고"],
+      text: "인기문서",
+      link: "/popular",
       priority: 2,
     },
-    { text: "최근변경", link: "/recent", array: [""], priority: 3 },
-    { text: "팀소개", link: "/team", array: [""], priority: 4 },
+    { text: "최근변경", link: "/recent", priority: 3 },
+    { text: "랜덤문서", link: "/document/1", priority: 4 },
+    { text: "팀소개", link: "/team", priority: 5 },
   ];
 
   const primaryMobileNav = navList
     .filter(item => item.priority <= 3)
     .sort((a, b) => a.priority - b.priority);
   const secondaryMobileNav = navList.filter(item => item.priority > 3);
+
+  const routeTo = (link: string) => {
+    router.push(link);
+    setMobileMenuOpen(false);
+  };
+
+  const submitSearch = () => {
+    const trimmedKeyword = searchKeyword.trim();
+
+    if (!trimmedKeyword) {
+      router.push("/search");
+      return;
+    }
+
+    router.push(`/search?q=${encodeURIComponent(trimmedKeyword)}`);
+  };
 
   const isActive = (link: string) => {
     if (link === "/") {
@@ -82,14 +114,14 @@ export const Header = () => {
               </div>
             </div>
             <div className="hidden lg:flex items-center gap-1 flex-none">
-              {navList.map(({ text, array, link }, index) => (
+              {navList.map(({ text, link, subItems }, index) => (
                 <div
                   key={index}
                   className="flex relative items-center justify-center min-h-[44px] group"
                 >
                   <button
                     type="button"
-                    onClick={() => router.push(link)}
+                    onClick={() => routeTo(link)}
                     aria-current={isActive(link) ? "page" : undefined}
                     className={`flex items-center gap-0.5 rounded-md px-3 py-2 transition-all ${
                       isActive(link)
@@ -98,7 +130,7 @@ export const Header = () => {
                     }`}
                   >
                     <p className="text-semibold18">{text}</p>
-                    {array.length > 1 && (
+                    {subItems && subItems.length > 0 && (
                       <Arrow
                         direction="down"
                         className={
@@ -109,14 +141,17 @@ export const Header = () => {
                       />
                     )}
                   </button>
-                  {array.length > 1 && (
+                  {subItems && subItems.length > 0 && (
                     <ul className="flex flex-col group-hover:left-0 group-focus-within:left-0 absolute top-11 rounded-lg -left-[9999px] min-w-[120px] shadow-lg bg-white overflow-hidden border border-gray200">
-                      {array.map((item, itemIndex) => (
-                        <li
-                          key={itemIndex}
-                          className="w-full px-4 py-2 bg-white hover:bg-gray50 whitespace-nowrap text-medium16 text-gray700"
-                        >
-                          {item}
+                      {subItems.map((item, itemIndex) => (
+                        <li key={itemIndex} className="w-full">
+                          <button
+                            type="button"
+                            onClick={() => routeTo(item.link)}
+                            className="w-full px-4 py-2 bg-white hover:bg-gray50 whitespace-nowrap text-medium16 text-gray700 text-left"
+                          >
+                            {item.text}
+                          </button>
                         </li>
                       ))}
                     </ul>
@@ -127,10 +162,21 @@ export const Header = () => {
           </div>
           <div className="flex items-center lg:gap-10 gap-4">
             <div className="w-[240px] flex md:hidden sm:hidden">
-              <SearchInput placeholder="검색" />
+              <SearchInput
+                placeholder="검색"
+                value={searchKeyword}
+                onChange={setSearchKeyword}
+                onSubmit={submitSearch}
+              />
             </div>
             {access_token ? (
-              <div></div>
+              <div className="flex md:hidden sm:hidden items-center gap-2">
+                <Button
+                  onClick={() => routeTo("/mypage")}
+                  text="마이페이지"
+                  style="white"
+                />
+              </div>
             ) : (
               <>
                 <div className="flex md:hidden sm:hidden items-center gap-2">
@@ -147,7 +193,7 @@ export const Header = () => {
                 </div>
                 <button
                   type="button"
-                  onClick={() => router.push("/login")}
+                  onClick={() => routeTo(access_token ? "/mypage" : "/login")}
                   className="hidden md:flex sm:flex p-1 cursor-pointer min-h-[44px] min-w-[44px] items-center justify-center"
                 >
                   <User className="text-gray500" />
@@ -158,12 +204,13 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex sm:flex px-6 items-center">
-        <input
+      <div className="hidden md:flex sm:flex px-6 py-2 items-center">
+        <SearchInput
           placeholder="여기에서 검색"
-          className="text-black placeholder:text-gray400 bg-transparent text-medium16 w-full py-2"
+          value={searchKeyword}
+          onChange={setSearchKeyword}
+          onSubmit={submitSearch}
         />
-        <Arrow direction="right" className="text-gray300" />
       </div>
 
       <div className="hidden md:flex sm:flex px-4 py-2 border-t border-gray200 items-center gap-2">
@@ -171,7 +218,7 @@ export const Header = () => {
           <button
             type="button"
             key={item.text}
-            onClick={() => router.push(item.link)}
+            onClick={() => routeTo(item.link)}
             aria-current={isActive(item.link) ? "page" : undefined}
             className={`flex-1 min-h-[44px] rounded-md px-2 text-medium16 text-center ${
               isActive(item.link)
@@ -200,10 +247,7 @@ export const Header = () => {
                   <button
                     type="button"
                     key={item.text}
-                    onClick={() => {
-                      router.push(item.link);
-                      setMobileMenuOpen(false);
-                    }}
+                    onClick={() => routeTo(item.link)}
                     className={`w-full min-h-[44px] px-4 text-left text-medium16 ${
                       isActive(item.link)
                         ? "bg-lime100 text-lime500"
