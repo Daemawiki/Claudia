@@ -13,8 +13,8 @@ const linkChecker = (content: string) => {
     href: null,
     text: null,
   };
-  let instagramMatch;
-  if ((instagramMatch = instagramRegex.exec(content)) !== null) {
+  const instagramMatch = instagramRegex.exec(content);
+  if (instagramMatch !== null) {
     const [, href, text] = instagramMatch;
     instagramMatches.href = href;
     instagramMatches.text = text;
@@ -24,8 +24,8 @@ const linkChecker = (content: string) => {
     href: null,
     text: null,
   };
-  let githubMatch;
-  if ((githubMatch = githubRegex.exec(content)) !== null) {
+  const githubMatch = githubRegex.exec(content);
+  if (githubMatch !== null) {
     const [, href, text] = githubMatch;
     githubMatches.href = href;
     githubMatches.text = text;

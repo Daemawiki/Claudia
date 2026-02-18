@@ -1,6 +1,6 @@
 const findById = (id: string) => {
   return {
-    id: "65dec6f19347dd75228a6db6",
+    id: id || "65dec6f19347dd75228a6db6",
     title: "żzzzz",
     type: "STUDENT",
     dateTime: {
