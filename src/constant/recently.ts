@@ -200,3 +200,5 @@ export const recentlyItem = [
     createdDateTime: "2024-02-28 14:06:05",
   },
 ];
+
+export default recentlyItem;

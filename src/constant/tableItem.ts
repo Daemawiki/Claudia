@@ -15,3 +15,4 @@ const mainTableItem = [
 ];
 
 export { mainTableItem };
+export default mainTableItem;
