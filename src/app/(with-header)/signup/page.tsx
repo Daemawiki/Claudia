@@ -1,13 +1,14 @@
 "use client";
+
 import React, { useState } from "react";
 import { Arrow } from "@/assets";
 import { Button, useToast } from "@/components";
 import { useRouter } from "next/navigation";
-import { Email, EmailVerification, Name, Password } from "./Register";
 import { useForm, useWatch } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces/user";
 import { mailSend, mailVerify } from "@/apis/mail";
 import { registerHandler } from "@/apis";
+import { Email, EmailVerification, Name, Password } from "./Register";
 
 export default function Signup() {
   const { addToast } = useToast();
@@ -31,23 +32,28 @@ export default function Signup() {
   const router = useRouter();
   const [pageNum, setPageNum] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const signupButtonStyle = "primary2" as const;
   const page = [
     {
+      id: "email",
       page: <Email control={control} errors={errors} />,
       details: "이메일 인증을 위해 DSM 이메일을 입력해주세요",
       buttonText: "인증 코드 전송",
     },
     {
+      id: "verification",
       page: <EmailVerification control={control} errors={errors} />,
       details: `${email} 로 인증 코드를 전송했습니다`,
       buttonText: "확인",
     },
     {
+      id: "password",
       page: <Password control={control} errors={errors} />,
       details: "비밀번호를 설정해주세요",
       buttonText: "확인",
     },
     {
+      id: "profile",
       page: <Name control={control} errors={errors} />,
       details: "이름을 입력하고 기수와 전공을 선택해주세요",
       buttonText: "완료",
@@ -122,26 +128,11 @@ export default function Signup() {
     }
   });
 
-  const handleStepEnterSubmit = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key !== "Enter" || e.nativeEvent.isComposing) {
-      return;
-    }
-
-    const target = e.target as HTMLElement;
-
-    if (target.tagName === "TEXTAREA") {
-      return;
-    }
-
-    e.preventDefault();
-    nextStep();
-  };
-
   return (
     <div className="w-full flex justify-center px-4 py-8 md:py-6 sm:py-4">
-      <div
+      <form
         className="w-full max-w-[520px] flex flex-col gap-10 rounded-3xl border border-gray200 bg-white p-6 shadow-sm md:p-5 sm:p-4"
-        onKeyDown={handleStepEnterSubmit}
+        onSubmit={nextStep}
       >
         <button
           type="button"
@@ -162,21 +153,20 @@ export default function Signup() {
         </div>
         <div className="w-full flex flex-col gap-5">
           <div className="w-full gap-2 flex justify-center items-center">
-            {page.map((_, index) => (
+            {page.map((step, index) => (
               <div
-                key={index}
+                key={step.id}
                 className={`h-2 transition-all rounded-full ${pageNum === index ? "w-4 bg-lime400" : "w-2 bg-gray300"}`}
               />
             ))}
           </div>
           <Button
             big
-            onClick={nextStep}
-            style="primary2"
+            {...{ style: signupButtonStyle }}
             text={isSubmitting ? "처리 중..." : page[pageNum].buttonText}
           />
         </div>
-      </div>
+      </form>
     </div>
   );
 }
