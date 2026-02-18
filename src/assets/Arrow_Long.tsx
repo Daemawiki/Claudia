@@ -5,12 +5,12 @@ interface PropsType {
   direction?: "left" | "up" | "right" | "down";
 }
 
-export const Arrow_Long = ({
+function ArrowLong({
   size = 24,
   className = "",
   onClick,
   direction = "left",
-}: PropsType) => {
+}: PropsType) {
   const rotate = {
     right: "rotate-[0deg]",
     down: "rotate-[90deg]",
@@ -38,4 +38,14 @@ export const Arrow_Long = ({
       />
     </svg>
   );
+}
+
+ArrowLong.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
+  direction: "left",
 };
+
+export { ArrowLong as Arrow_Long };
+export default ArrowLong;

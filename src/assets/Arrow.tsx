@@ -5,12 +5,12 @@ interface PropsType {
   direction?: "left" | "up" | "right" | "down";
 }
 
-export const Arrow = ({
+function Arrow({
   size = 24,
   className = "",
   onClick,
   direction = "left",
-}: PropsType) => {
+}: PropsType) {
   const rotate = {
     left: "rotate-[0deg]",
     up: "rotate-[90deg]",
@@ -38,4 +38,14 @@ export const Arrow = ({
       />
     </svg>
   );
+}
+
+Arrow.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
+  direction: "left",
 };
+
+export { Arrow };
+export default Arrow;
