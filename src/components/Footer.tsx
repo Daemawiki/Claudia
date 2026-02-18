@@ -1,10 +1,10 @@
 import { Discord, Github, Instagram, Logo } from "@/assets";
 
-export const Footer = () => {
+function Footer() {
   const link = [
-    { icon: <Instagram size={28} />, url: "" },
-    { icon: <Discord size={28} />, url: "" },
-    { icon: <Github size={28} />, url: "" },
+    { name: "instagram", icon: <Instagram size={28} /> },
+    { name: "discord", icon: <Discord size={28} /> },
+    { name: "github", icon: <Github size={28} /> },
   ];
 
   const list = [
@@ -30,8 +30,8 @@ export const Footer = () => {
               </p>
             </div>
             <div className="flex items-center gap-2 text-gray400">
-              {link.map(({ icon, url }, index) => (
-                <div key={index} className="flex p-1.5">
+              {link.map(({ name, icon }) => (
+                <div key={name} className="flex p-1.5">
                   {icon}
                 </div>
               ))}
@@ -39,17 +39,17 @@ export const Footer = () => {
           </div>
 
           <div className="flex w-full justify-end gap-6">
-            {list.map(({ title, text }, index) => (
+            {list.map(({ title, text }) => (
               <div
-                key={index}
+                key={title}
                 className="flex lg:max-w-[200px] w-full flex-col gap-2"
               >
                 <p className="text-semibold16 text-gray600 whitespace-nowrap">
                   {title}
                 </p>
-                {text.map((txt, idx) => (
+                {text.map(txt => (
                   <p
-                    key={idx}
+                    key={`${title}-${txt}`}
                     className="text-medium14 text-gray400 whitespace-nowrap"
                   >
                     {txt}
@@ -62,7 +62,10 @@ export const Footer = () => {
         <div className="w-full flex flex-col gap-4">
           <div className="flex w-full items-end flex-wrap gap-6 py-4 border-b border-gray200">
             {info.map(({ title, details }) => (
-              <div className="flex w-full max-w-[200px] flex-col gap-2">
+              <div
+                key={title}
+                className="flex w-full max-w-[200px] flex-col gap-2"
+              >
                 <p className="text-medium12 text-gray400">{title}</p>
                 <p className="text-medium14 text-gray600 whitespace-nowrap">
                   {details}
@@ -81,4 +84,7 @@ export const Footer = () => {
       </div>
     </div>
   );
-};
+}
+
+export { Footer };
+export default Footer;
