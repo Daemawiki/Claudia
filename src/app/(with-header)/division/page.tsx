@@ -1,6 +1,5 @@
 import { Title } from "../document/[id]/Title";
-import { Card } from "./Card";
-import StudentPage from "./student/page";
+import Card from "./Card";
 
 export default function Division() {
   return (
