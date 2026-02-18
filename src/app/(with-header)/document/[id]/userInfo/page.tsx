@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
+import { Calendar, User } from "@/assets";
 import { Sidebar } from "@/components";
 import { Title } from "../Title";
-import { User, Calendar } from "@/assets";
 import EditHistory from "./EditHistory";
-import { useState } from "react";
 
 interface MockDataType {
   index: string;
@@ -62,10 +62,10 @@ export default function UserInfo() {
     },
   ];
 
-  const [openHistory, setOpenHistory] = useState<number | null>(null);
+  const [openHistory, setOpenHistory] = useState<string | null>(null);
 
-  const handleOpen = (number: number) => {
-    setOpenHistory(prev => (prev === number ? null : number));
+  const handleOpen = (id: string) => {
+    setOpenHistory(prev => (prev === id ? null : id));
   };
 
   return (
@@ -102,7 +102,7 @@ export default function UserInfo() {
                 <div className="flex gap-5 items-center">
                   <div className="w-[100px] text-medium18">분류</div>
                   <div className="flex px-3 py-[6px] gap-[10px] rounded-full bg-lime100 items-center">
-                    <div className="w-[10px] h-[10px] rounded-full bg-lime400"></div>
+                    <div className="w-[10px] h-[10px] rounded-full bg-lime400" />
                     <span className="whitespace-nowrap">학생</span>
                   </div>
                 </div>
@@ -135,29 +135,36 @@ export default function UserInfo() {
                   <div className="flex-grow">목차</div>
                   <div className="flex-grow max-w-[240px]">이름</div>
                   <div className="flex-grow max-w-[240px]">날짜</div>
-                  <div className="w-6"></div>
+                  <div className="w-6" />
                 </div>
               </div>
               {MockData.map(
-                ({ index, title, editor, editDate, editHistory }, key) => (
-                  <EditHistory
-                    key={key}
-                    index={index}
-                    title={title}
-                    editor={editor}
-                    editDate={editDate}
-                    editHistory={editHistory}
-                    isOpen={openHistory === key}
-                    handleOpen={() => handleOpen(key)}
-                    isFirst={key === 0}
-                  />
-                ),
+                (
+                  { index, title, editor, editDate, editHistory },
+                  historyIndex,
+                ) => {
+                  const historyId = `${editDate}-${index}-${title}`;
+
+                  return (
+                    <EditHistory
+                      key={historyId}
+                      index={index}
+                      title={title}
+                      editor={editor}
+                      editDate={editDate}
+                      editHistory={editHistory}
+                      isOpen={openHistory === historyId}
+                      handleOpen={() => handleOpen(historyId)}
+                      isFirst={historyIndex === 0}
+                    />
+                  );
+                },
               )}
             </div>
           </div>
         </div>
       </div>
-      <section className="max-w-[1200px]"></section>
+      <section className="max-w-[1200px]" />
     </div>
   );
 }
