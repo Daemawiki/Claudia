@@ -4,7 +4,7 @@ interface PropsType {
   className?: string;
 }
 
-export const Warn = ({ size = 24, onClick, className = "" }: PropsType) => {
+function Warn({ size = 24, onClick, className = "" }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,4 +24,13 @@ export const Warn = ({ size = 24, onClick, className = "" }: PropsType) => {
       />
     </svg>
   );
+}
+
+Warn.defaultProps = {
+  size: 24,
+  onClick: undefined,
+  className: "",
 };
+
+export { Warn };
+export default Warn;
