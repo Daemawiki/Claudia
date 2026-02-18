@@ -8,12 +8,7 @@ interface InputProps {
   onSubmit?: () => void;
 }
 
-export const SearchInput = ({
-  placeholder,
-  value,
-  onChange,
-  onSubmit,
-}: InputProps) => {
+function SearchInput({ placeholder, value, onChange, onSubmit }: InputProps) {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit?.();
@@ -35,4 +30,14 @@ export const SearchInput = ({
       </button>
     </form>
   );
+}
+
+SearchInput.defaultProps = {
+  placeholder: "",
+  value: "",
+  onChange: undefined,
+  onSubmit: undefined,
 };
+
+export { SearchInput };
+export default SearchInput;
