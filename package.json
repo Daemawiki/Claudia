@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:changed": "node scripts/lint-changed.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
