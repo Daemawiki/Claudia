@@ -11,7 +11,7 @@ interface TitleProps {
   lastModifiedTime?: string;
 }
 
-export const Title = ({
+function Title({
   group,
   title = "이태영",
   views = 210,
@@ -20,7 +20,7 @@ export const Title = ({
   noShow,
   additionalInfo,
   lastModifiedTime,
-}: TitleProps) => {
+}: TitleProps) {
   const metaText = lastModifiedTime
     ? `최근 수정 시각 : ${lastModifiedTime}`
     : additionalInfo ||
@@ -71,4 +71,18 @@ export const Title = ({
       </div>
     </div>
   );
+}
+
+Title.defaultProps = {
+  group: "",
+  title: "이태영",
+  views: 210,
+  details: "",
+  noPadding: false,
+  noShow: false,
+  additionalInfo: "",
+  lastModifiedTime: "",
 };
+
+export { Title };
+export default Title;
